@@ -41,20 +41,21 @@ main{
 //Note Containers
 .notes-container{
     height: 100%;
-}
-.notes-list{
-    background-color: $left-color;
-}
-.note-pad{
-    background-color: $right-color;
-}
-
-// Resize Bar
-.resize-bar{
-    background-color: $left-color;
-    transition: 0.2s background-color ease-in-out;
-    cursor: col-resize;
-    &:hover{
-        background-color: color.adjust($left-color, $whiteness: 50%);
+    &.active{
+        cursor: ew-resize;    
+        .resize-bar{
+            background-color: color.adjust($left-color, $whiteness: 50%);            
+        }
+    }
+    .notes-list{
+        background-color: $left-color;
+    }
+    .note-pad{
+        background-color: $right-color;
+    }
+    .resize-bar{
+        background-color: $left-color;
+        transition: 0.2s background-color ease-in-out;
+        cursor: ew-resize;
     }
 }
