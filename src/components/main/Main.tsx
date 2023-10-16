@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Container, Section, Bar, Resizer } from '@column-resizer/react';
+import Notepad from '../notepad/Notepad';
 
 function Main() {
   const [ barActive, setBarActive ] = useState(false);
@@ -24,7 +25,7 @@ function Main() {
     >
       <Section id="noteList" className="column" defaultSize={500}>
         <div className="inner">
-          <h1>Notes</h1>
+          <h1>Notes</h1>          
         </div>
       </Section>
         <Bar 
@@ -35,6 +36,7 @@ function Main() {
       <Section id="notePad" className="column" minSize={300}>
         <div className="inner">
           <h1>Write</h1>
+          <Notepad />
         </div>
       </Section>
     </Container>
