@@ -1,46 +1,21 @@
-import React from 'react';
-import { Container, Section, Bar, Resizer, ColumnResizer } from '@column-resizer/react';
+import { Container, Section, Bar, Resizer } from '@column-resizer/react';
 
 function beforeApplyResizer(resizer: Resizer): void {
-  if (resizer.getSectionSize(0) < 150) {
+  if (resizer.getSectionSize(0) < 100) {
     resizer.resizeSection(0, { toSize: 0 });
-  } else if (resizer.getSectionSize(0) < 300) {
-    resizer.resizeSection(0, { toSize: 300 });
+  } else if (resizer.getSectionSize(0) < 200) {
+    resizer.resizeSection(0, { toSize: 200 });
   }
 }
 
-export class Main extends React.PureComponent {
-  readonly columnResizerRef = React.createRef<ColumnResizer>();
-
-  render() {
-    return (
-        <Container
-          className="notes-container"
-          columnResizerRef={this.columnResizerRef}
-          beforeApplyResizer={beforeApplyResizer}
-        >
-          <Section className="notes-list" defaultSize={300} />
-          <Bar
-            size={10}
-            className="resize-bar"
-            onClick={this.onBarClick}
-          />
-          <Section className="note-pad" minSize={300} />
-        </Container>
-    );
+function Main() {
+  return (
+    <Container className="notes-container" beforeApplyResizer={beforeApplyResizer}>
+      <Section className="notes-list" defaultSize={300} />
+        <Bar size={10} className="resize-bar" />
+      <Section className="note-pad" minSize={300} />
+    </Container>
+  );
 }
 
-  private onBarClick = () => {
-    const controller = this.columnResizerRef.current;
-
-    if (controller) {
-      const resizer = controller.getResizer();
-
-      if (resizer.getSectionSize(0) === 0) {
-        resizer.resizeSection(0, { toSize: 300 });
-      }
-
-      controller.applyResizer(resizer);
-    }
-  };
-}
+export default Main;
