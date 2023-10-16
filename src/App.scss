@@ -1,0 +1,19 @@
+@font-face {
+    font-family: young-serif;
+    src: url(../public/YoungSerif-Regular.ttf);
+}
+@font-face {
+    font-family: roboto;
+    src: url(../public/Roboto-Regular.ttf);
+}
+
+body{
+    background-color: #000;
+    color: #fff;
+    font-family: roboto;
+    font-size: 18px;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: young-serif;
+}
