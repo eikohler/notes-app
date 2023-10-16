@@ -1,3 +1,6 @@
+// Fonts
+@use 'sass:color';
+
 @font-face {
     font-family: young-serif;
     src: url(../public/YoungSerif-Regular.ttf);
@@ -7,13 +10,50 @@
     src: url(../public/Roboto-Regular.ttf);
 }
 
-body{
-    background-color: #000;
-    color: #fff;
-    font-family: roboto;
-    font-size: 18px;
+// Colors
+$primary-color: #fff;
+$left-color: #281253;
+$right-color: #3b295e;
+
+
+//Fonts
+$head-font: young-serif;
+$body-font: roboto;
+
+//Styles
+h1, h2, h3, h4, h5, h6{
+    font-family: $head-font;
+    margin: 0px 0px 20px;
 }
 
-h1, h2, h3, h4, h5, h6{
-    font-family: young-serif;
+body{
+    color: $primary-color;
+    font-family: $body-font;
+    font-size: 18px;
+    margin: 0px;
+}
+
+main{
+    height: 100vh;
+}
+
+//Note Containers
+.notes-container{
+    height: 100%;
+}
+.notes-list{
+    background-color: $left-color;
+}
+.note-pad{
+    background-color: $right-color;
+}
+
+// Resize Bar
+.resize-bar{
+    background-color: $left-color;
+    transition: 0.2s background-color ease-in-out;
+    cursor: col-resize;
+    &:hover{
+        background-color: color.adjust($left-color, $whiteness: 50%);
+    }
 }
