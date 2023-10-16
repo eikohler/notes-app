@@ -1,5 +1,5 @@
 // Fonts
-@use 'sass:color';
+// @use 'sass:color';
 
 @font-face {
     font-family: young-serif;
@@ -12,8 +12,9 @@
 
 // Colors
 $primary-color: #fff;
-$left-color: #281253;
-$right-color: #3b295e;
+$highlight-color: #A8DADC;
+$left-color: #131112;
+$right-color: #60656F;
 
 
 //Fonts
@@ -39,23 +40,37 @@ main{
 }
 
 //Note Containers
-.notes-container{
-    height: 100%;
+.columns-container{
+    height: 100%;    
+    .column{        
+        .inner{
+            padding: 20px;
+        }
+    }    
+    .resize-bar{
+        background-color: $left-color;
+        cursor: ew-resize;
+        transition: 0.2s background-color ease-in-out;
+        &.hidden{
+            background-color: $right-color;
+        }
+        &:hover{
+            transition-delay: 250ms;            
+            background-color: $highlight-color;
+        }
+    }
+
     &.active{
         cursor: ew-resize;    
         .resize-bar{
-            background-color: color.adjust($left-color, $whiteness: 50%);
+            background-color: $highlight-color;
         }
     }
-    .notes-list{
-        background-color: $left-color;
-    }
-    .note-pad{
-        background-color: $right-color;
-    }
-    .resize-bar{
-        background-color: $left-color;
-        transition: 0.2s background-color ease-in-out;
-        cursor: ew-resize;
-    }
+}
+
+#notePad{
+    background-color: $right-color;
+}
+#noteList{
+    background-color: $left-color;
 }
