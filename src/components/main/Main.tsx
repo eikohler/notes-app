@@ -20,7 +20,7 @@ function Main() {
       afterResizing={() : void => setBarActive(false)}
     >
       <Section className="notes-list" defaultSize={300} />
-        <Bar size={5} className="resize-bar" />
+        <Bar size={5} className="resize-bar" expandInteractiveArea={{right: 5, left: 5}} />
       <Section className="note-pad" minSize={300} />
     </Container>
   );

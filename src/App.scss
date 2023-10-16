@@ -44,7 +44,7 @@ main{
     &.active{
         cursor: ew-resize;    
         .resize-bar{
-            background-color: color.adjust($left-color, $whiteness: 50%);            
+            background-color: color.adjust($left-color, $whiteness: 50%);
         }
     }
     .notes-list{
