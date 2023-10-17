@@ -12,9 +12,11 @@ class ExtendBubbleTheme extends BubbleTheme {
         quill.on("selection-change", (range:any) => {            
             if (range) {
                 console.log(quill.getBounds(range));
+                console.log(quill.theme.tooltip.position(quill.getBounds(range)));
                 quill.theme.tooltip.show();
                 quill.theme.tooltip.position(quill.getBounds(range));
             }
+            // quill.formatLine(0, 0, 'header', 1);
         });
     }
 }
@@ -25,7 +27,6 @@ const Notepad = () => {
     return (
         <ReactQuill 
             theme="bubble"             
-            placeholder="Title"
             modules={{ toolbar: toolBarOptions }}
         />
     );

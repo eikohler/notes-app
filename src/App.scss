@@ -1,4 +1,4 @@
-// @use 'sass:color';
+@use 'sass:color';
 
 // Import Fonts
 @font-face {
@@ -44,7 +44,8 @@ main{
     height: 100%;    
     .column{        
         .inner{
-            padding: 20px;
+            padding: 20px 30px;
+            height: 94%;
         }
     }    
     .resize-bar{
@@ -75,4 +76,34 @@ main{
 #notePad{
     background-color: $right-color;
     color: $secondary-color;
+
+    // Quill
+    .quill{
+        height: 100%;
+        .ql-container{
+            font-family: $body-font;
+            font-size: 18px;
+            .ql-editor{
+                padding: 0px;
+                & > :first-child{
+                    font-size: 2em;
+                    font-family:$head-font;
+                    font-weight: bold;
+                }
+                &.ql-blank{
+                    &::before{
+                        font-size: 2em;
+                        font-family: $head-font;
+                        font-style: normal;
+                        left: 0px;
+                    }
+                }
+            }
+            // Quill Tooltip Bubble
+            .ql-tooltip{
+                max-width: 300px;
+                padding: 12px;
+            }            
+        }      
+    }    
 }
