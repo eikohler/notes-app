@@ -34,8 +34,7 @@ function Main() {
           expandInteractiveArea={{right: 5, left: 5}} 
         />
       <Section id="notePad" className="column" minSize={300}>
-        <div className="inner">
-          <h1>Write</h1>
+        <div className="inner">          
           <Notepad />
         </div>
       </Section>
