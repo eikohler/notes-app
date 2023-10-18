@@ -3,11 +3,15 @@
 // Import Fonts
 @font-face {
     font-family: young-serif;
-    src: url(../public/YoungSerif-Regular.ttf);
+    src: url(../public/fonts/YoungSerif-Regular.ttf);
 }
 @font-face {
     font-family: roboto;
-    src: url(../public/Roboto-Regular.ttf);
+    src: url(../public/fonts/Roboto-Regular.ttf);
+}
+@font-face {
+    font-family: lato;
+    src: url(../public/fonts/Lato-Regular.ttf);
 }
 
 // Colors
@@ -15,11 +19,11 @@ $primary-color: #fff;
 $secondary-color: #000;
 $highlight-color: #A8DADC;
 $left-color: #131112;
-$right-color: #60656F;
+$right-color: #7c828d;
 
 //Fonts
 $head-font: young-serif;
-$body-font: roboto;
+$body-font: lato;
 
 //Styles
 h1, h2, h3, h4, h5, h6{
@@ -33,6 +37,10 @@ body{
     font-family: $body-font;
     font-size: 18px;
     margin: 0px;
+}
+
+a{
+    color: $highlight-color;
 }
 
 main{
@@ -76,20 +84,35 @@ main{
 #notePad{
     background-color: $right-color;
     color: $secondary-color;
+    overflow: visible !important;
+    caret-color: $secondary-color; 
 
     // Quill
     .quill{
         height: 100%;
+        caret-color: $secondary-color;
         .ql-container{
             font-family: $body-font;
             font-size: 18px;
             .ql-editor{
-                padding: 0px;                
-            }
+                padding: 0px;    
+                caret-color: $secondary-color;       
+            }            
             // Quill Tooltip Bubble
             .ql-tooltip{
-                max-width: 300px;
-                padding: 12px;
+                background-color: transparent;
+                .ql-tooltip-editor{
+                    input[type=text]{
+                        position: initial;
+                    }
+                }
+                .ql-tooltip-arrow{
+                    border-bottom: 6px solid $secondary-color;
+                }
+                .ql-toolbar{                    
+                    background-color: $secondary-color;
+                    border-radius: 10px;                    
+                }
             }            
         }      
     }    

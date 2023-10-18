@@ -6,20 +6,10 @@ import toolBarOptions from "./toolBarOptions";
 const BubbleTheme = Quill.import("themes/bubble");    
 class ExtendBubbleTheme extends BubbleTheme {
     constructor(quill:any, options:any) {
-        super(quill, options);
-        let quillStart = true;
+        super(quill, options);        
 
-        quill.on("selection-change", (range:any) => {            
-            if (range) {
-                // console.log(quill.getBounds(range));
-                // console.log(quill.theme.tooltip.position(quill.getBounds(range)));
-                quill.theme.tooltip.show();
-                quill.theme.tooltip.position(quill.getBounds(range));
-            }
-            if(quillStart){
-                quillStart = false;
-                quill.formatLine(0, 0, 'header', 1);
-            }
+        quill.once("selection-change", () => {                        
+            quill.formatLine(0, 0, 'header', 1);
         });
     }
 }
@@ -28,7 +18,7 @@ Quill.register("themes/bubble", ExtendBubbleTheme);
 
 const Notepad = () => {
     return (
-        <ReactQuill 
+        <ReactQuill             
             theme="bubble"             
             modules={{ toolbar: toolBarOptions }}
         />
