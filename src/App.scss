@@ -40,12 +40,9 @@ body{
     caret-color: $secondary-color;
 }
 
-a{
-    color: $highlight-color;
-}
-
 main{
     height: 100vh;
+    overflow: hidden;
 }
 
 //Resizable Columns
@@ -108,9 +105,16 @@ main{
                 }
                 .ql-toolbar{                    
                     background-color: $secondary-color;
-                    border-radius: 10px;                    
+                    border-radius: 10px;      
+                    text-align: center;              
                 }
             }            
         }      
     }    
+}
+
+#color-picker{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
 }
