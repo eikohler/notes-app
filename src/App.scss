@@ -29,7 +29,7 @@
 // Colors
 $primary-color: #fff;
 $secondary-color: #000;
-$highlight-color: #3C87CD;
+$bar-color: #7a7a7a;
 $left-color: #131112;
 $right-color: #86BBD8;
 
@@ -53,7 +53,7 @@ body{
     background-color: #000;
     color: $primary-color;
     font-family: $body-font;
-    font-size: 18px;
+    font-size: 20px;
     margin: 0px;
 }
 em{
@@ -90,14 +90,14 @@ main{
         }
         &:hover{
             transition-delay: 250ms;            
-            background-color: $highlight-color;
+            background-color: $bar-color;
         }
     }
 
     &.active{
         cursor: ew-resize;    
         .resize-bar{
-            background-color: $highlight-color;
+            background-color: $bar-color;
         }
     }
 }
@@ -115,7 +115,7 @@ main{
         height: 100%;        
         .ql-container{
             font-family: $body-font;
-            font-size: 18px;
+            font-size: 20px;
             .ql-editor{
                 padding: 0px;            
             }            
@@ -142,6 +142,17 @@ main{
 
 #color-picker{
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 30px;
+    right: 30px;
+    .color-box{
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        cursor: pointer;
+        transition: 0.2s all;
+        box-shadow: 0px 0px 5px rgb(0 0 0 / 30%);
+        &:hover{
+            transform: scale(1.3);
+        }
+    }
 }
