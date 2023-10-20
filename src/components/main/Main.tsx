@@ -23,7 +23,7 @@ function Main() {
       onActivate={() : void => setBarActive(true)}
       afterResizing={() : void => setBarActive(false)}
     >
-      <Section id="noteList" className="column" defaultSize={500}>
+      <Section id="noteList" className="column" defaultSize={300}>
         <div className="inner">
           <h1>Notes</h1>          
         </div>

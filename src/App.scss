@@ -13,22 +13,40 @@
     font-family: lato;
     src: url(../public/fonts/Lato-Regular.ttf);
 }
+@font-face {
+    font-family: latoItalic;
+    src: url(../public/fonts/Lato-Italic.ttf);
+}
+@font-face {
+    font-family: latoBold;
+    src: url(../public/fonts/Lato-Black.ttf);
+}
+@font-face {
+    font-family: latoBoldItalic;
+    src: url(../public/fonts/Lato-BlackItalic.ttf);
+}
 
 // Colors
 $primary-color: #fff;
 $secondary-color: #000;
-$highlight-color: #A8DADC;
+$highlight-color: #3C87CD;
 $left-color: #131112;
-$right-color: #9da1aa;
+$right-color: #86BBD8;
 
 //Fonts
 $head-font: young-serif;
 $body-font: lato;
+$italic-font: latoItalic;
+$bold-font: latoBold;
+$bold-italic-font: latoBoldItalic;
 
 //Styles
 h1, h2, h3, h4, h5, h6{
     font-family: $head-font;
     margin: 0px 0px 20px;
+    * {
+        font-family: $head-font !important;
+    }
 }
 
 body{
@@ -37,7 +55,16 @@ body{
     font-family: $body-font;
     font-size: 18px;
     margin: 0px;
-    caret-color: $secondary-color;
+}
+em{
+    font-family: $italic-font;
+}
+
+strong {
+    font-family: $bold-font;
+    em{
+        font-family: $bold-italic-font;
+    }
 }
 
 main{
