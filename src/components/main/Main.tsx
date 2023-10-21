@@ -28,6 +28,7 @@ function Main() {
         </div>
       </Section>
         <Bar 
+          id="resizeBar"
           size={5} 
           className={`resize-bar ${barHidden && !barActive ? "hidden" : ""}`}
           expandInteractiveArea={{right: 5, left: 5}} 

@@ -15,6 +15,7 @@ const ColorPicker = () => {
   function updateBGColor(color:any){
     document.body.style.backgroundColor = color;
     document.getElementById('notePad')!.style.color = fgColor;
+    document.getElementById('resizeBar')!.style.backgroundColor = fgColor;
     setbgColor(getRandomColor);
   }
 
