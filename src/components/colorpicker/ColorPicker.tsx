@@ -9,7 +9,7 @@ const ColorPicker = () => {
   // });
 
   function updateBGColor(color:any){
-    document.getElementById('notePad')!.style.backgroundColor = color;
+    document.body.style.backgroundColor = color;
     setbrightColor((randColors.getRandomColors(69, 1)).hexColorLists);
   }
 

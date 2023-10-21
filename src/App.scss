@@ -29,9 +29,9 @@
 // Colors
 $primary-color: #fff;
 $secondary-color: #000;
-$bar-color: #7a7a7a;
+$bar-color: #000;
 $left-color: #131112;
-$right-color: #86BBD8;
+$main-bg-color: #86BBD8;
 
 //Fonts
 $head-font: young-serif;
@@ -50,7 +50,7 @@ h1, h2, h3, h4, h5, h6{
 }
 
 body{
-    background-color: #000;
+    background-color: $main-bg-color;
     color: $primary-color;
     font-family: $body-font;
     font-size: 20px;
@@ -82,22 +82,23 @@ main{
         }
     }    
     .resize-bar{
-        background-color: $left-color;
+        background-color: $bar-color;
+        opacity: 0;
         cursor: ew-resize;
-        transition: 0.2s background-color ease-in-out;
+        transition: 0.2s opacity ease-in-out;
         &.hidden{
-            background-color: $right-color;
+            opacity: 0;
         }
         &:hover{
             transition-delay: 250ms;            
-            background-color: $bar-color;
+            opacity: 0.5;
         }
     }
 
     &.active{
         cursor: ew-resize;    
         .resize-bar{
-            background-color: $bar-color;
+            opacity: 0.5;
         }
     }
 }
@@ -107,7 +108,6 @@ main{
     background-color: $left-color;
 }
 #notePad{
-    background-color: $right-color;
     color: $secondary-color;
     overflow: visible !important;    
     // Quill
