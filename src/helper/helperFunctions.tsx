@@ -3,6 +3,11 @@ function changeLightness(newLightness:any, hslStr:any){
   return `hsl(${hue}, ${saturation}%, ${newLightness}%)`;
 };
 
+function getColorLuminance(hslStr:any){
+  const [hue, saturation, luminance] = hslStr.match(/\d+/g).map(Number);  
+  return luminance;
+}
+
 function hslToHex(hslStr:any) {
   let [h, s, l] = hslStr.match(/\d+/g).map(Number);
   l /= 100;
@@ -15,4 +20,4 @@ function hslToHex(hslStr:any) {
   return `#${f(0)}${f(8)}${f(4)}`;
 }
 
-export {changeLightness, hslToHex};
+export {changeLightness, hslToHex, getColorLuminance};
