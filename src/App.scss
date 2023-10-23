@@ -6,25 +6,14 @@
     src: url(../public/fonts/YoungSerif-Regular.ttf);
 }
 @font-face {
-    font-family: roboto;
-    src: url(../public/fonts/Roboto-Regular.ttf);
+    font-family: yantramanav;
+    src: url(../public/fonts/Yantramanav-Regular.ttf);
 }
 @font-face {
-    font-family: lato;
-    src: url(../public/fonts/Lato-Regular.ttf);
+    font-family: yantramanavBold;
+    src: url(../public/fonts/Yantramanav-Bold.ttf);
 }
-@font-face {
-    font-family: latoItalic;
-    src: url(../public/fonts/Lato-Italic.ttf);
-}
-@font-face {
-    font-family: latoBold;
-    src: url(../public/fonts/Lato-Black.ttf);
-}
-@font-face {
-    font-family: latoBoldItalic;
-    src: url(../public/fonts/Lato-BlackItalic.ttf);
-}
+
 
 // Colors
 $primary-color: #fff;
@@ -35,10 +24,8 @@ $main-bg-color: #86BBD8;
 
 //Fonts
 $head-font: young-serif;
-$body-font: lato;
-$italic-font: latoItalic;
-$bold-font: latoBold;
-$bold-italic-font: latoBoldItalic;
+$body-font: yantramanav;
+$bold-font: yantramanavBold;
 
 //Styles
 h1, h2, h3, h4, h5, h6{
@@ -56,15 +43,9 @@ body{
     font-size: 20px;
     margin: 0px;
 }
-em{
-    font-family: $italic-font;
-}
 
 strong {
     font-family: $bold-font;
-    em{
-        font-family: $bold-italic-font;
-    }
 }
 
 main{
@@ -117,7 +98,7 @@ main{
             font-family: $body-font;
             font-size: 24px;
             .ql-editor{
-                padding: 0px;            
+                padding: 0px;                       
             }            
             // Quill Tooltip Bubble
             .ql-tooltip{
@@ -149,6 +130,10 @@ main{
     right: 25px;
     display: flex;
     align-items: center;
+    background-color: transparent;
+    padding: 15px;
+    border-radius: 20px;
+    transition: 0.2s all;
     .color-box{
         width: 40px;
         height: 40px;
@@ -157,15 +142,45 @@ main{
         transition: 0.2s all;
         box-shadow: 0px 0px 5px rgb(0 0 0 / 30%);
         margin-left: 10px;
+        border: 2px solid #fff;
         &:hover{
-            transform: scale(1.3);
+            transform: scale(1.2);
         }
     }
     #luminace-range{
         opacity: 0;
-        transition: 0.2s opacity;
+        transition: 0.2s opacity;        
+        position: relative;
+        top: 3px;
+        input { 
+            -webkit-appearance: none;
+            height: 15px;
+            border-radius: 5px;
+            background: rgb(0, 0, 0, 0.3);       
+            box-shadow: 0px 0px 8px rgb(0 0 0 / 10%);     
+        }
+          
+        input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 15px;
+            border-radius: 5px; 
+            background-color: rgba(255, 255, 255, 0.8);   
+            cursor: pointer;
+        }
+          
+        input::-moz-range-thumb {
+            width: 25px;
+            height: 15px;
+            border-radius: 5px; 
+            background-color: rgba(255, 255, 255, 0.8);   
+            cursor: pointer;
+        }
     }
     &:hover{
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0px 0px 8px rgb(0 0 0 / 10%);
         #luminace-range{
             opacity: 1;
         }        
