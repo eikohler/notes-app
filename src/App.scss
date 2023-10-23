@@ -55,13 +55,7 @@ main{
 
 //Resizable Columns
 .columns-container{
-    height: 100%;    
-    .column{        
-        .inner{
-            padding: 30px;
-            height: 91%;
-        }
-    }    
+    height: 100%;            
     .resize-bar{
         background-color: $bar-color;
         opacity: 0;
@@ -86,7 +80,7 @@ main{
 
 // Note Containers
 #noteList{
-    background-color: $left-color;
+    background-color: $left-color;    
 }
 #notePad{
     color: $secondary-color;

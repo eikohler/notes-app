@@ -25,6 +25,7 @@ function Main() {
     >
       <Section id="noteList" className="column" defaultSize={300}>
         <div className="inner">
+          
         </div>
       </Section>
         <Bar 
