@@ -16,7 +16,8 @@ const Notepad = () => {
     return (
         <ReactQuill
             ref={quill}
-            theme="bubble"             
+            theme="bubble"
+            placeholder='Your story'
             modules={{ toolbar: toolBarOptions }}
         />
     );
