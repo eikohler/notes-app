@@ -15,12 +15,8 @@ function Main() {
       setBarHidden(false);
     }
   }
-
-  // function saveNote(){
-  //   var about = document.querySelector('input[name=about]');
-  //   about.value = JSON.stringify(quill.getContents());
-  //   console.log("Submitted", $(form).serialize(), $(form).serializeArray());
-  // }
+  
+  const noteList = JSON.parse(localStorage.getItem("noteList")!) || [];
 
   return (
     <Container 
@@ -31,7 +27,11 @@ function Main() {
     >
       <Section id="noteList" className="column" defaultSize={300}>
         <div className="inner">
-          {/* <button id="save-note" onClick={saveNote} >Save Note</button> */}
+          {noteList.map((note:any) => {
+            return(
+              <p id={note.id}>{note.title}</p>
+            )
+          })}
         </div>
       </Section>
         <Bar 
