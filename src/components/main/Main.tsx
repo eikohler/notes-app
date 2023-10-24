@@ -16,6 +16,12 @@ function Main() {
     }
   }
 
+  // function saveNote(){
+  //   var about = document.querySelector('input[name=about]');
+  //   about.value = JSON.stringify(quill.getContents());
+  //   console.log("Submitted", $(form).serialize(), $(form).serializeArray());
+  // }
+
   return (
     <Container 
       className={`columns-container ${barActive ? "active" : ""}`} 
@@ -25,7 +31,7 @@ function Main() {
     >
       <Section id="noteList" className="column" defaultSize={300}>
         <div className="inner">
-          
+          {/* <button id="save-note" onClick={saveNote} >Save Note</button> */}
         </div>
       </Section>
         <Bar 
