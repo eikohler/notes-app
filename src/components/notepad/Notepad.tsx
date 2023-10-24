@@ -5,7 +5,11 @@ import toolBarOptions from "./toolBarOptions";
 
 const Notepad = () => {
 
+    const noteList = JSON.parse(localStorage.getItem("noteList")!) || [];
+    const notesLength = noteList.length + 1;
+
     const [content, setContent] = useState('');
+    const [noteID, setNoteID] = useState(notesLength);
 
     const onChange = (content: any, delta: any, source: any, editor: any) => {
         setContent(content);
@@ -18,10 +22,16 @@ const Notepad = () => {
 
             const data = {
                 title : title,
-                content : content
+                content : content,
+                id : noteID
             }
-
             console.log(data);
+            
+            const index = noteList.findIndex((item:any) => item.id === noteID);
+            index > -1 ? noteList[index] = data : noteList.push(data);
+            
+            const exportList = JSON.stringify(noteList);
+            localStorage.setItem("noteList", exportList);
         }
     };
 
