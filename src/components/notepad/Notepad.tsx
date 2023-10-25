@@ -5,15 +5,9 @@ import toolBarOptions from "./toolBarOptions";
 
 const Notepad = (props:any) => {
 
-    const {noteList, noteID} = props;
-    const [content, setContent] = useState('');
-    
-    // const noteList = JSON.parse(localStorage.getItem("noteList")!) || [];
-    // const [noteID, setNoteID] = useState(notesLength);
+    const {noteList, noteID, content} = props;
 
-    const onChange = (content: any, delta: any, source: any, editor: any) => {
-        setContent(content);
-        
+    const onChange = (newContent: any, delta: any, source: any, editor: any) => {        
         if(editor.getLength() > 1){
             const header = editor.getContents().ops[0];
             let str = header.insert;
@@ -22,7 +16,7 @@ const Notepad = (props:any) => {
 
             const data = {
                 title : title,
-                content : content,
+                content : newContent,
                 id : noteID
             }
             console.log(data);
