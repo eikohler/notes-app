@@ -3,13 +3,13 @@ import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.bubble.css';
 import toolBarOptions from "./toolBarOptions";
 
-const Notepad = () => {
+const Notepad = (props:any) => {
 
-    const noteList = JSON.parse(localStorage.getItem("noteList")!) || [];
-    const notesLength = noteList.length + 1;
-
+    const {noteList, noteID} = props;
     const [content, setContent] = useState('');
-    const [noteID, setNoteID] = useState(notesLength);
+    
+    // const noteList = JSON.parse(localStorage.getItem("noteList")!) || [];
+    // const [noteID, setNoteID] = useState(notesLength);
 
     const onChange = (content: any, delta: any, source: any, editor: any) => {
         setContent(content);

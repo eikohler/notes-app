@@ -17,6 +17,7 @@ function Main() {
   }
   
   const noteList = JSON.parse(localStorage.getItem("noteList")!) || [];
+  const noteID = noteList.length + 1;
 
   return (
     <Container 
@@ -29,7 +30,9 @@ function Main() {
         <div className="inner">
           {noteList.map((note:any) => {
             return(
-              <p id={note.id}>{note.title}</p>
+              <div>
+                <p>{note.title}</p>
+              </div>
             )
           })}
         </div>
@@ -42,7 +45,7 @@ function Main() {
         />
       <Section id="notePad" className="column" minSize={300}>
         <div className="inner">          
-          <Notepad />
+          <Notepad noteList={noteList} noteID={noteID} />
         </div>
       </Section>
     </Container>
