@@ -5,9 +5,11 @@ import toolBarOptions from "./toolBarOptions";
 
 const Notepad = (props:any) => {
 
-    const {noteList, noteID, content} = props;
+    const {noteList, noteID, content, updateList} = props;
 
     const onChange = (newContent: any, delta: any, source: any, editor: any) => {        
+        const index = noteList.findIndex((item:any) => item.id === noteID);
+
         if(editor.getLength() > 1){
             const header = editor.getContents().ops[0];
             let str = header.insert;
@@ -19,14 +21,22 @@ const Notepad = (props:any) => {
                 content : newContent,
                 id : noteID
             }
-            console.log(data);
+            // console.log(data);
             
-            const index = noteList.findIndex((item:any) => item.id === noteID);
             index > -1 ? noteList[index] = data : noteList.push(data);
-            
-            const exportList = JSON.stringify(noteList);
-            localStorage.setItem("noteList", exportList);
+        }else{
+            if(index > -1){
+                noteList.splice(index, 1)
+                console.log(`Note at index ${index} was removed`);
+            };
         }
+            
+        // Save to note list to local storage
+        const exportList = JSON.stringify(noteList);
+        localStorage.setItem("noteList", exportList);
+
+        // Pass new note list to parent
+        updateList(noteList);
     };
 
     const quill = useCallback((node:any) => {
