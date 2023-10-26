@@ -5,12 +5,12 @@ import toolBarOptions from "./toolBarOptions";
 
 const Notepad = (props:any) => {
 
-    const {content, updateList} = props;
+    const {noteID, content, updateList} = props;
     const [value, setValue] = useState(content);
 
     useEffect(() => {
         setValue(content);
-    }, [content]);
+    }, [noteID]);
 
     const onChange = (newContent: any, delta: any, source: any, editor: any) => {
         setValue(newContent);
@@ -22,7 +22,9 @@ const Notepad = (props:any) => {
 
             const data = {
                 title : title,
-                content : newContent
+                content : newContent,
+                id : noteID,
+                number: 1
             }
             updateList(data);
         }else{

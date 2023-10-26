@@ -9,7 +9,7 @@ const Notelist = (props:any) => {
                     <div 
                         key={"wrapper-"+note.id} 
                         onClick={() => loadNote(note.id)}>
-                        <p key={"title-"+note.id}>{note.title}{note.number}</p>
+                        <p key={"title-"+note.id}>{note.title}{note.number !== 1 && " ("+note.number+")"}</p>
                     </div>
                 )
             })}

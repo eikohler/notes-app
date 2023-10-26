@@ -17,10 +17,13 @@ function Main() {
       const sameTitles = noteList.filter((note:any) => note.title === data.title);      
       const index = noteList.findIndex((note:any) => note.id === noteID);
       
-      data.id = noteID;      
-      data.number = sameTitles.length !== 0 ? " "+(sameTitles.length+1) : "";
+      if(sameTitles.length !== 0){
+        console.log(sameTitles);
+        const nextObjArr = noteList.slice(index+1).filter((note:any) => note.title === data.title);             
+        data.number = nextObjArr.length !== 0 ? nextObjArr[0].number-1 : sameTitles.length+1;
+      }
 
-      if(index > -1){  
+      if(index > -1){
         setNoteList(noteList.map((note:any) => {
           if (note.id === noteID) {
             return { ...note, title: data.title, content: data.content, number: data.number };
@@ -44,7 +47,7 @@ function Main() {
   const newNote = () =>{
     const id = noteList.length > 0 ? noteList[noteList.length-1].id + 1 : 0;
     setNoteID(id);
-    setContent(`<h1 key="${id}"></h1>`);
+    setContent("");
   };
   
   const collapseCol = (resizer: Resizer) : void => {
@@ -62,8 +65,6 @@ function Main() {
     const exportList = JSON.stringify(noteList);
     localStorage.setItem("noteList", exportList);
   }, [noteList]);
-
-  
 
   return (
     <Container 
@@ -90,6 +91,7 @@ function Main() {
       <Section id="notePad" className="column" minSize={300}>
         <div className="inner">          
           <Notepad 
+            noteID={noteID}
             content={content}
             updateList={updateList}
           />
