@@ -18,9 +18,16 @@ function Main() {
       const index = noteList.findIndex((note:any) => note.id === noteID);
       
       if(sameTitles.length !== 0){
-        console.log(sameTitles);   
-        const beforeArr = noteList.slice(0, index).filter((note:any) => note.title === data.title);             
-        data.number = beforeArr.length !== 0 ? beforeArr[beforeArr.length-1].number+1 : 1;        
+        const i = sameTitles.findIndex((note:any) => note.id === noteID);
+        if(i <= -1){
+          const numArr = [0];
+          for (let i = 0; i < sameTitles.length; i++) numArr[i] = i+1;          
+          const titleNumbers = sameTitles.map((note:any) => {return note.number});
+          const remainingNumbers = numArr.filter((x:any) => !titleNumbers.includes(x));          
+          data.number = remainingNumbers.length !== 0 ? remainingNumbers[0] : sameTitles.length+1;          
+        }else{
+          data.number = sameTitles[i].number;
+        }
       }
 
       if(index > -1){
@@ -38,12 +45,15 @@ function Main() {
       setNoteList(noteList.filter((note:any) => note.id !== noteID));
     }
   };
+  const deleteNote = (id:any) => {    
+    setNoteList(noteList.filter((note:any) => note.id !== id));
+    if(id === noteID) newNote();
+  }
   const loadNote = (id:any) => {
     const i = noteList.findIndex((note:any) => note.id === id);
     setNoteID(id);
     setContent(noteList[i].content);
   };
-
   const newNote = () =>{
     const id = noteList.length > 0 ? noteList[noteList.length-1].id + 1 : 0;
     setNoteID(id);
@@ -64,6 +74,7 @@ function Main() {
     // Save note list to local storage
     const exportList = JSON.stringify(noteList);
     localStorage.setItem("noteList", exportList);
+    // console.log(noteList);
   }, [noteList]);
 
   return (
@@ -79,6 +90,7 @@ function Main() {
           <Notelist 
             noteList={noteList} 
             loadNote={loadNote}
+            deleteNote={deleteNote}
           />          
         </div>
       </Section>

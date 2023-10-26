@@ -49,7 +49,7 @@ const Notepad = (props:any) => {
         <ReactQuill
             ref={quill}
             theme="bubble"
-            placeholder='Untitled'
+            placeholder="..."
             value={value}
             onChange={onChange}
             modules={{ toolbar: toolBarOptions }}

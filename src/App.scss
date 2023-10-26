@@ -103,22 +103,23 @@ main{
         height: 100%;        
         .ql-container{
             font-family: $body-font;
-            font-size: 24px;
+            font-size: 20px;
             .ql-editor{
                 padding: 0px; 
                 &.ql-blank::before{
                     color: inherit;
                     font-family: $head-font;
-                    font-size: 40px;
+                    font-size: 35px;
                     font-weight: 700;
-                    font-style: normal;
+                    // font-style: normal;
                     left: 0px;
+                    opacity: 0.7;
                 }
                 h1{
-                    font-size: 40px;
+                    font-size: 35px;
                 }                   
                 h2{
-                    font-size: 30px;
+                    font-size: 26px;
                 }   
             }            
             // Quill Tooltip Bubble
