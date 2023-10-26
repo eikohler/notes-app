@@ -18,13 +18,13 @@ function Main() {
       const index = noteList.findIndex((note:any) => note.id === noteID);
       
       if(sameTitles.length !== 0){
-        const beforeArr = noteList.slice(index+1).filter((note:any) => note.title === data.title);             
-        const afterArr = noteList.slice(0, index).filter((note:any) => note.title === data.title);             
+        const afterArr = noteList.slice(index+1).filter((note:any) => note.title === data.title);             
+        const beforeArr = noteList.slice(0, index).filter((note:any) => note.title === data.title);             
 
-        if(afterArr.length !== 0){
-          data.number = afterArr[afterArr.length-1].number+1;
-        }else if(beforeArr.length !== 0){
-          data.number = beforeArr[0].number-1;
+        if(beforeArr.length !== 0){
+          data.number = beforeArr[beforeArr.length-1].number+1;
+        }else if(afterArr.length !== 0){
+          data.number = afterArr[0].number-1;
         }else{
           data.number = sameTitles.length+1;
         }
