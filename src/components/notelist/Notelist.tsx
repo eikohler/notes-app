@@ -1,10 +1,9 @@
 const Notelist = (props:any) => {
 
-    const {noteList, loadNote, deleteNote, newNote} = props;
+    const {noteList, loadNote, deleteNote} = props;
 
     return (
         <>
-            <button onClick={()=>newNote()}>New Note</button>
             {noteList.map((note:any) => {
                 return(
                     <div key={"wrapper-"+note.id}>                   

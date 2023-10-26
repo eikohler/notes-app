@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Container, Section, Bar, Resizer } from '@column-resizer/react';
 import Notepad from '../notepad/Notepad';
 import Notelist from '../notelist/Notelist';
+import ColorPicker from '../colorpicker/ColorPicker';
+import AddIcon from '@mui/icons-material/Add';
 
 function Main() {
   const [ barActive, setBarActive ] = useState(false);
@@ -89,7 +91,6 @@ function Main() {
             noteList={noteList} 
             loadNote={loadNote}
             deleteNote={deleteNote}
-            newNote={newNote}
           />          
         </div>
       </Section>
@@ -100,12 +101,16 @@ function Main() {
           expandInteractiveArea={{right: 5, left: 5}} 
         />
       <Section id="notePad" className="column" minSize={300}>
-        <div className="inner">          
+        <div className="inner"> 
+          <div id="create-note-btn" onClick={()=>newNote()}>
+            <AddIcon />
+          </div>
           <Notepad 
             noteID={noteID}
             content={content}
             updateList={updateList}
           />
+          <ColorPicker />
         </div>
       </Section>
     </Container>
