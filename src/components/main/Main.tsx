@@ -13,21 +13,14 @@ function Main() {
 
   // Update state variables functions
   const updateList = (data:any) => {
-    if(data !== null){
+    if(data !== null){      
       const sameTitles = noteList.filter((note:any) => note.title === data.title);      
       const index = noteList.findIndex((note:any) => note.id === noteID);
       
       if(sameTitles.length !== 0){
-        const afterArr = noteList.slice(index+1).filter((note:any) => note.title === data.title);             
+        console.log(sameTitles);   
         const beforeArr = noteList.slice(0, index).filter((note:any) => note.title === data.title);             
-
-        if(beforeArr.length !== 0){
-          data.number = beforeArr[beforeArr.length-1].number+1;
-        }else if(afterArr.length !== 0){
-          data.number = afterArr[0].number-1;
-        }else{
-          data.number = sameTitles.length+1;
-        }
+        data.number = beforeArr.length !== 0 ? beforeArr[beforeArr.length-1].number+1 : 1;        
       }
 
       if(index > -1){

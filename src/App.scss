@@ -6,12 +6,20 @@
     src: url(../public/fonts/YoungSerif-Regular.ttf);
 }
 @font-face {
-    font-family: yantramanav;
-    src: url(../public/fonts/Yantramanav-Regular.ttf);
+    font-family: roboto;
+    src: url(../public/fonts/Roboto-Medium.ttf);
 }
 @font-face {
-    font-family: yantramanavBold;
-    src: url(../public/fonts/Yantramanav-Bold.ttf);
+    font-family: robotoItalic;
+    src: url(../public/fonts/Roboto-MediumItalic.ttf);
+}
+@font-face {
+    font-family: robotoBold;
+    src: url(../public/fonts/Roboto-Black.ttf);
+}
+@font-face {
+    font-family: robotoBoldItalic;
+    src: url(../public/fonts/Roboto-BlackItalic.ttf);
 }
 
 
@@ -24,8 +32,7 @@ $main-bg-color: #86BBD8;
 
 //Fonts
 $head-font: young-serif;
-$body-font: yantramanav;
-$bold-font: yantramanavBold;
+$body-font: roboto;
 
 //Styles
 h1, h2, h3, h4, h5, h6{
@@ -42,10 +49,16 @@ body{
     font-family: $body-font;
     font-size: 20px;
     margin: 0px;
+    em{
+        font-family: robotoItalic;
+    }
 }
 
 strong {
-    font-family: $bold-font;
+    font-family: robotoBold;
+    em{
+        font-family: robotoBoldItalic;
+    }
 }
 
 main{
