@@ -9,17 +9,21 @@ function Main() {
 
   const [ noteList, setNoteList ] = useState(JSON.parse(localStorage.getItem("noteList")!) || []);
   const [ noteID, setNoteID ] = useState(noteList.length > 0 ? noteList[noteList.length-1].id + 1 : 0);
-  const [ content, setContent ] = useState('');
+  const [ content, setContent ] = useState("");
 
   // Update state variables functions
   const updateList = (data:any) => {
     if(data !== null){
-      data.id = noteID;
+      const sameTitles = noteList.filter((note:any) => note.title === data.title);      
       const index = noteList.findIndex((note:any) => note.id === noteID);
+      
+      data.id = noteID;      
+      data.number = sameTitles.length !== 0 ? " "+(sameTitles.length+1) : "";
+
       if(index > -1){  
         setNoteList(noteList.map((note:any) => {
           if (note.id === noteID) {
-            return { ...note, title: data.title, content: data.content };
+            return { ...note, title: data.title, content: data.content, number: data.number };
           } else {        
             return note;
           }
@@ -37,12 +41,12 @@ function Main() {
     setContent(noteList[i].content);
   };
 
-  useEffect(() => {
-    // Save note list to local storage
-    const exportList = JSON.stringify(noteList);
-    localStorage.setItem("noteList", exportList);
-  }, [noteList]);
-
+  const newNote = () =>{
+    const id = noteList.length > 0 ? noteList[noteList.length-1].id + 1 : 0;
+    setNoteID(id);
+    setContent(`<h1 key="${id}"></h1>`);
+  };
+  
   const collapseCol = (resizer: Resizer) : void => {
     if (resizer.getSectionSize(0) < 100) {
       resizer.resizeSection(0, { toSize: 0 });
@@ -53,6 +57,14 @@ function Main() {
     }
   }
 
+  useEffect(() => {
+    // Save note list to local storage
+    const exportList = JSON.stringify(noteList);
+    localStorage.setItem("noteList", exportList);
+  }, [noteList]);
+
+  
+
   return (
     <Container 
       className={`columns-container ${barActive ? "active" : ""}`}
@@ -62,6 +74,7 @@ function Main() {
     >
       <Section id="noteList" className="column" defaultSize={300}>
         <div className="inner">
+          <button onClick={newNote}>New Note</button>
           <Notelist 
             noteList={noteList} 
             loadNote={loadNote}
