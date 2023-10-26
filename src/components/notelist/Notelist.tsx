@@ -1,8 +1,6 @@
-// import { useEffect } from "react";
-
 const Notelist = (props:any) => {
 
-    const {noteList, updateID, updateContent} = props;
+    const {noteList, loadNote} = props;
 
     return (
         <>
@@ -10,11 +8,7 @@ const Notelist = (props:any) => {
                 return(
                     <div 
                         key={"wrapper-"+note.id} 
-                        onClick={() => {
-                            const i = noteList.findIndex((item:any) => item.id === note.id);
-                            updateContent(noteList[i].content);
-                            updateID(note.id);
-                        }}>
+                        onClick={() => loadNote(note.id)}>
                         <p key={"title-"+note.id}>{note.title}</p>
                     </div>
                 )

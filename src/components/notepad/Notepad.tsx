@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.bubble.css';
 import toolBarOptions from "./toolBarOptions";
@@ -6,8 +6,14 @@ import toolBarOptions from "./toolBarOptions";
 const Notepad = (props:any) => {
 
     const {content, updateList} = props;
+    const [value, setValue] = useState(content);
+
+    useEffect(() => {
+        setValue(content);
+    }, [content]);
 
     const onChange = (newContent: any, delta: any, source: any, editor: any) => {
+        setValue(newContent);
         if(editor.getLength() > 1){
             const header = editor.getContents().ops[0];
             let str = header.insert;
@@ -17,9 +23,11 @@ const Notepad = (props:any) => {
             const data = {
                 title : title,
                 content : newContent
-            }            
+            }
             updateList(data);
-        }        
+        }else{
+            updateList(null);
+        }
     };
 
     const quill = useCallback((node:any) => {
@@ -39,8 +47,8 @@ const Notepad = (props:any) => {
         <ReactQuill
             ref={quill}
             theme="bubble"
-            placeholder='Your story'
-            value={content}
+            placeholder='Untitled'
+            value={value}
             onChange={onChange}
             modules={{ toolbar: toolBarOptions }}
         />

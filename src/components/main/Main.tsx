@@ -12,35 +12,35 @@ function Main() {
   const [ content, setContent ] = useState('');
 
   // Update state variables functions
-  // const addToList = (data:any) => {setNoteList([...noteList, data]);};
-  // const removeFromList = () => {setNoteList(noteList.filter((note:any) => note.id !== noteID));};
   const updateList = (data:any) => {
-    data.id = noteID;
-    setContent(data.content);
-    const index = noteList.findIndex((note:any) => note.id === noteID);
-    if(index > -1){  
-      setNoteList(noteList.map((note:any) => {
-        if (note.id === noteID) {
-          return { ...note, title: data.title, content: data.content };
-        } else {        
-          return note;
-        }
-      }));
+    if(data !== null){
+      data.id = noteID;
+      const index = noteList.findIndex((note:any) => note.id === noteID);
+      if(index > -1){  
+        setNoteList(noteList.map((note:any) => {
+          if (note.id === noteID) {
+            return { ...note, title: data.title, content: data.content };
+          } else {        
+            return note;
+          }
+        }));
+      }else{
+        setNoteList([...noteList, data]);
+      }
     }else{
-      setNoteList([...noteList, data]);
+      setNoteList(noteList.filter((note:any) => note.id !== noteID));
     }
   };
-  const updateID = (data:any) => setNoteID(data);
-  const updateContent = (data:any) => setContent(data);
+  const loadNote = (id:any) => {
+    const i = noteList.findIndex((note:any) => note.id === id);
+    setNoteID(id);
+    setContent(noteList[i].content);
+  };
 
-  function saveList(){
+  useEffect(() => {
     // Save note list to local storage
     const exportList = JSON.stringify(noteList);
     localStorage.setItem("noteList", exportList);
-  }
-
-  useEffect(() => {
-    console.log(noteList);
   }, [noteList]);
 
   const collapseCol = (resizer: Resizer) : void => {
@@ -64,8 +64,7 @@ function Main() {
         <div className="inner">
           <Notelist 
             noteList={noteList} 
-            updateID={updateID}
-            updateContent={updateContent}
+            loadNote={loadNote}
           />          
         </div>
       </Section>
