@@ -74,7 +74,6 @@ function Main() {
     // Save note list to local storage
     const exportList = JSON.stringify(noteList);
     localStorage.setItem("noteList", exportList);
-    // console.log(noteList);
   }, [noteList]);
 
   return (
@@ -85,12 +84,12 @@ function Main() {
       afterResizing={() : void => setBarActive(false)}
     >
       <Section id="noteList" className="column" defaultSize={300}>
-        <div className="inner">
-          <button onClick={newNote}>New Note</button>
+        <div className="inner">          
           <Notelist 
             noteList={noteList} 
             loadNote={loadNote}
             deleteNote={deleteNote}
+            newNote={newNote}
           />          
         </div>
       </Section>
