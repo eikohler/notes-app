@@ -7,7 +7,6 @@ const Notelist = (props:any) => {
     return (
         <>
             {noteList.map((note:any) => {
-                console.log(noteList);
                 return(
                     <div 
                         key={"wrapper-"+note.id} 

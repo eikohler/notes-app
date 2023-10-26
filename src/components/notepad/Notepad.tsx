@@ -1,15 +1,13 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.bubble.css';
 import toolBarOptions from "./toolBarOptions";
 
 const Notepad = (props:any) => {
 
-    const {noteList, noteID, content, updateList} = props;
+    const {content, updateList} = props;
 
-    const onChange = (newContent: any, delta: any, source: any, editor: any) => {        
-        const index = noteList.findIndex((item:any) => item.id === noteID);
-
+    const onChange = (newContent: any, delta: any, source: any, editor: any) => {
         if(editor.getLength() > 1){
             const header = editor.getContents().ops[0];
             let str = header.insert;
@@ -18,25 +16,10 @@ const Notepad = (props:any) => {
 
             const data = {
                 title : title,
-                content : newContent,
-                id : noteID
-            }
-            // console.log(data);
-            
-            index > -1 ? noteList[index] = data : noteList.push(data);
-        }else{
-            if(index > -1){
-                noteList.splice(index, 1)
-                console.log(`Note at index ${index} was removed`);
-            };
-        }
-            
-        // Save to note list to local storage
-        const exportList = JSON.stringify(noteList);
-        localStorage.setItem("noteList", exportList);
-
-        // Pass new note list to parent
-        updateList(noteList);
+                content : newContent
+            }            
+            updateList(data);
+        }        
     };
 
     const quill = useCallback((node:any) => {

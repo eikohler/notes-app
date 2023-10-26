@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Section, Bar, Resizer } from '@column-resizer/react';
 import Notepad from '../notepad/Notepad';
 import Notelist from '../notelist/Notelist';
@@ -12,9 +12,36 @@ function Main() {
   const [ content, setContent ] = useState('');
 
   // Update state variables functions
-  const updateList = (data:any) => setNoteList(data);
+  // const addToList = (data:any) => {setNoteList([...noteList, data]);};
+  // const removeFromList = () => {setNoteList(noteList.filter((note:any) => note.id !== noteID));};
+  const updateList = (data:any) => {
+    data.id = noteID;
+    setContent(data.content);
+    const index = noteList.findIndex((note:any) => note.id === noteID);
+    if(index > -1){  
+      setNoteList(noteList.map((note:any) => {
+        if (note.id === noteID) {
+          return { ...note, title: data.title, content: data.content };
+        } else {        
+          return note;
+        }
+      }));
+    }else{
+      setNoteList([...noteList, data]);
+    }
+  };
   const updateID = (data:any) => setNoteID(data);
   const updateContent = (data:any) => setContent(data);
+
+  function saveList(){
+    // Save note list to local storage
+    const exportList = JSON.stringify(noteList);
+    localStorage.setItem("noteList", exportList);
+  }
+
+  useEffect(() => {
+    console.log(noteList);
+  }, [noteList]);
 
   const collapseCol = (resizer: Resizer) : void => {
     if (resizer.getSectionSize(0) < 100) {
@@ -51,9 +78,7 @@ function Main() {
       <Section id="notePad" className="column" minSize={300}>
         <div className="inner">          
           <Notepad 
-            noteList={noteList} 
-            noteID={noteID} 
-            content={content} 
+            content={content}
             updateList={updateList}
           />
         </div>
