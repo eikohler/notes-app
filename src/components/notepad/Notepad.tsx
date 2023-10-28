@@ -5,7 +5,7 @@ import toolBarOptions from "./toolBarOptions";
 
 const Notepad = (props:any) => {
 
-    // For editor placeholder text 
+    // For editor placeholder text     
     const phArr = [
         'masterpiece', 
         'story', 
@@ -17,12 +17,11 @@ const Notepad = (props:any) => {
     
     const {noteID, content, updateList} = props;
     const [value, setValue] = useState(content);
-    const [phActive, setphActive] = useState(true);
+    const [phActive, setphActive] = useState(true);    
 
     useEffect(() => {
         setValue(content);        
-    }, [noteID]);
-
+    }, [noteID]);    
     
     const onChange = (newContent: any, delta: any, source: any, editor: any) => {
         setValue(newContent);
@@ -57,26 +56,35 @@ const Notepad = (props:any) => {
     return (
         <>
             <div className={`placeHolderAnim ${phActive && 'active'}`}>
-                <h1><div className="your-text">
-                        <span>Y</span><span>o</span><span>u</span><span>r</span><span> </span>
+                <h1>
+                    <div className="text-wrapper">
+                        <span>Y</span><span>o</span><span>u</span><span>r</span>
                     </div>
-                    <div id="ph-text">{
-                        phArr.map((name)=>{
-                            const chars = name.split('');
+                    <div id="ph-text">{                        
+                        phArr.map((name, i)=>{                            
+                            const chars = name.split('');  
+                            const pastChars = phArr.slice(0, i).join('').split('');                            
+                            const delay = i !== 0 ? 0.8+((pastChars.length-1)*0.2) : 0.8;                                                        
+                            // const delay = 0.8;                                                        
                             return(
                                 <div key={name} className="ph-text-item">
-                                    {chars.map((char, i)=>{
+                                    {chars.map((char, i)=>{                                                         
                                         return(
-                                            <span key={char+i}>{char}</span>
-                                        )
+                                            <div key={"char-wrapper-"+i} className="char">
+                                                <span style={{animationDelay: (delay+(i*0.1))+'s'}}
+                                                key={char+i}>{char}</span>
+                                                {/* <span style={{animationDelay: (thisDelay+(chars.length*0.2)+0.1)+'s'}}
+                                                key={char+i+"-2"}>{char}</span> */}
+                                            </div>
+                                        )                                        
                                     })}
                                 </div>
                             )
                         })
                     }</div>
-                    <div className="dot-text">
-                        <span> </span><span>.</span><span>.</span><span>.</span>                        
-                    </div>
+                    {/* <div id="dot-text" className="text-wrapper">
+                        <span> </span><span>.</span><span>.</span><span>.</span>
+                    </div> */}
                 </h1>
             </div>
             <ReactQuill
