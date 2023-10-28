@@ -189,14 +189,16 @@ main{
 
 .placeHolderAnim{
     position: absolute;
-    opacity: 0.7;
-    // transition: 0.2s all;
+    opacity: 0.7;    
     h1{
         color: inherit;
         font-family: young-serif;
         font-size: 35px;
         font-weight: 700;        
         font-style: italic;
+        div{
+            display: inline;
+        }
     }
     &:not(.active){
         opacity: 0;

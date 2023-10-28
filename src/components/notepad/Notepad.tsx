@@ -5,7 +5,7 @@ import toolBarOptions from "./toolBarOptions";
 
 const Notepad = (props:any) => {
 
-    // For editor placeholder    
+    // For editor placeholder text 
     const phArr = [
         'masterpiece', 
         'story', 
@@ -26,22 +26,19 @@ const Notepad = (props:any) => {
     
     const onChange = (newContent: any, delta: any, source: any, editor: any) => {
         setValue(newContent);
-        if(editor.getLength() > 1){
-            const header = editor.getContents().ops[0];
-            let str = header.insert;
-            str = str.replace(/\s/g, '');
-            const title = str.length ? header.insert : "Untitled";
-            
-            const data = {
-                title : title,
-                content : newContent,
-                id : noteID,
-                number: 1
-            }
-            updateList(data);
-        }else{
-            updateList(null);
+
+        const header = editor.getContents().ops[0];
+        let str = header.insert;
+        str = str.replace(/\s/g, '');
+        const title = str.length ? header.insert : "Untitled";
+        
+        const data = {
+            title : title,
+            content : newContent,
+            id : noteID,
+            number: 1
         }
+        updateList(editor.getLength() > 1 ? data : null);        
     };
 
     const quill = useCallback((quill:any) => {
@@ -52,33 +49,40 @@ const Notepad = (props:any) => {
             
             quill.on('editor-change', function() {
                 quill.formatLine(0, 0, 'header', 1);
-                // if(quill.getLength() === 1) quill.root.classList.add("ql-blank");                            
                 setphActive(quill.getLength() === 1);
-            });             
-            
-            // quill.once('editor-change', function() {                
-            //     setInterval(()=>{
-            //         const prevIndex = parseInt(quill.root.dataset.prevIndex) || 0,
-            //         newIndex = (prevIndex + 1) < namesArr.length ? prevIndex + 1 : 0;
-            //         quill.root.dataset.prevIndex = newIndex;
-            //         quill.root.dataset.placeholder=`Your ${namesArr[newIndex]} ...`;
-            //     }, 3000);
-            // });               
+            });                                               
         }
     }, []);
 
     return (
         <>
             <div className={`placeHolderAnim ${phActive && 'active'}`}>
-                <h1>Your {phArr.map((name)=>{return(
-                    <span key={name}>{name}</span>
-                )})} ...</h1>
+                <h1><div className="your-text">
+                        <span>Y</span><span>o</span><span>u</span><span>r</span><span> </span>
+                    </div>
+                    <div id="ph-text">{
+                        phArr.map((name)=>{
+                            const chars = name.split('');
+                            return(
+                                <div key={name} className="ph-text-item">
+                                    {chars.map((char, i)=>{
+                                        return(
+                                            <span key={char+i}>{char}</span>
+                                        )
+                                    })}
+                                </div>
+                            )
+                        })
+                    }</div>
+                    <div className="dot-text">
+                        <span> </span><span>.</span><span>.</span><span>.</span>                        
+                    </div>
+                </h1>
             </div>
             <ReactQuill
                 ref={quill}
                 theme="bubble"
                 value={value}
-                // placeholder={`Your ${namesArr[0]} ...`}
                 onChange={onChange}
                 modules={{ toolbar: toolBarOptions }}
             />
