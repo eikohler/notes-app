@@ -8,19 +8,17 @@ const TypeText = () => {
         'story', 
         'art', 
         'song', 
-        'adventure', 
-        'plan'
+        'plan',
+        'adventure'
     ];
+    const buffer = 2;
     const [index, setIndex] = useState(0);
-    const [chars, setChars] = useState(textArr[index].split(''));        
-    const [animClass, setAnimClass] = useState('');
     const [initialWait, setInitialWait] = useState(800);
-    const buffer = 1;
+    const [animClass, setAnimClass] = useState('');
+    const [chars, setChars] = useState(textArr[index].split(''));
 
-    useEffect(() => {        
+    useEffect(() => {                   
         const delay = ((0.1*chars.length)+buffer)*1000;
-
-        // Current Problem: Plays first title twice
 
         console.log(delay);
 
@@ -29,8 +27,9 @@ const TypeText = () => {
             setTimeout(function(){
                 setAnimClass('anim-out');
                 setTimeout(function(){
-                    setIndex(index + 1 < textArr.length ? index + 1 : 0);
-                    setChars(textArr[index].split(''));
+                    const newIndex = index + 1 < textArr.length ? index + 1 : 0;
+                    setIndex(newIndex);
+                    setChars(textArr[newIndex].split(''));
                     setInitialWait(0);
                     setAnimClass('');
                 }, delay);
@@ -42,6 +41,7 @@ const TypeText = () => {
         };
         
     }, [chars]);
+
 
     return (
         <div id="ph-text" className={animClass}>{            
