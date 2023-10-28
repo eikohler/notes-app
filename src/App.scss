@@ -218,10 +218,10 @@ main{
                 opacity: 0;                        
             }              
             &.anim-in span{
-                animation: typeIn 1s forwards step-end;
+                animation: typeIn 0.1s forwards step-end;
             }                                      
             &.anim-out span{
-                animation: typeOut 1s forwards step-end;     
+                animation: typeOut 0.1s forwards step-end;     
                 opacity: 1;           
             }                                      
         }
