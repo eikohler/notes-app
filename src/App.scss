@@ -213,31 +213,27 @@ main{
             }  
         }
 
-        #ph-text{
-            $length: attr('data-length');
-            .ph-text-item{ 
-                // position: absolute;
-                .char{
-                    position: relative;
-                    span{
-                        opacity: 0;                        
-                    }
-                    span:nth-child(1){
-                        animation: typeIn 0.1s forwards step-end;
-                    }
-                    // span:nth-child(2){
-                    //     animation: typeIn 0.1s backwards;
-                    //     position: absolute;
-                    //     left: 0px;
-                    // }
-                }
-            }            
-        }  
+        #ph-text{            
+            span{
+                opacity: 0;                        
+            }              
+            &.anim-in span{
+                animation: typeIn 0.1s forwards step-end;
+            }                                      
+            &.anim-out span{
+                animation: typeOut 0.1s forwards step-end;     
+                opacity: 1;           
+            }                                      
+        }
         
         // Typing text animation
         @keyframes typeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }            
+        @keyframes typeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
         }            
     }
     &:not(.active){

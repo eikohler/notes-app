@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.bubble.css';
 import toolBarOptions from "./toolBarOptions";
+import TypeText from '../typetext/TypeText';
 
 const Notepad = (props:any) => {
 
@@ -60,28 +61,7 @@ const Notepad = (props:any) => {
                     <div className="text-wrapper">
                         <span>Y</span><span>o</span><span>u</span><span>r</span>
                     </div>
-                    <div id="ph-text">{                        
-                        phArr.map((name, i)=>{                            
-                            const chars = name.split('');  
-                            const pastChars = phArr.slice(0, i).join('').split('');                            
-                            const delay = i !== 0 ? 0.8+((pastChars.length-1)*0.2) : 0.8;                                                        
-                            // const delay = 0.8;                                                        
-                            return(
-                                <div key={name} className="ph-text-item">
-                                    {chars.map((char, i)=>{                                                         
-                                        return(
-                                            <div key={"char-wrapper-"+i} className="char">
-                                                <span style={{animationDelay: (delay+(i*0.1))+'s'}}
-                                                key={char+i}>{char}</span>
-                                                {/* <span style={{animationDelay: (thisDelay+(chars.length*0.2)+0.1)+'s'}}
-                                                key={char+i+"-2"}>{char}</span> */}
-                                            </div>
-                                        )                                        
-                                    })}
-                                </div>
-                            )
-                        })
-                    }</div>
+                    <TypeText text={phArr[0]} />
                     {/* <div id="dot-text" className="text-wrapper">
                         <span> </span><span>.</span><span>.</span><span>.</span>
                     </div> */}
