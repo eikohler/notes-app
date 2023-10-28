@@ -6,24 +6,24 @@ import toolBarOptions from "./toolBarOptions";
 const Notepad = (props:any) => {
 
     // For editor placeholder    
-    const namesArr = ['masterpiece', 'story', 'art', 'book', 'song', 'adventure', 'plan', 'day'];
-
+    const phArr = [
+        'masterpiece', 
+        'story', 
+        'art', 
+        'song', 
+        'adventure', 
+        'plan'
+    ];
+    
     const {noteID, content, updateList} = props;
     const [value, setValue] = useState(content);
-    // const [noteName, setNoteName] = useState(namesArr[Math.floor(Math.random()*namesArr.length)]);
+    const [phActive, setphActive] = useState(true);
 
     useEffect(() => {
         setValue(content);        
     }, [noteID]);
 
-    const updatePlaceHolder = (quill:any) =>{        
-        const prevName = quill.root.dataset.placeholderName || 'masterpiece';
-        const newNameArr = namesArr.filter((name:any)=> name !== prevName );
-        const newName = newNameArr[Math.floor(Math.random()*newNameArr.length)]; 
-        quill.root.dataset.placeholderName = newName;
-        quill.root.dataset.placeholder=`your ${newName} ...`;
-    }
-
+    
     const onChange = (newContent: any, delta: any, source: any, editor: any) => {
         setValue(newContent);
         if(editor.getLength() > 1){
@@ -31,7 +31,7 @@ const Notepad = (props:any) => {
             let str = header.insert;
             str = str.replace(/\s/g, '');
             const title = str.length ? header.insert : "Untitled";
-
+            
             const data = {
                 title : title,
                 content : newContent,
@@ -52,22 +52,37 @@ const Notepad = (props:any) => {
             
             quill.on('editor-change', function() {
                 quill.formatLine(0, 0, 'header', 1);
-                if(quill.getLength() === 1) quill.root.classList.add("ql-blank");                
-            });                                  
-
-            setInterval(()=>updatePlaceHolder(quill), 1000);
+                // if(quill.getLength() === 1) quill.root.classList.add("ql-blank");                            
+                setphActive(quill.getLength() === 1);
+            });             
+            
+            // quill.once('editor-change', function() {                
+            //     setInterval(()=>{
+            //         const prevIndex = parseInt(quill.root.dataset.prevIndex) || 0,
+            //         newIndex = (prevIndex + 1) < namesArr.length ? prevIndex + 1 : 0;
+            //         quill.root.dataset.prevIndex = newIndex;
+            //         quill.root.dataset.placeholder=`Your ${namesArr[newIndex]} ...`;
+            //     }, 3000);
+            // });               
         }
     }, []);
 
     return (
-        <ReactQuill
-            ref={quill}
-            theme="bubble"
-            value={value}
-            placeholder={`your masterpiece ...`}
-            onChange={onChange}
-            modules={{ toolbar: toolBarOptions }}
-        />
+        <>
+            <div className={`placeHolderAnim ${phActive && 'active'}`}>
+                <h1>Your {phArr.map((name)=>{return(
+                    <span key={name}>{name}</span>
+                )})} ...</h1>
+            </div>
+            <ReactQuill
+                ref={quill}
+                theme="bubble"
+                value={value}
+                // placeholder={`Your ${namesArr[0]} ...`}
+                onChange={onChange}
+                modules={{ toolbar: toolBarOptions }}
+            />
+        </>
     );
 }
 
