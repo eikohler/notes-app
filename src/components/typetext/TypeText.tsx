@@ -1,25 +1,39 @@
 import { useEffect, useState, useRef } from "react";
 
-const TypeText = (props:any) => {
+const TypeText = () => {
 
-    const {text} = props;
-    const [chars, setChars] = useState(text.split(''));        
+    // For editor placeholder text     
+    const textArr = [
+        'masterpiece', 
+        'story', 
+        'art', 
+        'song', 
+        'adventure', 
+        'plan'
+    ];
+    const [index, setIndex] = useState(0);
+    const [chars, setChars] = useState(textArr[index].split(''));        
     const [animClass, setAnimClass] = useState('');
+    const [initialWait, setInitialWait] = useState(800);
 
     useEffect(() => {
-        setChars(text.split(''));
+        setChars(textArr[index].split(''));
+        setInitialWait(0);
+        setAnimClass('');
+        
+        const delay = ((chars.length)*0.2)*1000;
+
         setTimeout(function(){
             setAnimClass('anim-in');
-        }, 800);
-    }, [text]);  
-
-    useEffect(() => {
-        const delay = ((chars.length)*0.2)*1000;
-        console.log(delay);        
-        setTimeout(function(){
-            setAnimClass(animClass === 'anim-in' ? 'anim-out' : 'anim-in');
-        }, delay);
-    }, [animClass]);
+            setTimeout(function(){
+                setAnimClass('anim-out');
+                setTimeout(function(){
+                    setIndex(index + 1 < textArr.length ? index + 1 : 0);                    
+                }, delay);
+            }, delay);
+        }, initialWait);        
+        
+    }, [index]);
 
     return (
         <div id="ph-text" className={animClass}>{

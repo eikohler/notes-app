@@ -4,17 +4,7 @@ import 'react-quill/dist/quill.bubble.css';
 import toolBarOptions from "./toolBarOptions";
 import TypeText from '../typetext/TypeText';
 
-const Notepad = (props:any) => {
-
-    // For editor placeholder text     
-    const phArr = [
-        'masterpiece', 
-        'story', 
-        'art', 
-        'song', 
-        'adventure', 
-        'plan'
-    ];
+const Notepad = (props:any) => {    
     
     const {noteID, content, updateList} = props;
     const [value, setValue] = useState(content);
@@ -61,7 +51,7 @@ const Notepad = (props:any) => {
                     <div className="text-wrapper">
                         <span>Y</span><span>o</span><span>u</span><span>r</span>
                     </div>
-                    <TypeText text={phArr[0]} />
+                    <TypeText />
                     {/* <div id="dot-text" className="text-wrapper">
                         <span> </span><span>.</span><span>.</span><span>.</span>
                     </div> */}
