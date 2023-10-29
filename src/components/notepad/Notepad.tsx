@@ -25,8 +25,7 @@ const Notepad = (props:any) => {
         const data = {
             title : title,
             content : newContent,
-            id : noteID,
-            number: 1
+            id : noteID
         }
         updateList(editor.getLength() > 1 ? data : null);        
     };

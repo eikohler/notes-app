@@ -16,26 +16,12 @@ function Main() {
   // Update state variables functions
   const updateList = (data:any) => {
     if(data !== null){      
-      const sameTitles = noteList.filter((note:any) => note.title === data.title);      
       const index = noteList.findIndex((note:any) => note.id === noteID);
-      
-      if(sameTitles.length !== 0){
-        const i = sameTitles.findIndex((note:any) => note.id === noteID);
-        if(i <= -1){
-          const numArr = [0];
-          for (let i = 0; i < sameTitles.length; i++) numArr[i] = i+1;          
-          const titleNumbers = sameTitles.map((note:any) => {return note.number});
-          const remainingNumbers = numArr.filter((x:any) => !titleNumbers.includes(x));          
-          data.number = remainingNumbers.length !== 0 ? remainingNumbers[0] : sameTitles.length+1;          
-        }else{
-          data.number = sameTitles[i].number;
-        }
-      }
 
       if(index > -1){
         setNoteList(noteList.map((note:any) => {
           if (note.id === noteID) {
-            return { ...note, title: data.title, content: data.content, number: data.number };
+            return { ...note, title: data.title, content: data.content };
           } else {        
             return note;
           }
