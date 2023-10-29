@@ -45,18 +45,8 @@ const Notepad = (props:any) => {
     }, []);
 
     return (
-        <>
-            <div className={`placeHolderAnim ${phActive && 'active'}`}>
-                <h1>
-                    <div className="text-wrapper">
-                        <span>Y</span><span>o</span><span>u</span><span>r</span>
-                    </div>
-                    <TypeText />
-                    {/* <div id="dot-text" className="text-wrapper">
-                        <span> </span><span>.</span><span>.</span><span>.</span>
-                    </div> */}
-                </h1>
-            </div>
+        <>            
+            <TypeText phActive={phActive} />            
             <ReactQuill
                 ref={quill}
                 theme="bubble"

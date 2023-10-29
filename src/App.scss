@@ -108,18 +108,10 @@ main{
         height: 100%;        
         .ql-container{
             font-family: $body-font;
-            font-size: 20px;
+            font-size: 20px;            
             .ql-editor{
-                padding: 0px; 
-                &.ql-blank::before{
-                    color: inherit;
-                    font-family: $head-font;
-                    font-size: 35px;
-                    font-weight: 700;
-                    // font-style: normal;
-                    left: 0px;
-                    opacity: 0.7;
-                }
+                padding: 0px;
+                opacity: 0.9;                 
                 h1{
                     font-size: 35px;
                     margin-bottom: 10px;
@@ -199,21 +191,8 @@ main{
         div{
             display: inline;
         }
-        
-        .text-wrapper{
-            margin-right: 10px;
-            span{
-                animation: typeIn 0.1s forwards step-end;
-                opacity: 0;
-            }
-            @for $i from 1 through 4 {
-                span:nth-child(#{$i}) {
-                    animation-delay: #{$i*0.1}s;
-                }
-            }  
-        }
-
-        #ph-text{            
+                
+        .text{            
             span{
                 opacity: 0;                        
             }              
@@ -234,7 +213,8 @@ main{
         @keyframes typeOut {
             from { opacity: 1; }
             to { opacity: 0; }
-        }            
+        }    
+
     }
     &:not(.active){
         opacity: 0;

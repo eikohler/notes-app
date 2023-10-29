@@ -1,39 +1,55 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
-const TypeText = () => {
+const TypeText = (props:any) => {
+
+    const {phActive} = props;
 
     // For editor placeholder text     
-    const textArr = [
-        'masterpiece', 
+    const startWordChars = "Your ".split('');
+    const startAnimTime = (startWordChars.length*0.1)*1000;
+    const textArr = [         
         'story', 
-        'art', 
-        'song', 
         'plan',
+        'journal', 
+        'checklist', 
+        'vision',
         'adventure'
     ];
-    const buffer = 2;
     const [index, setIndex] = useState(0);
-    const [initialWait, setInitialWait] = useState(800);
     const [animClass, setAnimClass] = useState('');
+    const [startAnimClass, setStartAnimClass] = useState('');
     const [chars, setChars] = useState(textArr[index].split(''));
 
     useEffect(() => {                   
-        const delay = ((0.1*chars.length)+buffer)*1000;
+        const delay = (0.1*chars.length)*1000; 
+        let initialWait = 0;
 
-        console.log(delay);
+        if(index === 0){
+            initialWait = startAnimTime+1000;
+            setTimeout(function(){
+                setStartAnimClass('anim-in');
+            }, 1000);
+        }
 
         const timer = setTimeout(function(){
             setAnimClass('anim-in');
             setTimeout(function(){
                 setAnimClass('anim-out');
                 setTimeout(function(){
-                    const newIndex = index + 1 < textArr.length ? index + 1 : 0;
+                    const newIndex = index + 1 < textArr.length ? index + 1 : 0;                    
                     setIndex(newIndex);
-                    setChars(textArr[newIndex].split(''));
-                    setInitialWait(0);
                     setAnimClass('');
-                }, delay);
-            }, delay);
+
+                    if(newIndex === 0){
+                        setStartAnimClass('anim-out');
+                        setTimeout(function(){                            
+                            setChars(textArr[newIndex].split(''));
+                        }, startAnimTime);
+                    }else{
+                        setChars(textArr[newIndex].split(''));                                          
+                    }
+                }, delay+1000);
+            }, delay+2000);
         }, initialWait);  
         
         return () => {            
@@ -44,14 +60,28 @@ const TypeText = () => {
 
 
     return (
-        <div id="ph-text" className={animClass}>{            
-            chars.map((char:any, i:any)=>{return(
-                <span style={{
-                    animationDelay: animClass == ('' || 'anim-in') ? (i*0.1)+'s' : (((chars.length-1)-i)*0.1)+'s'
-                }} 
-                key={char+i}>{char}</span>
-            )})
-        }</div>
+        <div className={`placeHolderAnim ${phActive && 'active'}`}>
+            <h1><div className={`text ${startAnimClass}`}>{            
+                startWordChars.map((char:any, i:any)=>{return(
+                    <span style={{
+                        animationDelay: startAnimClass == ('' || 'anim-in')
+                        ? (i*0.1)+'s' 
+                        : (((startWordChars.length-1)-i)*0.1)+'s'
+                    }}
+                    key={char+i}>{char}</span>
+                )})
+            }</div>
+            <div className={`text ${animClass}`}>{            
+                chars.map((char:any, i:any)=>{return(
+                    <span style={{
+                        animationDelay: animClass == ('' || 'anim-in') 
+                        ? (i*0.1)+'s' 
+                        : (((chars.length-1)-i)*0.1)+'s'
+                    }} 
+                    key={char+i}>{char}</span>
+                )})
+            }</div></h1>
+        </div>
     )
 }
 
