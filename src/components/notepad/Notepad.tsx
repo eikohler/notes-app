@@ -28,14 +28,20 @@ const Notepad = (props:any) => {
         setValue(newContent);        
         
         const header = editor.getContents().ops[0];
-        const str = header.insert.replace(/\s/g, '');
-        const title = str.length ? header.insert : "Untitled";        
-        const textLength = 9 + header.insert.length;
+        const title = header.insert.replace(/\s/g, '').length ? header.insert : "Untitled";        
+        // const contentLength = newContent.length <= 100 ? newContent.length : 100;
+
+        console.log(editor.getContents());
+        let text = newContent.substr((9 + header.insert.length), newContent.length);                
+
+        // if(contentLength < newContent.length) text = text + "<span>...</span>";
+
+
         
         const data = {
             title : title,
-            // text: newContent.substr(textLength, newContent.length),
-            text: "",
+            text: text,
+            // text: "<p></p>",
             content : newContent,
             id : noteID,
             colors: colors
