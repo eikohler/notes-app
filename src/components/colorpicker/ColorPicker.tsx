@@ -6,15 +6,16 @@ const { contrastColor } = require('contrast-color');
 const ColorPicker = (props:any) => {  
 
   const {setNoteColors, noteID, content, noteColors} = props;
+  const [ luminance, setLuminance ] = useState(69);
 
   // To update the input slider element
   const slider = useRef<any>(null);
+  const startColor = getRandomColor();
   
   // Set state variables
-  const [ luminance, setLuminance ] = useState(69);
-  const [ bgColor, setbgColor ] = useState(getRandomColor);
-  const [ nextBGColor, setNextBGColor ] = useState(getRandomColor);
-  const [ fgColor, setfgColor ] = useState(getFGColor);  
+  const [ bgColor, setbgColor ] = useState(startColor);
+  const [ nextBGColor, setNextBGColor ] = useState(startColor);
+  const [ fgColor, setfgColor ] = useState(getFGColor);
 
   /* When bg color state is changed:
   Save bg color to local storage
