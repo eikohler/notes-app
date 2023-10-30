@@ -3,16 +3,26 @@ import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.bubble.css';
 import toolBarOptions from "./toolBarOptions";
 import TypeText from '../typetext/TypeText';
+import ColorPicker from '../colorpicker/ColorPicker';
+import AddIcon from '@mui/icons-material/Add';
 
 const Notepad = (props:any) => {    
     
-    const {noteID, content, updateList} = props;
+    const {noteID, content, updateList, newNote} = props;
+
     const [value, setValue] = useState(content);
-    const [phActive, setphActive] = useState(true);    
+    const [phActive, setphActive] = useState(true);   
+    const [color, setColor] = useState('');
 
     useEffect(() => {
         setValue(content);        
-    }, [noteID]);    
+    }, [noteID]);
+    
+    // useEffect(() => {
+        
+    // }, [color]);
+
+    const setNoteColor = (data:any) => setColor(data);
     
     const onChange = (newContent: any, delta: any, source: any, editor: any) => {
         setValue(newContent);
@@ -25,8 +35,9 @@ const Notepad = (props:any) => {
         const data = {
             title : title,
             content : newContent,
-            id : noteID
-        }
+            id : noteID,
+            color: color
+        }        
         updateList(editor.getLength() > 1 ? data : null);        
     };
 
@@ -44,7 +55,10 @@ const Notepad = (props:any) => {
     }, []);
 
     return (
-        <>            
+        <>   
+            <div id="create-note-btn" onClick={()=>newNote()}>
+                <AddIcon />
+            </div>         
             <TypeText phActive={phActive} />            
             <ReactQuill
                 ref={quill}
@@ -53,6 +67,7 @@ const Notepad = (props:any) => {
                 onChange={onChange}
                 modules={{ toolbar: toolBarOptions }}
             />
+            <ColorPicker setNoteColor={setNoteColor} />
         </>
     );
 }

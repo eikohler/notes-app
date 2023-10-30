@@ -3,7 +3,9 @@ import {changeLightness, hslToHex, getColorLuminance} from '../../helper/helperF
 const RandColors = require('get-random-colors');
 const { contrastColor } = require('contrast-color');
 
-const ColorPicker = () => {  
+const ColorPicker = (props:any) => {  
+
+  const {setNoteColor} = props;
 
   // To update the input slider element
   const slider = useRef<any>(null);
@@ -33,6 +35,9 @@ const ColorPicker = () => {
     document.getElementById('resizeBar')!.style.backgroundColor = fgColor;
     slider.current.style.background = `linear-gradient(90deg, rgba(0, 0, 0, 0.3) ${luminance-4}%, 
     rgba(255,255,255,0) ${luminance}%)`;
+
+    // Updates the color of the note in the list
+    setNoteColor(bgColor);
   }, [bgColor]); 
 
   function getRandomColor(){
@@ -49,7 +54,6 @@ const ColorPicker = () => {
     setNextBGColor(changeLightness(value, nextBGColor));
     setbgColor(changeLightness(value, bgColor));
     setfgColor(getFGColor);
-
   }
 
   return (

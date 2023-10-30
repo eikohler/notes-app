@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { Container, Section, Bar, Resizer } from '@column-resizer/react';
 import Notepad from '../notepad/Notepad';
 import Notelist from '../notelist/Notelist';
-import ColorPicker from '../colorpicker/ColorPicker';
-import AddIcon from '@mui/icons-material/Add';
 
 function Main() {
   const [ barActive, setBarActive ] = useState(false);
@@ -18,17 +16,20 @@ function Main() {
     if(data !== null){      
       const index = noteList.findIndex((note:any) => note.id === noteID);
 
+      // Updates pre-existing note
       if(index > -1){
         setNoteList(noteList.map((note:any) => {
           if (note.id === noteID) {
-            return { ...note, title: data.title, content: data.content };
+            return { ...note, title: data.title, content: data.content, color: data.color };
           } else {        
             return note;
           }
         }));
+        // Adds new note to the note list
       }else{
         setNoteList([...noteList, data]);
       }
+      // Removes the note for having no characters
     }else{
       setNoteList(noteList.filter((note:any) => note.id !== noteID));
     }
@@ -87,16 +88,13 @@ function Main() {
           expandInteractiveArea={{right: 5, left: 5}} 
         />
       <Section id="notePad" className="column" minSize={300}>
-        <div className="inner"> 
-          <div id="create-note-btn" onClick={()=>newNote()}>
-            <AddIcon />
-          </div>
+        <div className="inner">
           <Notepad 
             noteID={noteID}
             content={content}
             updateList={updateList}
+            newNote={newNote}
           />
-          <ColorPicker />
         </div>
       </Section>
     </Container>

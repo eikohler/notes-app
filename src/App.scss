@@ -21,6 +21,14 @@
     font-family: robotoBoldItalic;
     src: url(../public/fonts/Roboto-BlackItalic.ttf);
 }
+@font-face {
+    font-family: robotoMonoLight;
+    src: url(../public/fonts/RobotoMono-Light.ttf);
+}
+@font-face {
+    font-family: robotoMono;
+    src: url(../public/fonts/RobotoMono-Regular.ttf);
+}
 
 
 // Colors
@@ -33,6 +41,7 @@ $main-bg-color: #86BBD8;
 //Fonts
 $head-font: young-serif;
 $body-font: roboto;
+$list-font: robotoMono;
 
 //Styles
 h1, h2, h3, h4, h5, h6{
@@ -91,14 +100,54 @@ main{
     }
 }
 
-// Note Containers
+
+// Note list colors
+$active: #373F51;
+$highlight: #535E79;
+$odd: rgba(19, 17, 18, 0.8);
+$even: #131112;
+$box-shadow: 0px -3px 9px rgba(0, 0, 0, 0.4);
+
+// Note List
 #noteList{
     background-color: $left-color;
     .inner{        
         height: 100%;
         overflow-y: auto;
+        .note-wrapper:not(.empty){
+            padding: 20px 25px 80px;
+            margin-bottom: -60px;
+            box-shadow: $box-shadow;
+            transition: 0.2s all;
+            cursor: pointer;
+            &:hover{
+                margin-bottom: 0px;
+            }            
+            &:nth-child(even){
+                background-color: $even;
+            }
+            &:nth-child(odd){
+                background-color: $odd;
+            }
+            .title{
+                margin: 0px;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;                                
+                font-size: 16px;
+                font-family: $list-font;
+            }
+        }
+        .note-wrapper.empty{
+            background-color: $left-color;            
+            padding: 30px;
+            box-shadow: $box-shadow;
+        }
     }     
 }
+
+// Note Pad
 #notePad{
     color: $secondary-color;
     overflow: visible !important;    
@@ -184,7 +233,7 @@ main{
     opacity: 0.7;    
     h1{
         color: inherit;
-        font-family: young-serif;
+        font-family: $head-font;
         font-size: 35px;
         font-weight: 700;        
         font-style: italic;
