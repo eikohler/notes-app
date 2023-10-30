@@ -5,6 +5,8 @@ import toolBarOptions from "./toolBarOptions";
 import TypeText from '../typetext/TypeText';
 import ColorPicker from '../colorpicker/ColorPicker';
 import AddIcon from '@mui/icons-material/Add';
+import {getHTMLTextStr} from '../../helper/helperFunctions';
+
 
 const Notepad = (props:any) => {    
     
@@ -15,7 +17,7 @@ const Notepad = (props:any) => {
     const [colors, setColors] = useState({});
 
     useEffect(() => {
-        setValue(content);        
+        setValue(content);
     }, [noteID]);
     
     useEffect(() => {
@@ -28,20 +30,12 @@ const Notepad = (props:any) => {
         setValue(newContent);        
         
         const header = editor.getContents().ops[0];
-        const title = header.insert.replace(/\s/g, '').length ? header.insert : "Untitled";        
-        // const contentLength = newContent.length <= 100 ? newContent.length : 100;
-
-        console.log(editor.getContents());
-        let text = newContent.substr((9 + header.insert.length), newContent.length);                
-
-        // if(contentLength < newContent.length) text = text + "<span>...</span>";
-
-
+        const title = header.insert.replace(/\s/g, '').length ? header.insert : "Untitled";
+        const textStr = getHTMLTextStr(newContent);
         
         const data = {
             title : title,
-            text: text,
-            // text: "<p></p>",
+            text: textStr,
             content : newContent,
             id : noteID,
             colors: colors
@@ -78,7 +72,7 @@ const Notepad = (props:any) => {
             <ColorPicker 
                 setNoteColors={setNoteColors}
                 noteID={noteID}
-                content={content}
+                content={content}                
                 noteColors={noteColors}
             />
         </>

@@ -20,4 +20,16 @@ function hslToHex(hslStr:any) {
   return `#${f(0)}${f(8)}${f(4)}`;
 }
 
-export {changeLightness, hslToHex, getColorLuminance};
+function getHTMLTextStr(str:any){
+  let temp = document.createElement('div');
+  temp.innerHTML = str;
+  let arr = Array.prototype.map.call(temp.childNodes, function(node) {
+      return node.nodeType === 1 
+          ? node.outerHTML
+          : node.nodeValue;
+  });
+  arr = arr.slice(1, 7);
+  return arr.join('');
+}
+
+export {changeLightness, hslToHex, getColorLuminance, getHTMLTextStr};

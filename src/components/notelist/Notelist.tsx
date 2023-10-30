@@ -12,8 +12,7 @@ const Notelist = (props:any) => {
                     key={"wrapper-"+note.id} className="note-wrapper"
                     style={{
                         backgroundColor: note.colors.bgColor,
-                        color: note.colors.fgColor,
-                        borderBottom: `20px solid ${note.colors.bgColor}`
+                        color: note.colors.fgColor                    
                     }}>
                         <p key={"title-"+note.id} className="title">{note.title}</p>
                         <div key={"text"+note.id}>{parse(note.text)}</div>                        

@@ -9,19 +9,12 @@ const ColorPicker = (props:any) => {
 
   // To update the input slider element
   const slider = useRef<any>(null);
-
-  // Get last used color and luminance from local storage
-  // Set luminance to last stored color luminance, if none defaults to 69
-  // Set bg color to last stored, if none gets random color
-  const color = localStorage.getItem('bg_color'),
-  storedLuminance = color ? getColorLuminance(color) : 69,
-  storedColor = color || getRandomColor;
   
   // Set state variables
-  const [ luminance, setLuminance ] = useState(storedLuminance);
-  const [ bgColor, setbgColor ] = useState(storedColor);
+  const [ luminance, setLuminance ] = useState(69);
+  const [ bgColor, setbgColor ] = useState(getRandomColor);
   const [ nextBGColor, setNextBGColor ] = useState(getRandomColor);
-  const [ fgColor, setfgColor ] = useState(getFGColor);
+  const [ fgColor, setfgColor ] = useState(getFGColor);  
 
   /* When bg color state is changed:
   Save bg color to local storage
@@ -29,7 +22,6 @@ const ColorPicker = (props:any) => {
   Update Text color and resize bar color
   Update input slider background */
   useEffect(() => {
-    localStorage.setItem('bg_color', bgColor);
     document.body.style.backgroundColor = bgColor;
     document.getElementById('notePad')!.style.color = fgColor;
     document.getElementById('resizeBar')!.style.backgroundColor = fgColor;
@@ -38,7 +30,7 @@ const ColorPicker = (props:any) => {
 
     // Updates the color of the note in the list
     setNoteColors({bgColor: bgColor, fgColor: fgColor});
-  }, [bgColor]); 
+  }, [bgColor]);
 
   useEffect(() => {
     if(content == ""){
@@ -48,7 +40,7 @@ const ColorPicker = (props:any) => {
       setfgColor(noteColors.fgColor);
       setLuminance(getColorLuminance(noteColors.bgColor));
       setbgColor(noteColors.bgColor);
-    }
+    }    
   }, [noteID]);
 
   function getRandomColor(){
