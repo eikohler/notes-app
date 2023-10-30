@@ -10,6 +10,7 @@ function Main() {
   const [ noteList, setNoteList ] = useState(JSON.parse(localStorage.getItem("noteList")!) || []);
   const [ noteID, setNoteID ] = useState(noteList.length > 0 ? noteList[noteList.length-1].id + 1 : 0);
   const [ content, setContent ] = useState("");
+  const [ noteColors, setNoteColors ] = useState({});
 
   // Update state variables functions
   const updateList = (data:any) => {
@@ -20,7 +21,7 @@ function Main() {
       if(index > -1){
         setNoteList(noteList.map((note:any) => {
           if (note.id === noteID) {
-            return { ...note, title: data.title, content: data.content, color: data.color };
+            return { ...note, title: data.title, content: data.content, colors: data.colors };
           } else {        
             return note;
           }
@@ -34,6 +35,19 @@ function Main() {
       setNoteList(noteList.filter((note:any) => note.id !== noteID));
     }
   };
+
+  const updateNoteColors = (colors:any) =>{
+    const index = noteList.findIndex((note:any) => note.id === noteID);
+    if(index > -1){
+      setNoteList(noteList.map((note:any) => {
+        if (note.id === noteID) {
+          return { ...note, colors: colors };
+        } else {        
+          return note;
+        }
+      }));
+    }
+  }
   const deleteNote = (id:any) => {    
     setNoteList(noteList.filter((note:any) => note.id !== id));
     if(id === noteID) newNote();
@@ -42,6 +56,7 @@ function Main() {
     const i = noteList.findIndex((note:any) => note.id === id);
     setNoteID(id);
     setContent(noteList[i].content);
+    setNoteColors(noteList[i].colors);
   };
   const newNote = () =>{
     const id = noteList.length > 0 ? noteList[noteList.length-1].id + 1 : 0;
@@ -92,7 +107,9 @@ function Main() {
           <Notepad 
             noteID={noteID}
             content={content}
+            noteColors={noteColors}
             updateList={updateList}
+            updateNoteColors={updateNoteColors}
             newNote={newNote}
           />
         </div>

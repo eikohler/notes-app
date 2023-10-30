@@ -8,21 +8,21 @@ import AddIcon from '@mui/icons-material/Add';
 
 const Notepad = (props:any) => {    
     
-    const {noteID, content, updateList, newNote} = props;
+    const {noteID, content, noteColors, updateList, updateNoteColors, newNote} = props;
 
     const [value, setValue] = useState(content);
     const [phActive, setphActive] = useState(true);   
-    const [color, setColor] = useState('');
+    const [colors, setColors] = useState({});
 
     useEffect(() => {
         setValue(content);        
     }, [noteID]);
     
-    // useEffect(() => {
-        
-    // }, [color]);
+    useEffect(() => {
+        updateNoteColors(colors);
+    }, [colors]);
 
-    const setNoteColor = (data:any) => setColor(data);
+    const setNoteColors = (data:any) => setColors(data);
     
     const onChange = (newContent: any, delta: any, source: any, editor: any) => {
         setValue(newContent);
@@ -36,7 +36,7 @@ const Notepad = (props:any) => {
             title : title,
             content : newContent,
             id : noteID,
-            color: color
+            colors: colors
         }        
         updateList(editor.getLength() > 1 ? data : null);        
     };
@@ -67,7 +67,12 @@ const Notepad = (props:any) => {
                 onChange={onChange}
                 modules={{ toolbar: toolBarOptions }}
             />
-            <ColorPicker setNoteColor={setNoteColor} />
+            <ColorPicker 
+                setNoteColors={setNoteColors}
+                noteID={noteID}
+                content={content}
+                noteColors={noteColors}
+            />
         </>
     );
 }

@@ -5,7 +5,7 @@ const { contrastColor } = require('contrast-color');
 
 const ColorPicker = (props:any) => {  
 
-  const {setNoteColor} = props;
+  const {setNoteColors, noteID, content, noteColors} = props;
 
   // To update the input slider element
   const slider = useRef<any>(null);
@@ -29,6 +29,7 @@ const ColorPicker = (props:any) => {
   Update Text color and resize bar color
   Update input slider background */
   useEffect(() => {
+    console.log(bgColor);
     localStorage.setItem('bg_color', bgColor);
     document.body.style.backgroundColor = bgColor;
     document.getElementById('notePad')!.style.color = fgColor;
@@ -37,8 +38,20 @@ const ColorPicker = (props:any) => {
     rgba(255,255,255,0) ${luminance}%)`;
 
     // Updates the color of the note in the list
-    setNoteColor(bgColor);
+    setNoteColors({bgColor: bgColor, fgColor: fgColor});
   }, [bgColor]); 
+
+  useEffect(() => {
+    if(content == ""){
+      setbgColor(nextBGColor);
+      setNextBGColor(getRandomColor);
+    }else{
+      console.log(noteColors);
+      setfgColor(noteColors.fgColor);
+      setLuminance(getColorLuminance(noteColors.bgColor));
+      setbgColor(noteColors.bgColor);
+    }
+  }, [noteID]);
 
   function getRandomColor(){
     return (RandColors.getRandomColors(luminance, 1)).hslColorLists[0];
