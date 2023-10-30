@@ -21,7 +21,12 @@ function Main() {
       if(index > -1){
         setNoteList(noteList.map((note:any) => {
           if (note.id === noteID) {
-            return { ...note, title: data.title, content: data.content, colors: data.colors };
+            return { ...note, 
+              title: data.title, 
+              content: data.content, 
+              colors: data.colors,
+              text: data.text
+            };
           } else {        
             return note;
           }

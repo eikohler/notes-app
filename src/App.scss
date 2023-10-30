@@ -22,8 +22,8 @@
     src: url(../public/fonts/Roboto-BlackItalic.ttf);
 }
 @font-face {
-    font-family: robotoMonoLight;
-    src: url(../public/fonts/RobotoMono-Light.ttf);
+    font-family: robotoMonoMedium;
+    src: url(../public/fonts/RobotoMono-Medium.ttf);
 }
 @font-face {
     font-family: robotoMono;
@@ -41,7 +41,6 @@ $main-bg-color: #86BBD8;
 //Fonts
 $head-font: young-serif;
 $body-font: roboto;
-$list-font: robotoMono;
 
 //Styles
 h1, h2, h3, h4, h5, h6{
@@ -129,14 +128,19 @@ $box-shadow: 0px -3px 9px rgba(0, 0, 0, 0.4);
             &:nth-child(odd){
                 background-color: $odd;
             }
-            .title{
-                margin: 0px;
-                display: -webkit-box;
-                -webkit-line-clamp: 1;
-                -webkit-box-orient: vertical;
-                overflow: hidden;                                
+            p{
+                margin: 0px;                                    
                 font-size: 16px;
-                font-family: $list-font;
+                &.title{
+                    font-family: $head-font;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 1;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;                  
+                }
+                // &.text-content{
+
+                // }
             }
         }
         .note-wrapper.empty{

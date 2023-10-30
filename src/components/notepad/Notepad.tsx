@@ -25,15 +25,17 @@ const Notepad = (props:any) => {
     const setNoteColors = (data:any) => setColors(data);
     
     const onChange = (newContent: any, delta: any, source: any, editor: any) => {
-        setValue(newContent);
-
+        setValue(newContent);        
+        
         const header = editor.getContents().ops[0];
-        let str = header.insert;
-        str = str.replace(/\s/g, '');
-        const title = str.length ? header.insert : "Untitled";
+        const str = header.insert.replace(/\s/g, '');
+        const title = str.length ? header.insert : "Untitled";        
+        const textLength = 9 + header.insert.length;
         
         const data = {
             title : title,
+            // text: newContent.substr(textLength, newContent.length),
+            text: "",
             content : newContent,
             id : noteID,
             colors: colors

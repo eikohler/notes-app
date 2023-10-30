@@ -29,7 +29,6 @@ const ColorPicker = (props:any) => {
   Update Text color and resize bar color
   Update input slider background */
   useEffect(() => {
-    console.log(bgColor);
     localStorage.setItem('bg_color', bgColor);
     document.body.style.backgroundColor = bgColor;
     document.getElementById('notePad')!.style.color = fgColor;
@@ -46,7 +45,6 @@ const ColorPicker = (props:any) => {
       setbgColor(nextBGColor);
       setNextBGColor(getRandomColor);
     }else{
-      console.log(noteColors);
       setfgColor(noteColors.fgColor);
       setLuminance(getColorLuminance(noteColors.bgColor));
       setbgColor(noteColors.bgColor);

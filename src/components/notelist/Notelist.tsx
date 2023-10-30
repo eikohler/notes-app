@@ -12,6 +12,9 @@ const Notelist = (props:any) => {
                         <p key={"title-"+note.id} className="title">
                             {note.title}
                         </p>
+                        <p className="text-content" key={"text"+note.id}>
+                            {note.text}
+                        </p>
                         {/* <button key={"remove-"+note.id} onClick={()=> deleteNote(note.id)}>Delete</button> */}
                     </div>
                 )
