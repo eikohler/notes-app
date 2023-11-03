@@ -29,18 +29,22 @@ const Notepad = (props:any) => {
     const onChange = (newContent: any, delta: any, source: any, editor: any) => {
         setValue(newContent);        
         
-        const header = editor.getContents().ops[0];
-        const title = header.insert.replace(/\s/g, '').length ? header.insert : "Untitled";
-        const textStr = getHTMLTextStr(newContent);
-        
-        const data = {
-            title : title,
-            text: textStr,
-            content : newContent,
-            id : noteID,
-            colors: colors
-        }        
-        updateList(editor.getLength() > 1 ? data : null);        
+        if(editor.getLength() > 1){
+            const header = editor.getContents().ops[0];
+            const title = header.insert.replace(/\s/g, '').length ? header.insert : "Untitled";
+            const textStr = getHTMLTextStr(newContent);
+            
+            const data = {
+                title : title,
+                text: textStr,
+                content : newContent,
+                id : noteID,
+                colors: colors
+            }        
+            updateList(data);
+        }else{
+            updateList(null);        
+        }
     };
 
     const quill = useCallback((quill:any) => {

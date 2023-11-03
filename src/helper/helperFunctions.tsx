@@ -1,3 +1,5 @@
+const truncate = require('html-truncate');
+
 function changeLightness(newLightness:any, hslStr:any){
   const [hue, saturation] = hslStr.match(/\d+/g).map(Number);  
   return `hsl(${hue}, ${saturation}%, ${newLightness}%)`;
@@ -27,8 +29,12 @@ function getHTMLTextStr(str:any){
       return node.nodeType === 1 
           ? node.outerHTML
           : node.nodeValue;
-  });  
-  return arr[1];
+  });
+  if(arr[1]){
+    return truncate(arr[1], 70);
+  }else{
+    return "";
+  }
 }
 
 export {changeLightness, hslToHex, getColorLuminance, getHTMLTextStr};

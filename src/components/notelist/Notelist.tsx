@@ -19,7 +19,7 @@ const Notelist = (props:any) => {
                         color: showIndex === i || noteID == note.id ? note.colors.fgColor : '#fff',
                     }}>
                         <p key={"title-"+note.id} className="title">{note.title}</p>
-                        <div key={"text"+note.id}>{parse(note.text)}</div>                        
+                        <div className="text-content" key={"text"+note.id}>{parse(note.text)}</div>                        
                         {/* <button key={"remove-"+note.id} onClick={()=> deleteNote(note.id)}>Delete</button> */}
                     </div>
                 )
