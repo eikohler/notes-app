@@ -41,6 +41,10 @@ function Main() {
     }
   };
 
+  const newOrderList = (data:any) =>{
+    setNoteList([...data]);
+  }
+
   const updateNoteColors = (colors:any) =>{
     const index = noteList.findIndex((note:any) => note.id === noteID);
     if(index > -1){
@@ -98,6 +102,7 @@ function Main() {
             noteList={noteList} 
             loadNote={loadNote}
             deleteNote={deleteNote}
+            newOrderList={newOrderList}
           />          
         </div>
       </Section>
