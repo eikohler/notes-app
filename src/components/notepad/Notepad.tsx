@@ -72,7 +72,6 @@ const Notepad = (props:any) => {
             <ColorPicker 
                 setNoteColors={setNoteColors}
                 noteID={noteID}
-                content={content}                
                 noteColors={noteColors}
             />
         </>

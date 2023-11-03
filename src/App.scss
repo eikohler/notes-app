@@ -100,12 +100,8 @@ main{
 }
 
 
-// Note list colors
-$active: #373F51;
-$highlight: #535E79;
-$odd: rgba(19, 17, 18, 0.8);
-$even: #131112;
-$box-shadow: 0px -3px 9px rgba(0, 0, 0, 0.4);
+// Note List Variables
+$box-shadow: 0px -3px 9px rgba(0, 0, 0, 0.2);
 
 // Note List
 #noteList{
@@ -115,35 +111,32 @@ $box-shadow: 0px -3px 9px rgba(0, 0, 0, 0.4);
         overflow-y: auto;
         .note-wrapper:not(.empty){
             cursor: pointer;
-            padding: 20px 25px 15px;
-            box-shadow: 0px -3px 9px rgba(0, 0, 0, 0.4);
-            transition: 0.2s height;
-            height: 20px;
-            overflow: hidden;
-            &:hover{
-                height: 100px;
-            }
-            &:nth-child(even){
-                background-color: $even;
-            }
-            &:nth-child(odd){
-                background-color: $odd;
-            }
+            padding: 20px 25px 10px;
+            box-shadow: $box-shadow;
+            transition: 0.2s height ease, 0.2s background-color ease;
+            height: 20px;            
+            overflow: hidden;            
             *{
                 margin: 0px;                                    
                 font-size: 12px;
-                opacity: 0.9;
+                opacity: 0.5;
                 &.title{
                     font-family: $head-font;
                     display: -webkit-box;
                     -webkit-line-clamp: 1;
                     -webkit-box-orient: vertical;
                     overflow: hidden;                  
-                    margin-bottom: 15px;
+                    margin-bottom: 10px;
                     font-size: 16px;
                     font-weight: 700;
-                }
-            }  
+                }                
+            } 
+            &:hover{
+                height: 100px;                
+                *{                    
+                    opacity: 0.9;                    
+                } 
+            } 
         }
         .note-wrapper.empty:not(:nth-child(1)){
             background-color: $left-color;            

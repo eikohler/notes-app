@@ -5,17 +5,23 @@ const { contrastColor } = require('contrast-color');
 
 const ColorPicker = (props:any) => {  
 
-  const {setNoteColors, noteID, content, noteColors} = props;
-  const [ luminance, setLuminance ] = useState(69);
-
+  const {setNoteColors, noteID, noteColors} = props;
+  
   // To update the input slider element
   const slider = useRef<any>(null);
-  const startColor = getRandomColor();
+
+  // Get last used color and luminance from local storage
+  // Set luminance to last stored color luminance, if none defaults to 69
+  // Set bg color to last stored, if none gets random color
+  const color = localStorage.getItem('bg_color'),
+  storedLuminance = color ? getColorLuminance(color) : 69,
+  storedColor = color || getRandomColor;
   
   // Set state variables
-  const [ bgColor, setbgColor ] = useState(startColor);
-  const [ nextBGColor, setNextBGColor ] = useState(startColor);
-  const [ fgColor, setfgColor ] = useState(getFGColor);
+  const [ luminance, setLuminance ] = useState(storedLuminance);
+  const [ fgColor, setfgColor ] = useState('');
+  const [ bgColor, setbgColor ] = useState(storedColor);
+  const [ nextBGColor, setNextBGColor ] = useState(getRandomColor);
 
   /* When bg color state is changed:
   Save bg color to local storage
@@ -23,25 +29,26 @@ const ColorPicker = (props:any) => {
   Update Text color and resize bar color
   Update input slider background */
   useEffect(() => {
+    const newFGColor = getFGColor();
+    setfgColor(newFGColor);
+    localStorage.setItem('bg_color', bgColor);
     document.body.style.backgroundColor = bgColor;
-    document.getElementById('notePad')!.style.color = fgColor;
-    document.getElementById('resizeBar')!.style.backgroundColor = fgColor;
+    document.getElementById('notePad')!.style.color = newFGColor;
+    document.getElementById('resizeBar')!.style.backgroundColor = newFGColor;
     slider.current.style.background = `linear-gradient(90deg, rgba(0, 0, 0, 0.3) ${luminance-4}%, 
     rgba(255,255,255,0) ${luminance}%)`;
 
     // Updates the color of the note in the list
-    setNoteColors({bgColor: bgColor, fgColor: fgColor});
+    setNoteColors({bgColor: bgColor, fgColor: newFGColor});
   }, [bgColor]);
 
   useEffect(() => {
-    if(content == ""){
-      setbgColor(nextBGColor);
-      setNextBGColor(getRandomColor);
-    }else{
-      setfgColor(noteColors.fgColor);
-      setLuminance(getColorLuminance(noteColors.bgColor));
-      setbgColor(noteColors.bgColor);
-    }    
+    if(noteColors.bgColor != null){
+      const newLuminance = getColorLuminance(noteColors.bgColor);
+      setLuminance(newLuminance);
+      setNextBGColor(changeLightness(newLuminance, nextBGColor));
+      setbgColor(noteColors.bgColor);    
+    }
   }, [noteID]);
 
   function getRandomColor(){
@@ -55,9 +62,8 @@ const ColorPicker = (props:any) => {
   function updateLuminance(event:any){
     const value = parseInt(event.target.value);    
     setLuminance(value);
-    setNextBGColor(changeLightness(value, nextBGColor));
+    setNextBGColor(changeLightness(value, nextBGColor));    
     setbgColor(changeLightness(value, bgColor));
-    setfgColor(getFGColor);
   }
 
   return (
