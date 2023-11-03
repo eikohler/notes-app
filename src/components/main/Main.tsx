@@ -95,6 +95,7 @@ function Main() {
       <Section id="noteList" className="column" defaultSize={300}>
         <div className="inner">          
           <Notelist 
+            noteID={noteID}
             noteList={noteList} 
             loadNote={loadNote}
             deleteNote={deleteNote}

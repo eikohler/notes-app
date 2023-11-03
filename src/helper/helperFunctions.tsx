@@ -28,7 +28,7 @@ function getHTMLTextStr(str:any){
           ? node.outerHTML
           : node.nodeValue;
   });
-  arr = arr.slice(1, 7);
+  arr = arr.slice(1, 2);
   return arr.join('');
 }
 
