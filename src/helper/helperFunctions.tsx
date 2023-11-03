@@ -27,9 +27,8 @@ function getHTMLTextStr(str:any){
       return node.nodeType === 1 
           ? node.outerHTML
           : node.nodeValue;
-  });
-  arr = arr.slice(1, 2);
-  return arr.join('');
+  });  
+  return arr[1];
 }
 
 export {changeLightness, hslToHex, getColorLuminance, getHTMLTextStr};

@@ -19,7 +19,6 @@ const ColorPicker = (props:any) => {
   
   // Set state variables
   const [ luminance, setLuminance ] = useState(storedLuminance);
-  const [ fgColor, setfgColor ] = useState('');
   const [ bgColor, setbgColor ] = useState(storedColor);
   const [ nextBGColor, setNextBGColor ] = useState(getRandomColor);
 
@@ -30,8 +29,9 @@ const ColorPicker = (props:any) => {
   Update input slider background */
   useEffect(() => {
     const newFGColor = getFGColor();
-    setfgColor(newFGColor);
+
     localStorage.setItem('bg_color', bgColor);
+    
     document.body.style.backgroundColor = bgColor;
     document.getElementById('notePad')!.style.color = newFGColor;
     document.getElementById('resizeBar')!.style.backgroundColor = newFGColor;
