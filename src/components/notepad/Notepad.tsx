@@ -31,7 +31,7 @@ const Notepad = (props:any) => {
         
         if(editor.getLength() > 1){
             const header = editor.getContents().ops[0];
-            const title = header.insert.replace(/\s/g, '').length ? header.insert : "Untitled";
+            const title = header.insert.replace(/\s/g, '').length ? header.insert : "New Note";
             const textStr = getHTMLTextStr(newContent);
             
             const data = {
@@ -64,8 +64,8 @@ const Notepad = (props:any) => {
         <>   
             <div id="create-note-btn" onClick={()=>newNote()}>
                 <AddIcon />
-            </div>         
-            <TypeText phActive={phActive} />            
+            </div>   
+            {phActive && (<TypeText />)}
             <ReactQuill
                 ref={quill}
                 theme="bubble"

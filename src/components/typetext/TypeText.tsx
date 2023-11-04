@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 
-const TypeText = (props:any) => {
-
-    const {phActive} = props;
+const TypeText = () => {
 
     // For editor placeholder text     
     const startWordChars = "Your ".split('');
@@ -60,7 +58,7 @@ const TypeText = (props:any) => {
 
 
     return (
-        <div className={`placeHolderAnim ${phActive && 'active'}`}>
+        <div className={`placeHolderAnim`}>
             <h1><div className={`text ${startAnimClass}`}>{            
                 startWordChars.map((char:any, i:any)=>{return(
                     <span style={{

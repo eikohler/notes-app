@@ -30,11 +30,8 @@ function getHTMLTextStr(str:any){
           ? node.outerHTML
           : node.nodeValue;
   });
-  if(arr[1]){
-    return truncate(arr[1], 70);
-  }else{
-    return "";
-  }
+  const text = arr.slice(1, arr.length).find(el => el != null && el != '<p><br></p>');
+  return text != null ? truncate(text, 70) : "";
 }
 
 export {changeLightness, hslToHex, getColorLuminance, getHTMLTextStr};
