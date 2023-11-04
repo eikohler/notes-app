@@ -66,7 +66,7 @@ function Main() {
   const newNote = () =>{
     const id = noteList.length > 0 ? noteList[noteList.length-1].id + 1 : 0;
     setNoteID(id);
-    setContent("");
+    setContent("");    
   };
   
   const collapseCol = (resizer: Resizer) : void => {

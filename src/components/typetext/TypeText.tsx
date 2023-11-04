@@ -23,10 +23,8 @@ const TypeText = () => {
         let initialWait = 0;
 
         if(index === 0){
-            initialWait = startAnimTime+1000;
-            setTimeout(function(){
-                setStartAnimClass('anim-in');
-            }, 1000);
+            initialWait = startAnimTime;            
+            setStartAnimClass('anim-in');            
         }
 
         const timer = setTimeout(function(){
@@ -42,7 +40,7 @@ const TypeText = () => {
                         setStartAnimClass('anim-out');
                         setTimeout(function(){                            
                             setChars(textArr[newIndex].split(''));
-                        }, startAnimTime);
+                        }, startAnimTime+1000);
                     }else{
                         setChars(textArr[newIndex].split(''));                                          
                     }

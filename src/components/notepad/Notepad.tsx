@@ -31,7 +31,7 @@ const Notepad = (props:any) => {
         
         if(editor.getLength() > 1){
             const header = editor.getContents().ops[0];
-            const title = header.insert.replace(/\s/g, '').length ? header.insert : "New Note";
+            const title = header.insert.replace(/\s/g, '').length ? header.insert : "Untitled Note";
             const textStr = getHTMLTextStr(newContent);
             
             const data = {
