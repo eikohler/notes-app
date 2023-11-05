@@ -64,10 +64,19 @@ function Main() {
     setNoteColors(noteList[i].colors);
   };
   const newNote = () =>{
-    const id = noteList.length > 0 ? noteList[noteList.length-1].id + 1 : 0;
+    let id = 0;
+    if(noteList.length > 0){
+      const arr = noteList.map((note:any)=> note.id);      
+      id = Math.max(...arr) + 1;
+    }
+    
     setNoteID(id);
     setContent("");    
   };
+
+  const newOrderList = (data:any) =>{
+    setNoteList([...data]);
+  }
   
   const collapseCol = (resizer: Resizer) : void => {
     if (resizer.getSectionSize(0) < 100) {
@@ -99,6 +108,7 @@ function Main() {
             noteList={noteList} 
             loadNote={loadNote}
             deleteNote={deleteNote}
+            newOrderList={newOrderList}
           />          
         </div>
       </Section>
