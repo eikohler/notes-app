@@ -395,6 +395,7 @@ main{
     }
     &.active{
         section{
+            pointer-events: all !important;
             opacity: 1;
             transform: scale(1);
         }

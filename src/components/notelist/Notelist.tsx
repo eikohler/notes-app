@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 const Notelist = (props:any) => {
 
-    const {noteID, noteList, loadNote, deleteNote, newOrderList, updateDragState} = props;    
+    const {noteID, noteList, loadNote, newOrderList, updateDragState} = props;    
     const [hoverIndex, setHoverIndex] = useState(-1);
     const [dragIndex, setDragIndex] = useState(-1);
     const [dragOverIndex, setDragOverIndex] = useState(-1);     

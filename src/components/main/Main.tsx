@@ -20,7 +20,7 @@ function Main() {
   const [colWidth, setColWidth] = useState(300);
   const [showTrash, setShowTrash] = useState(false);
   const [trashCoords, setTrashCoords] = useState({x: 0, y: 0});
-  const [scaleDiff, setScaleDiff] = useState(0);
+  const [scaleDiff, setScaleDiff] = useState(1);
   const [width, setWidth] = useState(colWidth >= 200 ? colWidth : 200);
 
   const mousePosition = useMousePosition();
@@ -63,9 +63,9 @@ function Main() {
       }));
     }
   }
-  const deleteNote = (id:any) => {    
-    setNoteList(noteList.filter((note:any) => note.id !== id));
-    if(id === noteID) newNote();
+  const deleteNote = () => {    
+    setNoteList(noteList.filter((note:any) => note.id !== noteID));
+    newNote();
   }
   const loadNote = (id:any) => {
     const i = noteList.findIndex((note:any) => note.id === id);
@@ -119,7 +119,7 @@ function Main() {
       setScaleDiff(((getDiff(mousePosition.x, trashCoords.x) + getDiff(mousePosition.y, trashCoords.y))/2)/100);
     }else{
       setShowTrash(false);
-      setScaleDiff(0);
+      setScaleDiff(1);
     }
   }, [mousePosition, isDragging]);
 
@@ -145,7 +145,6 @@ function Main() {
               noteID={noteID}
               noteList={noteList} 
               loadNote={loadNote}
-              deleteNote={deleteNote}
               newOrderList={newOrderList}
               updateDragState={updateDragState}
             />          
@@ -172,6 +171,7 @@ function Main() {
               showTrash={showTrash}
               scaleDiff={scaleDiff}
               updateTrashCoords={updateTrashCoords} 
+              deleteNote={deleteNote}
             />
           </div>
         </Section>
