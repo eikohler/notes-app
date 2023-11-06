@@ -57,7 +57,7 @@ const Notelist = (props:any) => {
                     style={{
                         backgroundColor: hover || active
                         ? note.colors.bgColor 
-                        : '#2a2b2a',                        
+                        : '#2a2b2a',
 
                         color: hover || active 
                         ? note.colors.fgColor 
