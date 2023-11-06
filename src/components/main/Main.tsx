@@ -4,6 +4,7 @@ import Notepad from '../notepad/Notepad';
 import Notelist from '../notelist/Notelist';
 import {getNextID} from '../../helper/helperFunctions';
 import FloatingNote from '../floatingnote/FloatingNote';
+import TrashCan from '../trashcan/TrashCan';
 
 function Main() {
   const [ barActive, setBarActive ] = useState(false);
@@ -141,6 +142,7 @@ function Main() {
               updateNoteColors={updateNoteColors}
               newNote={newNote}
             />
+            <TrashCan />
           </div>
         </Section>
       </Container>

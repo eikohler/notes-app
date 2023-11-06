@@ -359,6 +359,26 @@ main{
     }
 }
 
+#delete-note-container{
+    pointer-events: none;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    left: 0px;
+    width: 99%;
+    section{        
+        pointer-events: all;
+        display: flex;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0px 0px 8px rgb(0 0 0 / 10%);
+        padding: 22px;
+        border-radius: 20px;
+        transition: 0.2s all;
+        cursor: pointer;
+    }
+}
+
 main.drag{
     #color-picker, #create-note-btn, #notePad{
         *{
