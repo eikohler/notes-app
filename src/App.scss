@@ -167,7 +167,6 @@ main{
             opacity: 1; 
             transform: translate(0px, -50%);
             &.fly{
-                // transform: translate(-50%, -50%);
                 transform-origin: 0 0;
                 -webkit-transform-origin: 0 0;
                 height: 60px;
@@ -363,7 +362,7 @@ main{
 }
 
 #delete-note-container{
-    // pointer-events: none;
+    pointer-events: none;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -390,31 +389,14 @@ main{
             width: 117px;
             position: absolute;
             left: 44px;
-            top: -10px;
-            // transform: rotate(19deg);      
+            top: -10px;                  
             opacity: 0;
         }        
     }
     &.active{
-        #hover-radius{
-            pointer-events: all;
-            position: absolute;
-            // opacity: 0;
-            background: red;
-            bottom: -50%;
-            width: 70%;
-            height: 60vh;
-            border-radius: 100%;
-        }
         section{
             opacity: 1;
             transform: scale(1);
-            // #tc-1{
-            //     opacity: 0;
-            // }
-            // #tc-2{            
-            //     opacity: 1;
-            // }   
         }
     }
     &.inner-active{

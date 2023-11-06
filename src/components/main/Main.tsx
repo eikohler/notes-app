@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Container, Section, Bar, Resizer } from '@column-resizer/react';
 import Notepad from '../notepad/Notepad';
 import Notelist from '../notelist/Notelist';
-import {getNextID} from '../../helper/helperFunctions';
+import {getNextID, getDiff} from '../../helper/helperFunctions';
 import FloatingNote from '../floatingnote/FloatingNote';
 import TrashCan from '../trashcan/TrashCan';
 import useMousePosition from '../../hooks/UseMousePosition';
@@ -20,6 +20,8 @@ function Main() {
   const [colWidth, setColWidth] = useState(300);
   const [showTrash, setShowTrash] = useState(false);
   const [trashCoords, setTrashCoords] = useState({x: 0, y: 0});
+  const [scaleDiff, setScaleDiff] = useState(0);
+  const [width, setWidth] = useState(colWidth >= 200 ? colWidth : 200);
 
   const mousePosition = useMousePosition();
 
@@ -105,11 +107,21 @@ function Main() {
   // Set the index of the active note in the list
   useEffect(() => {
     setActiveIndex(noteList.findIndex((note:any) => note.id === noteID));
-  }, [noteID, noteList]);   
+  }, [noteID, noteList]);  
+  
+  useEffect(() => {
+    setWidth(colWidth >= 200 ? colWidth : 200);
+  }, [colWidth]);
 
   useEffect(() => {
-    setShowTrash(mousePosition.x! > colWidth && isDragging);
-  }, [mousePosition, isDragging]);  
+    if(mousePosition.x! > colWidth && isDragging){
+      setShowTrash(true);
+      setScaleDiff(((getDiff(mousePosition.x, trashCoords.x) + getDiff(mousePosition.y, trashCoords.y))/2)/100);
+    }else{
+      setShowTrash(false);
+      setScaleDiff(0);
+    }
+  }, [mousePosition, isDragging]);
 
   return (
     <main className={`${isDragging ? "drag" : ""}`}>
@@ -117,7 +129,9 @@ function Main() {
         note={noteList[activeIndex]}
         isDragging={isDragging}
         colWidth={colWidth}
-        trashCoords={trashCoords}
+        mousePosition={mousePosition}
+        scaleDiff={scaleDiff}
+        width={width}
       />       
       <Container 
         className={`columns-container ${barActive ? "active" : ""}`}
@@ -156,6 +170,7 @@ function Main() {
             />
             <TrashCan 
               showTrash={showTrash}
+              scaleDiff={scaleDiff}
               updateTrashCoords={updateTrashCoords} 
             />
           </div>

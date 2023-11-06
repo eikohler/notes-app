@@ -2,8 +2,7 @@ import {useState, useEffect} from 'react';
 
 const TrashCan = (props:any) => {
 
-    const {showTrash, updateTrashCoords} = props;
-    // const [innerActive, setInnerActive] = useState(false);
+    const {showTrash, scaleDiff, updateTrashCoords} = props;
 
     useEffect(() => {        
         const coords = document.getElementById('trash-can')!.getBoundingClientRect();
@@ -14,11 +13,7 @@ const TrashCan = (props:any) => {
 
     return (
         <div id="delete-note-container" 
-        // className={`${showTrash ? 'active' : ''} ${innerActive ? 'inner-active' : ''}`}
-        // className={`active ${innerActive ? 'inner-active' : ''}`}
-        className={`${showTrash ? 'active' : ''}`}
-        // className="active"
-        >            
+        className={`${showTrash ? 'active' : ''} ${scaleDiff <= 0.5 ? 'inner-active' : ''}`}>            
             <section id="trash-can">
                 <img id="tc-1" src={require(`../../images/trashcan_1.png`)} alt="Trash Can" />            
                 <img id="tc-2" src={require(`../../images/trashcan_2.png`)} alt="Trash Can" />            

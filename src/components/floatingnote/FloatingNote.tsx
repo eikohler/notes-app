@@ -1,30 +1,11 @@
 import parse from 'html-react-parser';
-import useMousePosition from '../../hooks/UseMousePosition';
-import {changeLightness, getDiff} from '../../helper/helperFunctions';
-
+import {changeLightness} from '../../helper/helperFunctions';
 import { useEffect, useState } from 'react';
 
 const FloatingNote = (props: any) => {
 
-    const {note, isDragging, colWidth, trashCoords} = props;
-    const [width, setWidth] = useState(colWidth >= 200 ? colWidth : 200);
+    const {note, isDragging, mousePosition, scaleDiff, width} = props;    
     const [flyBGColor, setFlyBGColor] = useState('');
-    const [scaleDiff, setScaleDiff] = useState(0);
-    const mousePosition = useMousePosition();    
-
-    useEffect(() => {
-        setWidth(colWidth >= 200 ? colWidth : 200);
-    }, [colWidth]);   
-
-    useEffect(() => {
-        if(mousePosition.x! > width && isDragging){
-            const diff = ((getDiff(mousePosition.x, trashCoords.x) + getDiff(mousePosition.y, trashCoords.y))/2)/100;
-            console.log(diff);
-            setScaleDiff(diff);
-        }else{
-            setScaleDiff(0);
-        }
-    }, [mousePosition]);
 
     useEffect(() => {
         if(note){
@@ -34,7 +15,7 @@ const FloatingNote = (props: any) => {
                 setFlyBGColor(changeLightness(20, note.colors.bgColor));
             }
         }
-    }, [note]);    
+    }, [note]);
 
     return (
         <>
