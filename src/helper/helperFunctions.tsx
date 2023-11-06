@@ -34,4 +34,9 @@ function getHTMLTextStr(str:any){
   return text != null ? truncate(text, 70) : "";
 }
 
-export {changeLightness, hslToHex, getColorLuminance, getHTMLTextStr};
+function getNextID(list:any){
+  const arr = list.map((note:any)=> note.id);
+  return Math.max(...arr) + 1;
+}
+
+export {changeLightness, hslToHex, getColorLuminance, getHTMLTextStr, getNextID};

@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import { Container, Section, Bar, Resizer } from '@column-resizer/react';
 import Notepad from '../notepad/Notepad';
 import Notelist from '../notelist/Notelist';
+import {getNextID} from '../../helper/helperFunctions';
 
 function Main() {
   const [ barActive, setBarActive ] = useState(false);
   const [ barHidden, setBarHidden ] = useState(false);  
 
   const [ noteList, setNoteList ] = useState(JSON.parse(localStorage.getItem("noteList")!) || []);
-  const [ noteID, setNoteID ] = useState(noteList.length > 0 ? noteList[noteList.length-1].id + 1 : 0);
+  const [ noteID, setNoteID ] = useState(noteList.length > 0 ? getNextID(noteList) : 0);
   const [ content, setContent ] = useState("");
   const [ noteColors, setNoteColors ] = useState({});
 
@@ -64,12 +65,7 @@ function Main() {
     setNoteColors(noteList[i].colors);
   };
   const newNote = () =>{
-    let id = 0;
-    if(noteList.length > 0){
-      const arr = noteList.map((note:any)=> note.id);      
-      id = Math.max(...arr) + 1;
-    }
-    
+    const id = noteList.length > 0 ? getNextID(noteList) : 0;    
     setNoteID(id);
     setContent("");    
   };
