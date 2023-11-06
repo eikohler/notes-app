@@ -7,7 +7,7 @@ const Notelist = (props:any) => {
     const {noteID, noteList, loadNote, deleteNote, newOrderList} = props;    
     const [hoverIndex, setHoverIndex] = useState(-1);
     const [dragIndex, setDragIndex] = useState(-1);
-    const [dragOverIndex, setDragOverIndex] = useState(-1);
+    const [dragOverIndex, setDragOverIndex] = useState(-1);    
 
     const mousePosition = useMousePosition();
 
@@ -22,33 +22,52 @@ const Notelist = (props:any) => {
         }        
     }, [dragOverIndex]);
 
+    useEffect(() => {
+        console.log(dragIndex);
+    }, [dragIndex]);
+
     return (
         <>
             {noteList.map((note:any, i:any) => {
+                const hover = hoverIndex === i;
+                const hovering = hoverIndex !== -1;
+                const active = noteID === note.id;
+                const isDragItem = dragIndex === i;
+                const isDragging = dragIndex !== -1;
                 return(
                     <div onClick={() => loadNote(note.id)}
                     key={"wrapper-"+note.id} 
                     className={`note-wrapper 
-                    ${noteID == note.id ? 'active' : ''}
-                    ${dragIndex === i ? 'dragging' : ''}
-                    ${dragIndex !== -1 ? 'no-hover' : ''}`}
-                    onDragStart={(e) => {setDragIndex(i); loadNote(note.id); setHoverIndex(-1)}}
-                    onDragEnter={(e) => setDragOverIndex(i)}
-                    onDragEnd={(e)=>{setDragIndex(-1); setDragOverIndex(-1); }}
-                    draggable
-                    onMouseEnter={() => setHoverIndex(dragIndex == -1 ? i : -1)}
+                        ${(active && (!hovering || isDragging)) ? 'active' : ''} 
+                        ${isDragItem ? 'dragging' : ''}
+                        ${isDragging ? 'no-hover' : ''}
+                    `}
+                    onDragStart={(e) => {e.preventDefault(); setDragIndex(i); loadNote(note.id);}}
+                    draggable                
+                    onMouseEnter={() => {
+                        if(dragIndex !== -1){
+                            setDragOverIndex(i);
+                            setHoverIndex(-1);
+                        }else{
+                            setHoverIndex(i);
+                        }
+                    }}
+                    onMouseUp={()=>{setDragIndex(-1); setDragOverIndex(-1);}}
                     onMouseLeave={() => setHoverIndex(-1)}
                     style={{
-                        backgroundColor: hoverIndex === i || noteID == note.id ? note.colors.bgColor : '#2a2b2a',                        
-                        color: hoverIndex === i || noteID == note.id ? note.colors.fgColor : '#fff',
+                        backgroundColor: hover || active
+                        ? note.colors.bgColor 
+                        : '#2a2b2a',                        
+
+                        color: hover || active 
+                        ? note.colors.fgColor 
+                        : '#fff'
                     }}>
                         <p key={"title-"+note.id} className="title">{note.title}</p>
-                        <div className="text-content" key={"text"+note.id}>{parse(note.text)}</div>                        
-                        {/* <button key={"remove-"+note.id} onClick={()=> deleteNote(note.id)}>Delete</button> */}
+                        <div className="text-content" key={"text"+note.id}>{parse(note.text)}</div>
                     </div>
                 )
             })}
-            <div className="note-wrapper empty"></div>        
         </>
     )
 }

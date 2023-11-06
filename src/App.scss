@@ -100,26 +100,25 @@ main{
 }
 
 
-// Note List Variables
-$box-shadow: 0px -3px 9px rgba(0, 0, 0, 0.2);
-
 // Note List
 #noteList{
     background-color: $left-color;
     .inner{        
         height: 100%;
         overflow-y: auto;
-        .note-wrapper:not(.empty){
-            cursor: pointer;
+        .note-wrapper{
+            cursor: grab;
             padding: 15px 25px;
-            box-shadow: $box-shadow;
             transition: 0.2s height ease;
             height: 20px;            
-            overflow: hidden;            
+            overflow: hidden;   
+            opacity: 0.3;
+            // border-bottom: 2px solid transparent;
+            // border-image: linear-gradient(0.25turn, rgba(255,249,34), rgba(255,0,128), rgba(56,2,155,0));
+            // border-image-slice: 1;
             *{
                 margin: 0px;                                    
                 font-size: 12px;
-                opacity: 0.5;
                 &.title{
                     font-family: $head-font;
                     display: -webkit-box;
@@ -139,23 +138,10 @@ $box-shadow: 0px -3px 9px rgba(0, 0, 0, 0.2);
                     word-wrap: break-word;
                 }            
             } 
-            &:hover:not(.no-hover){
-                height: 60px;
-            }
-            &.active, &:hover:not(.no-hover){
-                *{                    
-                    opacity: 0.9;                                        
-                } 
-            } 
-            &.dragging{
-                cursor: grabbing;
-            }
-        }
-        .note-wrapper.empty:not(:nth-child(1)){
-            background-color: $left-color;            
-            padding: 30px;
-            box-shadow: $box-shadow;
-        }
+            &:hover:not(.no-hover){ opacity: 1; height: 60px; }
+            &.active{ opacity: 1; } 
+            &.dragging{ cursor: grabbing; }
+        }        
     }     
 }
 
