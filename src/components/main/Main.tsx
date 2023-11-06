@@ -5,6 +5,7 @@ import Notelist from '../notelist/Notelist';
 import {getNextID} from '../../helper/helperFunctions';
 import FloatingNote from '../floatingnote/FloatingNote';
 import TrashCan from '../trashcan/TrashCan';
+import useMousePosition from '../../hooks/UseMousePosition';
 
 function Main() {
   const [ barActive, setBarActive ] = useState(false);
@@ -17,6 +18,9 @@ function Main() {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [isDragging, setIsDragging] = useState(false);
   const [colWidth, setColWidth] = useState(300);
+  const [showTrash, setShowTrash] = useState(false);
+
+  const mousePosition = useMousePosition();
 
   // Update state variables functions
   const updateList = (data:any) => {
@@ -100,6 +104,10 @@ function Main() {
     setActiveIndex(noteList.findIndex((note:any) => note.id === noteID));
   }, [noteID, noteList]);   
 
+  useEffect(() => {
+    setShowTrash(mousePosition.x! > colWidth && isDragging);
+  }, [mousePosition, isDragging]);
+
   return (
     <main className={`${isDragging ? "drag" : ""}`}>
       <FloatingNote
@@ -142,7 +150,7 @@ function Main() {
               updateNoteColors={updateNoteColors}
               newNote={newNote}
             />
-            <TrashCan />
+            <TrashCan showTrash={showTrash} />
           </div>
         </Section>
       </Container>

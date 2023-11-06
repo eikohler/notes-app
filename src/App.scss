@@ -169,7 +169,7 @@ main{
             &.fly{
                 transform: translate(-50%, -50%);
                 height: 60px;
-                background-color: rgba(255, 255, 255, 0.2) !important;
+                // background-color: rgba(0, 0, 0, 0.4) !important;
             }
         }
     }
@@ -225,6 +225,7 @@ main{
 }
 
 #create-note-btn{
+    z-index: 1;
     position: absolute;
     bottom: 25px;
     left: 20px;
@@ -296,6 +297,7 @@ main{
 }
 
 #color-picker{
+    z-index: 1;
     position: absolute;
     bottom: 25px;
     right: 25px;
@@ -360,22 +362,49 @@ main{
 }
 
 #delete-note-container{
-    pointer-events: none;
+    // pointer-events: none;
     position: absolute;
     display: flex;
     justify-content: center;
     left: 0px;
-    width: 99%;
-    section{        
-        pointer-events: all;
-        display: flex;
-        align-items: center;
+    bottom: 10px;
+    width: 99%;    
+    section{      
+        transition: 0.2s all;
+        position: relative;
         background-color: rgba(255, 255, 255, 0.2);
         box-shadow: 0px 0px 8px rgb(0 0 0 / 10%);
-        padding: 22px;
-        border-radius: 20px;
-        transition: 0.2s all;
-        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100%;
+        width: 180px;
+        height: 180px;
+        transform: scale(0.5);        
+        opacity: 0;
+        #tc-1{
+            width: 100px;
+        }
+        #tc-2{            
+            width: 117px;
+            position: absolute;
+            left: 44px;
+            top: -10px;
+            // transform: rotate(19deg);      
+            opacity: 0;
+        }        
+    }
+    &.active{
+        section{
+            opacity: 1;
+            transform: scale(1);
+            // #tc-1{
+            //     opacity: 0;
+            // }
+            // #tc-2{            
+            //     opacity: 1;
+            // }   
+        }
     }
 }
 
