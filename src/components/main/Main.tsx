@@ -100,7 +100,7 @@ function Main() {
   }, [noteID, noteList]);   
 
   return (
-    <>
+    <main className={`${isDragging && "drag"}`}>
       <FloatingNote
         note={noteList[activeIndex]}
         isDragging={isDragging}
@@ -143,7 +143,7 @@ function Main() {
           </div>
         </Section>
       </Container>
-    </>
+    </main>
   );
 }
 

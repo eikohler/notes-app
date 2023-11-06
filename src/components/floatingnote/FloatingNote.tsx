@@ -8,12 +8,16 @@ const FloatingNote = (props: any) => {
     return (
         <>
             {note && (
-                <div className={`note-wrapper drag-note ${isDragging ? 'move' : ''}`}
+                <div className={
+                `note-wrapper drag-note 
+                ${isDragging ? 'move' : ''}
+                ${mousePosition.x! > colWidth ? 'fly' : ''}`
+                }
                 style={{
                     backgroundColor: note.colors.bgColor,
                     color: note.colors.fgColor,
                     width: (colWidth-50)+"px",
-                    // left: mousePosition.x!,
+                    left: mousePosition.x! > colWidth ? mousePosition.x! : '0px',
                     top: isDragging ? mousePosition.y! : '0px'
                 }}>
                     <p className="title">{note.title}</p>

@@ -72,6 +72,9 @@ strong {
 main{
     height: 100vh;
     overflow: hidden;
+    &.drag *{
+        cursor: grabbing;
+    }
 }
 
 //Resizable Columns
@@ -147,7 +150,6 @@ main{
             opacity: 0;
         }
     } 
-    &.dragging{ cursor: grabbing; }
     &.drag-note{                
         position: absolute;
         opacity: 0; 
@@ -157,6 +159,9 @@ main{
         &.move{
             opacity: 1; 
             transform: translate(0px, -50%);
+            &.fly{
+                transform: translate(-50%, -50%);
+            }
         }
     }
 }  
