@@ -106,59 +106,60 @@ main{
     .inner{        
         height: 100%;
         overflow-y: auto;
-        position: relative;
-        .note-wrapper{
-            cursor: grab;
-            padding: 15px 25px;
-            transition: 0.2s height ease;
-            height: 20px;            
-            overflow: hidden;   
-            opacity: 0.3;
-            *{
-                margin: 0px;                                    
-                font-size: 12px;
-                &.title{
-                    font-family: $head-font;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 1;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;                  
-                    margin-bottom: 15px;
-                    font-size: 16px;
-                    font-weight: 700;
-                }    
-                &.text-content *{
-                    overflow-x: auto;
-                    white-space: pre-wrap;
-                    white-space: -moz-pre-wrap;
-                    white-space: -pre-wrap;
-                    white-space: -o-pre-wrap;
-                    word-wrap: break-word;
-                }            
-            } 
-            &:hover:not(.dragging){ opacity: 1; height: 60px; }
-            &.active{
-                opacity: 1;
-                &.dragging{
-                    opacity: 0;
-                }
-            } 
-            // &.dragging{ cursor: grabbing; position: absolute; width: 50%; transform: translate(-50%, -50%); }
-            &.dragging{ cursor: grabbing; }
-            &.drag-note{                
-                opacity: 0; 
-                pointer-events: none;
-                box-shadow: 0px 0px 8px rgb(0 0 0 / 10%);
-                &.move{
-                    opacity: 1; 
-                    position: absolute; 
-                    width: 100%; 
-                    // transform: translate(-50%, -50%);
-                }
-            }
-        }        
+        position: relative;              
     }     
 }
+
+// Note Wrapper Elements in Note List
+.note-wrapper{
+    cursor: grab;
+    padding: 15px 25px;
+    transition: 0.2s height ease;
+    height: 20px;            
+    overflow: hidden;   
+    opacity: 0.3;
+    *{
+        margin: 0px;                                    
+        font-size: 12px;
+        &.title{
+            font-family: $head-font;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;                  
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 700;
+        }    
+        &.text-content *{
+            overflow-x: auto;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+        }            
+    } 
+    &:hover:not(.dragging){ opacity: 1; height: 60px; }
+    &.active{
+        opacity: 1;
+        &.dragging{
+            opacity: 0;
+        }
+    } 
+    &.dragging{ cursor: grabbing; }
+    &.drag-note{                
+        position: absolute;
+        opacity: 0; 
+        pointer-events: none;
+        box-shadow: 0px 0px 10px rgb(0 0 0 / 30%);
+        z-index: 9;
+        &.move{
+            opacity: 1; 
+            // transform: translate(-50%, -50%);
+        }
+    }
+}  
 
 // Note Pad
 #notePad{

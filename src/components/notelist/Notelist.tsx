@@ -1,16 +1,12 @@
 import parse from 'html-react-parser';
 import { useState, useEffect } from 'react';
-import useMousePosition from '../../hooks/UseMousePosition';
 
 const Notelist = (props:any) => {
 
-    const {noteID, noteList, loadNote, deleteNote, newOrderList} = props;    
+    const {noteID, noteList, loadNote, deleteNote, newOrderList, updateDragState} = props;    
     const [hoverIndex, setHoverIndex] = useState(-1);
     const [dragIndex, setDragIndex] = useState(-1);
-    const [dragOverIndex, setDragOverIndex] = useState(-1);
-    const [activeIndex, setActiveIndex] = useState(-1);
-
-    const mousePosition = useMousePosition();
+    const [dragOverIndex, setDragOverIndex] = useState(-1);  
 
     useEffect(() => {
         if(dragOverIndex !== -1){
@@ -21,11 +17,11 @@ const Notelist = (props:any) => {
             newOrderList(newList);
             setDragIndex(dragOverIndex);
         }        
-    }, [dragOverIndex]);      
+    }, [dragOverIndex]);
 
-    useEffect(() => {        
-        setActiveIndex(noteList.findIndex((note:any) => note.id === noteID));
-    }, [noteID, noteList]);      
+    useEffect(() => {
+        updateDragState(dragIndex !== -1);
+    }, [dragIndex]);
 
     return (
         <>
@@ -45,7 +41,6 @@ const Notelist = (props:any) => {
                     onDragStart={(e) => {e.preventDefault(); setDragIndex(i); loadNote(note.id);}}
                     draggable                
                     onMouseEnter={(e) => {
-                        console.log(e.target);
                         if(dragIndex !== -1){
                             setDragOverIndex(i);
                             setHoverIndex(-1);
@@ -64,18 +59,6 @@ const Notelist = (props:any) => {
                     </div>
                 )
             })}
-            {activeIndex !== -1 && (
-                <div className={`note-wrapper drag-note ${dragIndex !== -1 ? 'move' : ''}`}
-                style={{
-                    backgroundColor: noteList[activeIndex].colors.bgColor,
-                    color: noteList[activeIndex].colors.fgColor,
-                    // left: mousePosition.x!,
-                    top: mousePosition.y!
-                }}>
-                    <p className="title">{noteList[activeIndex].title}</p>
-                    <div className="text-content">{parse(noteList[activeIndex].text)}</div>
-                </div>
-            )}
         </>
     )
 }

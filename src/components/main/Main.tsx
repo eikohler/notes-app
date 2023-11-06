@@ -3,6 +3,7 @@ import { Container, Section, Bar, Resizer } from '@column-resizer/react';
 import Notepad from '../notepad/Notepad';
 import Notelist from '../notelist/Notelist';
 import {getNextID} from '../../helper/helperFunctions';
+import useMousePosition from '../../hooks/UseMousePosition';
 
 function Main() {
   const [ barActive, setBarActive ] = useState(false);
@@ -12,14 +13,17 @@ function Main() {
   const [ noteID, setNoteID ] = useState(noteList.length > 0 ? getNextID(noteList) : 0);
   const [ content, setContent ] = useState("");
   const [ noteColors, setNoteColors ] = useState({});
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const [isDragging, setIsDragging] = useState(false);
+  const [colWidth, setColWidth] = useState(300);
+
+  const mousePosition = useMousePosition();
 
   // Update state variables functions
   const updateList = (data:any) => {
-    if(data !== null){      
-      const index = noteList.findIndex((note:any) => note.id === noteID);
-
+    if(data !== null){
       // Updates pre-existing note
-      if(index > -1){
+      if(activeIndex > -1){
         setNoteList(noteList.map((note:any) => {
           if (note.id === noteID) {
             return { ...note, 
@@ -43,8 +47,7 @@ function Main() {
   };
 
   const updateNoteColors = (colors:any) =>{
-    const index = noteList.findIndex((note:any) => note.id === noteID);
-    if(index > -1){
+    if(activeIndex > -1){
       setNoteList(noteList.map((note:any) => {
         if (note.id === noteID) {
           return { ...note, colors: colors };
@@ -73,8 +76,11 @@ function Main() {
   const newOrderList = (data:any) =>{
     setNoteList([...data]);
   }
+
+  const updateDragState = (data:any) => setIsDragging(data);
   
   const collapseCol = (resizer: Resizer) : void => {
+    setColWidth(resizer.getSectionSize(0));
     if (resizer.getSectionSize(0) < 100) {
       resizer.resizeSection(0, { toSize: 0 });
       setBarHidden(true);
@@ -90,43 +96,68 @@ function Main() {
     localStorage.setItem("noteList", exportList);
   }, [noteList]);
 
+
+  // Set the index of the active note in the list
+  useEffect(() => {        
+    setActiveIndex(noteList.findIndex((note:any) => note.id === noteID));
+  }, [noteID, noteList]);  
+
+  useEffect(() => {        
+    console.log(colWidth);
+  }, [colWidth]);  
+
   return (
-    <Container 
-      className={`columns-container ${barActive ? "active" : ""}`}
-      beforeApplyResizer={collapseCol}
-      onActivate={() : void => setBarActive(true)}
-      afterResizing={() : void => setBarActive(false)}
-    >
-      <Section id="noteList" className="column" defaultSize={300}>
-        <div className="inner">          
-          <Notelist 
-            noteID={noteID}
-            noteList={noteList} 
-            loadNote={loadNote}
-            deleteNote={deleteNote}
-            newOrderList={newOrderList}
-          />          
-        </div>
-      </Section>
-        <Bar 
-          id="resizeBar"
-          size={5} 
-          className={`resize-bar ${barHidden && !barActive ? "hidden" : ""}`}
-          expandInteractiveArea={{right: 5, left: 5}} 
-        />
-      <Section id="notePad" className="column" minSize={300}>
-        <div className="inner">
-          <Notepad 
-            noteID={noteID}
-            content={content}
-            noteColors={noteColors}
-            updateList={updateList}
-            updateNoteColors={updateNoteColors}
-            newNote={newNote}
+    <>
+      {activeIndex !== -1 && (
+          <div className={`note-wrapper drag-note ${isDragging ? 'move' : ''}`}
+          style={{
+              backgroundColor: noteList[activeIndex].colors.bgColor,
+              color: noteList[activeIndex].colors.fgColor,
+              width: (colWidth-50)+"px",
+              // left: mousePosition.x!,
+              top: isDragging ? mousePosition.y! : '0px'
+          }}>
+              <p className="title">{noteList[activeIndex].title}</p>
+          </div>
+      )}
+      <Container 
+        className={`columns-container ${barActive ? "active" : ""}`}
+        beforeApplyResizer={collapseCol}
+        onActivate={() : void => setBarActive(true)}
+        afterResizing={() : void => setBarActive(false)}
+      >
+        <Section id="noteList" className="column" defaultSize={300}>
+          <div className="inner">          
+            <Notelist 
+              noteID={noteID}
+              noteList={noteList} 
+              loadNote={loadNote}
+              deleteNote={deleteNote}
+              newOrderList={newOrderList}
+              updateDragState={updateDragState}
+            />          
+          </div>
+        </Section>
+          <Bar 
+            id="resizeBar"
+            size={5} 
+            className={`resize-bar ${barHidden && !barActive ? "hidden" : ""}`}
+            expandInteractiveArea={{right: 5, left: 5}} 
           />
-        </div>
-      </Section>
-    </Container>
+        <Section id="notePad" className="column" minSize={300}>
+          <div className="inner">
+            <Notepad 
+              noteID={noteID}
+              content={content}
+              noteColors={noteColors}
+              updateList={updateList}
+              updateNoteColors={updateNoteColors}
+              newNote={newNote}
+            />
+          </div>
+        </Section>
+      </Container>
+    </>
   );
 }
 
