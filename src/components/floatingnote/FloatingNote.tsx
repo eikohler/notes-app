@@ -1,11 +1,12 @@
 import parse from 'html-react-parser';
 import useMousePosition from '../../hooks/UseMousePosition';
-import {useEffect, useState} from 'react';
+
+import { useEffect, useState } from 'react';
 
 const FloatingNote = (props: any) => {
 
     const {note, isDragging, colWidth} = props;
-    const [width, setWidth] = useState(colWidth);
+    const [width, setWidth] = useState(colWidth >= 200 ? colWidth : 200);
     const mousePosition = useMousePosition();
 
     useEffect(() => {
@@ -23,7 +24,7 @@ const FloatingNote = (props: any) => {
                 style={{
                     backgroundColor: note.colors.bgColor,
                     color: note.colors.fgColor,
-                    width: mousePosition.x! < width ? (width-50)+"px" : "150px",
+                    width: mousePosition.x! > width ? "150px" : (width-50)+"px",
                     left: mousePosition.x! > width ? mousePosition.x! : '0px',
                     top: isDragging ? mousePosition.y! : '0px'
                 }}>

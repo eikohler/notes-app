@@ -6,7 +6,7 @@ const Notelist = (props:any) => {
     const {noteID, noteList, loadNote, deleteNote, newOrderList, updateDragState} = props;    
     const [hoverIndex, setHoverIndex] = useState(-1);
     const [dragIndex, setDragIndex] = useState(-1);
-    const [dragOverIndex, setDragOverIndex] = useState(-1);  
+    const [dragOverIndex, setDragOverIndex] = useState(-1);     
 
     useEffect(() => {
         if(dragOverIndex !== -1){
@@ -21,6 +21,12 @@ const Notelist = (props:any) => {
 
     useEffect(() => {
         updateDragState(dragIndex !== -1);
+        if(dragIndex !== -1){
+            document.addEventListener("mouseup", ()=>{
+                setDragIndex(-1); 
+                setDragOverIndex(-1);
+            }, { once: true });
+        }
     }, [dragIndex]);
 
     return (
@@ -48,7 +54,6 @@ const Notelist = (props:any) => {
                             setHoverIndex(i);
                         }
                     }}
-                    onMouseUp={()=>{setDragIndex(-1); setDragOverIndex(-1);}}
                     onMouseLeave={() => setHoverIndex(-1)}
                     style={{
                         backgroundColor: hover || active ? note.colors.bgColor : '#2a2b2a',
