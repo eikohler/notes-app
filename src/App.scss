@@ -156,7 +156,7 @@ main{
         z-index: 9;
         &.move{
             opacity: 1; 
-            // transform: translate(-50%, -50%);
+            transform: translate(0px, -50%);
         }
     }
 }  

@@ -3,7 +3,7 @@ import { Container, Section, Bar, Resizer } from '@column-resizer/react';
 import Notepad from '../notepad/Notepad';
 import Notelist from '../notelist/Notelist';
 import {getNextID} from '../../helper/helperFunctions';
-import useMousePosition from '../../hooks/UseMousePosition';
+import FloatingNote from '../floatingnote/FloatingNote';
 
 function Main() {
   const [ barActive, setBarActive ] = useState(false);
@@ -16,8 +16,6 @@ function Main() {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [isDragging, setIsDragging] = useState(false);
   const [colWidth, setColWidth] = useState(300);
-
-  const mousePosition = useMousePosition();
 
   // Update state variables functions
   const updateList = (data:any) => {
@@ -96,30 +94,18 @@ function Main() {
     localStorage.setItem("noteList", exportList);
   }, [noteList]);
 
-
   // Set the index of the active note in the list
-  useEffect(() => {        
+  useEffect(() => {
     setActiveIndex(noteList.findIndex((note:any) => note.id === noteID));
-  }, [noteID, noteList]);  
-
-  useEffect(() => {        
-    console.log(colWidth);
-  }, [colWidth]);  
+  }, [noteID, noteList]);   
 
   return (
     <>
-      {activeIndex !== -1 && (
-          <div className={`note-wrapper drag-note ${isDragging ? 'move' : ''}`}
-          style={{
-              backgroundColor: noteList[activeIndex].colors.bgColor,
-              color: noteList[activeIndex].colors.fgColor,
-              width: (colWidth-50)+"px",
-              // left: mousePosition.x!,
-              top: isDragging ? mousePosition.y! : '0px'
-          }}>
-              <p className="title">{noteList[activeIndex].title}</p>
-          </div>
-      )}
+      <FloatingNote
+        note={noteList[activeIndex]}
+        isDragging={isDragging}
+        colWidth={colWidth}
+      />       
       <Container 
         className={`columns-container ${barActive ? "active" : ""}`}
         beforeApplyResizer={collapseCol}
