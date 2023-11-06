@@ -19,6 +19,7 @@ function Main() {
   const [isDragging, setIsDragging] = useState(false);
   const [colWidth, setColWidth] = useState(300);
   const [showTrash, setShowTrash] = useState(false);
+  const [trashCoords, setTrashCoords] = useState({x: 0, y: 0});
 
   const mousePosition = useMousePosition();
 
@@ -81,6 +82,8 @@ function Main() {
   }
 
   const updateDragState = (data:any) => setIsDragging(data);
+
+  const updateTrashCoords = (data:any) => setTrashCoords({...data});
   
   const collapseCol = (resizer: Resizer) : void => {
     setColWidth(resizer.getSectionSize(0));
@@ -106,7 +109,7 @@ function Main() {
 
   useEffect(() => {
     setShowTrash(mousePosition.x! > colWidth && isDragging);
-  }, [mousePosition, isDragging]);
+  }, [mousePosition, isDragging]);  
 
   return (
     <main className={`${isDragging ? "drag" : ""}`}>
@@ -114,6 +117,7 @@ function Main() {
         note={noteList[activeIndex]}
         isDragging={isDragging}
         colWidth={colWidth}
+        trashCoords={trashCoords}
       />       
       <Container 
         className={`columns-container ${barActive ? "active" : ""}`}
@@ -150,7 +154,10 @@ function Main() {
               updateNoteColors={updateNoteColors}
               newNote={newNote}
             />
-            <TrashCan showTrash={showTrash} />
+            <TrashCan 
+              showTrash={showTrash}
+              updateTrashCoords={updateTrashCoords} 
+            />
           </div>
         </Section>
       </Container>

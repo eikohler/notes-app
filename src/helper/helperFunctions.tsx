@@ -39,4 +39,8 @@ function getNextID(list:any){
   return Math.max(...arr) + 1;
 }
 
-export {changeLightness, hslToHex, getColorLuminance, getHTMLTextStr, getNextID};
+function getDiff(a:any, b:any){
+  return 100*Math.abs((a-b)/((a+b)/2));
+}
+
+export {changeLightness, hslToHex, getColorLuminance, getHTMLTextStr, getNextID, getDiff};
