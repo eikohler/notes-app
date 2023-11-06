@@ -5,7 +5,7 @@ import useMousePosition from '../../hooks/UseMousePosition';
 const Notelist = (props:any) => {
 
     const {noteID, noteList, loadNote, deleteNote, newOrderList} = props;    
-    const [showIndex, setShowIndex] = useState(-1);
+    const [hoverIndex, setHoverIndex] = useState(-1);
     const [dragIndex, setDragIndex] = useState(-1);
     const [dragOverIndex, setDragOverIndex] = useState(-1);
 
@@ -30,16 +30,17 @@ const Notelist = (props:any) => {
                     key={"wrapper-"+note.id} 
                     className={`note-wrapper 
                     ${noteID == note.id ? 'active' : ''}
-                    ${dragIndex === i ? 'dragging' : ''}`}
-                    onDragStart={(e) => {setDragIndex(i); loadNote(note.id);}}
+                    ${dragIndex === i ? 'dragging' : ''}
+                    ${dragIndex !== -1 ? 'no-hover' : ''}`}
+                    onDragStart={(e) => {setDragIndex(i); loadNote(note.id); setHoverIndex(-1)}}
                     onDragEnter={(e) => setDragOverIndex(i)}
                     onDragEnd={(e)=>{setDragIndex(-1); setDragOverIndex(-1); }}
                     draggable
-                    onMouseEnter={() => setShowIndex(i)}
-                    onMouseLeave={() => setShowIndex(-1)}
+                    onMouseEnter={() => setHoverIndex(dragIndex == -1 ? i : -1)}
+                    onMouseLeave={() => setHoverIndex(-1)}
                     style={{
-                        backgroundColor: showIndex === i || noteID == note.id ? note.colors.bgColor : '#2a2b2a',                        
-                        color: showIndex === i || noteID == note.id ? note.colors.fgColor : '#fff',
+                        backgroundColor: hoverIndex === i || noteID == note.id ? note.colors.bgColor : '#2a2b2a',                        
+                        color: hoverIndex === i || noteID == note.id ? note.colors.fgColor : '#fff',
                     }}>
                         <p key={"title-"+note.id} className="title">{note.title}</p>
                         <div className="text-content" key={"text"+note.id}>{parse(note.text)}</div>                        

@@ -139,17 +139,17 @@ $box-shadow: 0px -3px 9px rgba(0, 0, 0, 0.2);
                     word-wrap: break-word;
                 }            
             } 
-            &:hover{
+            &:hover:not(.no-hover){
                 height: 60px;
             }
-            &.active, &:hover{                
+            &.active, &:hover:not(.no-hover){
                 *{                    
                     opacity: 0.9;                                        
                 } 
             } 
-            // &.dragging{
-            //     background-color: red !important;
-            // }
+            &.dragging{
+                cursor: grabbing;
+            }
         }
         .note-wrapper.empty:not(:nth-child(1)){
             background-color: $left-color;            
