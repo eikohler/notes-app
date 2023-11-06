@@ -10,7 +10,7 @@ import {getHTMLTextStr} from '../../helper/helperFunctions';
 
 const Notepad = (props:any) => {    
     
-    const {noteID, content, noteColors, updateList, updateNoteColors, newNote} = props;
+    const {noteID, content, noteColors, isDragging, updateList, updateNoteColors, newNote} = props;
 
     const [value, setValue] = useState(content);
     const [phActive, setphActive] = useState(true);   
@@ -72,6 +72,7 @@ const Notepad = (props:any) => {
                 value={value}
                 onChange={onChange}
                 modules={{ toolbar: toolBarOptions }}
+                readOnly={isDragging}
             />
             <ColorPicker 
                 setNoteColors={setNoteColors}

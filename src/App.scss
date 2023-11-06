@@ -73,7 +73,7 @@ main{
     height: 100vh;
     overflow: hidden;
     &.drag *{
-        cursor: grabbing;
+        cursor: grabbing !important;
     }
 }
 
@@ -134,13 +134,20 @@ main{
             font-size: 16px;
             font-weight: 700;
         }    
-        &.text-content *{
-            overflow-x: auto;
-            white-space: pre-wrap;
-            white-space: -moz-pre-wrap;
-            white-space: -pre-wrap;
-            white-space: -o-pre-wrap;
-            word-wrap: break-word;
+        &.text-content {
+            > *:nth-child(1){
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            *{            
+                white-space: pre-wrap;
+                white-space: -moz-pre-wrap;
+                white-space: -pre-wrap;
+                white-space: -o-pre-wrap;
+                word-wrap: break-word;
+            }            
         }            
     } 
     &:hover:not(.dragging){ opacity: 1; height: 60px; }
@@ -154,13 +161,15 @@ main{
         position: absolute;
         opacity: 0; 
         pointer-events: none;
-        box-shadow: 0px 0px 10px rgb(0 0 0 / 30%);
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
         z-index: 9;
         &.move{
             opacity: 1; 
             transform: translate(0px, -50%);
             &.fly{
                 transform: translate(-50%, -50%);
+                height: 60px;
+                background-color: rgba(255, 255, 255, 0.2) !important;
             }
         }
     }
@@ -350,6 +359,16 @@ main{
     }
 }
 
+main.drag{
+    #color-picker, #create-note-btn, #notePad{
+        *{
+            pointer-events: none;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+    }
+}
 
 // Scroll Bar
 ::-webkit-scrollbar {

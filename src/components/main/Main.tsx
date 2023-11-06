@@ -136,6 +136,7 @@ function Main() {
               noteID={noteID}
               content={content}
               noteColors={noteColors}
+              isDragging={isDragging}
               updateList={updateList}
               updateNoteColors={updateNoteColors}
               newNote={newNote}
