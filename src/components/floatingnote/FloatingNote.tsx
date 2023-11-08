@@ -10,7 +10,7 @@ const FloatingNote = (props: any) => {
     useEffect(() => {
         if(note){
             if(note.colors.fgColor === "#000000"){
-                setFlyBGColor(changeLightness(80, note.colors.bgColor));
+                setFlyBGColor(changeLightness(50, note.colors.bgColor));
             }else{
                 setFlyBGColor(changeLightness(20, note.colors.bgColor));
             }
