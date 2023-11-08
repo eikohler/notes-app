@@ -6,6 +6,8 @@ import {getNextID, getDiff} from '../../helper/helperFunctions';
 import FloatingNote from '../floatingnote/FloatingNote';
 import TrashCan from '../trashcan/TrashCan';
 import useMousePosition from '../../hooks/UseMousePosition';
+import ColorLensIcon from '@mui/icons-material/ColorLens';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 function Main() {
   const [ barActive, setBarActive ] = useState(false);
@@ -22,6 +24,7 @@ function Main() {
   const [trashCoords, setTrashCoords] = useState({x: 0, y: 0});
   const [scaleDiff, setScaleDiff] = useState(1);
   const [width, setWidth] = useState(colWidth >= 200 ? colWidth : 200);
+  const [cpActive, setCPActive] = useState(false);
 
   const mousePosition = useMousePosition();
 
@@ -156,7 +159,7 @@ function Main() {
             className={`resize-bar ${barHidden && !barActive ? "hidden" : ""}`}
             expandInteractiveArea={{right: 5, left: 5}} 
           />
-        <Section id="notePad" className="column" minSize={300}>
+        <Section id="notePad" className="column" minSize={400}>
           <div className="inner">
             <Notepad 
               noteID={noteID}
@@ -166,6 +169,7 @@ function Main() {
               updateList={updateList}
               updateNoteColors={updateNoteColors}
               newNote={newNote}
+              cpActive={cpActive}
             />
             <TrashCan 
               showTrash={showTrash}
@@ -173,6 +177,11 @@ function Main() {
               updateTrashCoords={updateTrashCoords} 
               deleteNote={deleteNote}
             />
+            <div id="mobile-cp-toggle" className={`${cpActive ? "active" : ''}`} 
+            onClick={()=>setCPActive(!cpActive)}>
+              <ColorLensIcon />
+              <CancelIcon />
+            </div>
           </div>
         </Section>
       </Container>

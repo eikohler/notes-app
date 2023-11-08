@@ -5,7 +5,7 @@ const { contrastColor } = require('contrast-color');
 
 const ColorPicker = (props:any) => {  
 
-  const {setNoteColors, noteID, noteColors} = props;
+  const {setNoteColors, noteID, noteColors, cpActive} = props;
   
   // To update the input slider element
   const slider = useRef<any>(null);
@@ -22,6 +22,8 @@ const ColorPicker = (props:any) => {
   const [ bgColor, setbgColor ] = useState(storedColor);
   const [ nextBGColor, setNextBGColor ] = useState(getRandomColor);
 
+  const [rangeActive, setRangeActive] = useState(false);
+
   /* When bg color state is changed:
   Save bg color to local storage
   Update document body's background color
@@ -35,8 +37,8 @@ const ColorPicker = (props:any) => {
     document.body.style.backgroundColor = bgColor;
     document.getElementById('notePad')!.style.color = newFGColor;
     document.getElementById('resizeBar')!.style.backgroundColor = newFGColor;
-    slider.current.style.background = `linear-gradient(90deg, rgba(0, 0, 0, 0.3) ${luminance-4}%, 
-    rgba(255,255,255,0) ${luminance}%)`;
+    slider.current.style.background = `linear-gradient(90deg, rgba(255, 255, 255, 0.5) ${luminance-4}%, 
+    rgba(255,255,255,0.1) ${luminance}%)`;
 
     // Updates the color of the note in the list
     setNoteColors({bgColor: bgColor, fgColor: newFGColor});
@@ -67,10 +69,12 @@ const ColorPicker = (props:any) => {
   }
 
   return (
-    <div id="color-picker">
+    <div id="color-picker" className={`${cpActive ? "active" : ""}`}>
+      <div className="mobile-spacer"></div>
       <div id="luminace-range">
-        <input type="range" min="1" max="100" ref={slider}
-        value={luminance} onChange={(event) => updateLuminance(event)} />
+        <input type="range" min="1" max="100" ref={slider} className={`${rangeActive ? "active" : ''}`}
+        value={luminance} onChange={(event)=>updateLuminance(event)}         
+        onTouchStart={()=>setRangeActive(true)} onTouchEnd={()=>setRangeActive(false)} />
       </div>
       <div onClick={() => {
         setbgColor(nextBGColor);

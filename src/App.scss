@@ -42,6 +42,9 @@ $main-bg-color: #86BBD8;
 $head-font: young-serif;
 $body-font: roboto;
 
+// Screen Widths
+$mobile: 576px;
+
 //Styles
 h1, h2, h3, h4, h5, h6{
     font-family: $head-font;
@@ -57,6 +60,7 @@ body{
     font-family: $body-font;
     font-size: 20px;
     margin: 0px;
+    -webkit-tap-highlight-color: transparent;
     em{
         font-family: robotoItalic;
     }
@@ -92,6 +96,9 @@ main{
             transition-delay: 250ms;            
             opacity: 0.5;
         }
+        @media screen and (max-width: $mobile) {
+            display: none;
+        }
     }
 
     &.active{
@@ -99,6 +106,9 @@ main{
         .resize-bar{
             opacity: 0.5;
         }
+    }
+    @media screen and (max-width: $mobile) {
+        display: block !important;
     }
 }
 
@@ -109,8 +119,16 @@ main{
     .inner{        
         height: 100%;
         overflow-y: auto;
-        position: relative;              
+        position: relative;           
     }     
+    @media screen and (max-width: $mobile) {        
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 9;
+        transform: translateX(-100%);
+        transition: 1s transform ease;
+    }
 }
 
 // Note Wrapper Elements in Note List
@@ -186,16 +204,25 @@ main{
         .ql-container{
             font-family: $body-font;
             font-size: 20px;            
+            @media screen and (max-width: $mobile) {
+                font-size: 18px;
+            }
             .ql-editor{
                 padding: 0px;
                 opacity: 0.9;                 
                 h1{
                     font-size: 35px;
                     margin-bottom: 20px;
+                    @media screen and (max-width: $mobile) {
+                        font-size: 30px;
+                    }
                 }                   
                 h2{
                     font-size: 26px;
                     margin-bottom: 20px;
+                    @media screen and (max-width: $mobile) {
+                        font-size: 20px;
+                    }
                 }   
             }            
             // Quill Tooltip Bubble
@@ -213,7 +240,14 @@ main{
                 .ql-toolbar{                    
                     background-color: $secondary-color;
                     border-radius: 10px;      
-                    text-align: center;              
+                    padding: 5px;
+                    text-align: center;      
+                    @media screen and (max-width: $mobile) {
+                        width: 200px;
+                    }
+                    .ql-formats {
+                        margin: 4px 12px 4px 0px;
+                    }
                 }
             }            
         }         
@@ -221,7 +255,16 @@ main{
     .inner{
         padding: 40px 80px;
         height: 81%;
+        @media screen and (max-width: $mobile) {
+            padding: 30px;   
+            height: 76%;
+        }
     }     
+    @media screen and (max-width: $mobile) {
+        min-width: 100% !important;
+        width: 100%;
+        height: 100%;
+    }
 }
 
 #create-note-btn{
@@ -241,20 +284,45 @@ main{
         font-size: 30px;
         opacity: 0.7;
     }
-    &:hover{
-        background-color: rgba(255, 255, 255, 0.2);
-        box-shadow: 0px 0px 8px rgb(0 0 0 / 10%);     
+
+    @media screen and (min-width: $mobile) {
+        &:hover{
+            background-color: rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 8px rgb(0 0 0 / 10%);
+            svg{
+                transform: scale(1.3);
+                opacity: 1;
+            }
+            &:active{
+                svg{
+                    transform: scale(1);
+                }
+            }
+        }        
+    }
+    @media screen and (max-width: $mobile) {      
+        bottom: 15px;  
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9;
         svg{
-            transform: scale(1.3);
-            opacity: 1;
+            transition: 0.1s all ease-in-out;                
+            transform: scale(1.2);
         }
         &:active{
+            background-color: rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 8px rgb(0 0 0 / 10%);
+            transition: 0.1s;
             svg{
-                transform: scale(1);
+                transform: scale(0.8);
+                opacity: 1;
             }
-        }
-    }
-    
+        } 
+        &.hide{
+            opacity: 0;
+            pointer-events: none;
+        }               
+    }    
 }
 
 .placeHolderAnim{
@@ -292,7 +360,9 @@ main{
             from { opacity: 1; }
             to { opacity: 0; }
         }    
-
+        @media screen and (max-width: $mobile) {
+            font-size: 30px;
+        }
     }    
 }
 
@@ -307,6 +377,7 @@ main{
     padding: 15px;
     border-radius: 20px;
     transition: 0.2s all;
+    .mobile-spacer{display: none;}
     .color-box{
         width: 40px;
         height: 40px;
@@ -316,11 +387,19 @@ main{
         box-shadow: 0px 0px 5px rgb(0 0 0 / 30%);
         margin-left: 10px;
         border: 2px solid #fff;
-        &:hover{
-            transform: scale(1.2);
+        @media screen and (min-width: $mobile) {            
+            &:hover{
+                transform: scale(1.2);
+                &:active{
+                    transform: scale(1);
+                }  
+            }
+        } 
+        @media screen and (max-width: $mobile) {
             &:active{
-                transform: scale(1);
-            }  
+                transition: 0.1s all ease-in-out;
+                transform: scale(0.8);
+            }              
         }
     }
     #luminace-range{
@@ -333,7 +412,7 @@ main{
             height: 12px;
             border-radius: 5px;
             background-color: rgb(0, 0, 0, 0.3);       
-            background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(255,255,255,0) 0%);
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255,255,255,0.1) 0%);
             box-shadow: 0px 0px 5px rgb(0 0 0 / 20%);     
             transition: 0.2s all;     
             cursor: pointer;   
@@ -347,17 +426,98 @@ main{
                 background-color: rgba(255, 255, 255, 1);                   
                 cursor: pointer;
             }   
-            &:hover{
-                transform: scaleY(1.3);
-            }
-        }                    
+            @media screen and (min-width: $mobile) {
+                &:hover{
+                    transform: scaleY(1.3);
+                }
+            } 
+            @media screen and (max-width: $mobile) {
+                width: 165px;
+                height: 15px;
+                border-radius: 20px;
+                &.active{
+                    transform: scaleY(1.3);
+                }
+                &::-webkit-slider-thumb {
+                    height: 15px;
+                    width: 30px;
+                    border-radius: 20px;
+                }
+            }                        
+        }                          
     }
-    &:hover{
-        background-color: rgba(255, 255, 255, 0.2);
-        box-shadow: 0px 0px 8px rgb(0 0 0 / 10%);
-        #luminace-range{
+    @media screen and (min-width: $mobile) {            
+        &:hover{
+            background-color: rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 8px rgb(0 0 0 / 10%);
+            #luminace-range{
+                opacity: 1;
+            }              
+        }       
+    }            
+    @media screen and (max-width: $mobile) {
+        bottom: 15px;
+        left: 15px;
+        width: calc(100% - 60px);;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        pointer-events: none;
+        opacity: 0;
+        .mobile-spacer{
+            display: block;
+            width: 40px;
+        }        
+        &.active{           
+            transform: scale(1);             
+            pointer-events: all;
             opacity: 1;
-        }              
+            background-color: rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 8px rgb(0 0 0 / 10%);
+            #luminace-range{
+                opacity: 1;
+            }            
+        }
+    }
+}
+
+@media screen and (min-width: $mobile) {
+    #mobile-cp-toggle{ display: none; }
+}
+@media screen and (max-width: $mobile) {
+    #mobile-cp-toggle{ 
+        display: block;
+        position: absolute;
+        right: 45px;
+        bottom: 30px;
+        z-index: 9;
+        width: 40px;
+        height: 44px;
+        svg{
+            font-size: 45px;
+            position: absolute;
+            transition: 0.1s all ease-in-out;
+            &:nth-child(1){
+                opacity: 0.7;
+            }
+            &:nth-child(2){
+                opacity: 0;
+            }
+        }
+        &:active{
+            svg{
+                transform: scale(0.8);                
+            }
+        }
+        &.active{            
+            svg{
+                &:nth-child(1){
+                    opacity: 0;
+                }
+                &:nth-child(2){
+                    opacity: 1;
+                }
+            }            
+        }
     }
 }
 
@@ -372,7 +532,7 @@ main{
     section{      
         transition: 0.2s all;
         position: relative;
-        background-color: rgba(255, 255, 255, 0.2);
+        background-color: rgba(0, 0, 0, 0.2);
         box-shadow: 0px 0px 8px rgb(0 0 0 / 10%);
         display: flex;
         align-items: center;
