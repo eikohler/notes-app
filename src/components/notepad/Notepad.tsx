@@ -10,7 +10,8 @@ import {getHTMLTextStr} from '../../helper/helperFunctions';
 
 const Notepad = (props:any) => {    
     
-    const {noteID, content, noteColors, isDragging, updateList, updateNoteColors, newNote, cpActive} = props;
+    const {noteID, content, noteColors, isDragging, 
+        updateList, updateNoteColors, newNote, cpActive} = props;
 
     const [value, setValue] = useState(content);
     const [phActive, setphActive] = useState(true);   
@@ -62,7 +63,8 @@ const Notepad = (props:any) => {
 
     return (
         <>   
-            <div id="create-note-btn" className={`${cpActive ? 'hide' : ''}`} onClick={()=>newNote()}>
+            <div id="create-note-btn" className={`${cpActive ? 'hide' : ''}`} 
+            onClick={()=>newNote()}>
                 <AddIcon />
             </div>   
             {phActive && (<TypeText />)}

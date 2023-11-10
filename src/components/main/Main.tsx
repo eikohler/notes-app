@@ -6,8 +6,11 @@ import {getNextID, getDiff} from '../../helper/helperFunctions';
 import FloatingNote from '../floatingnote/FloatingNote';
 import TrashCan from '../trashcan/TrashCan';
 import useMousePosition from '../../hooks/UseMousePosition';
-import ColorLensIcon from '@mui/icons-material/ColorLens';
+import CircleIcon from '@mui/icons-material/Circle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import ReorderIcon from '@mui/icons-material/Reorder';
+import KeyboardIcon from '@mui/icons-material/Keyboard';
+import CloseIcon from '@mui/icons-material/Close';
 
 function Main() {
   const [ barActive, setBarActive ] = useState(false);
@@ -25,6 +28,7 @@ function Main() {
   const [scaleDiff, setScaleDiff] = useState(1);
   const [width, setWidth] = useState(colWidth >= 200 ? colWidth : 200);
   const [cpActive, setCPActive] = useState(false);
+  const [slideOutActive, setSlideOutActive] = useState(false);
 
   const mousePosition = useMousePosition();
 
@@ -142,7 +146,8 @@ function Main() {
         onActivate={() : void => setBarActive(true)}
         afterResizing={() : void => setBarActive(false)}
       >
-        <Section id="noteList" className="column" defaultSize={300}>
+        <Section id="noteList" className={`column ${slideOutActive ? "slide-active" : ''}`} 
+        defaultSize={300}>
           <div className="inner">          
             <Notelist 
               noteID={noteID}
@@ -177,9 +182,15 @@ function Main() {
               updateTrashCoords={updateTrashCoords} 
               deleteNote={deleteNote}
             />
+            <div id="mobile-list-toggle" className={`${cpActive ? "hide" : ''} 
+            ${slideOutActive ? "active" : ''}`}
+            onClick={()=>setSlideOutActive(!slideOutActive)}>
+              <ReorderIcon />
+              <KeyboardIcon />
+            </div>
             <div id="mobile-cp-toggle" className={`${cpActive ? "active" : ''}`} 
             onClick={()=>setCPActive(!cpActive)}>
-              <ColorLensIcon />
+              <CircleIcon />
               <CancelIcon />
             </div>
           </div>

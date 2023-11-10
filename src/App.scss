@@ -119,7 +119,10 @@ main{
     .inner{        
         height: 100%;
         overflow-y: auto;
-        position: relative;           
+        position: relative;    
+        @media screen and (max-width: $mobile) {        
+            height: 81%;            
+        }
     }     
     @media screen and (max-width: $mobile) {        
         position: absolute;
@@ -128,6 +131,9 @@ main{
         z-index: 9;
         transform: translateX(-100%);
         transition: 1s transform ease;
+        &.slide-active{
+            transform: translateX(0);        
+        }
     }
 }
 
@@ -301,21 +307,19 @@ main{
         }        
     }
     @media screen and (max-width: $mobile) {      
-        bottom: 15px;  
+        bottom: 30px;  
         left: 50%;
         transform: translateX(-50%);
-        z-index: 9;
+        z-index: 8;
+        padding: 0px;
+        transition: 0.1s all ease-in-out;
         svg{
-            transition: 0.1s all ease-in-out;                
-            transform: scale(1.2);
+            font-size: 40px;
+            transition: 0.1s all ease-in-out;            
         }
-        &:active{
-            background-color: rgba(0, 0, 0, 0.2);
-            box-shadow: 0px 0px 8px rgb(0 0 0 / 10%);
-            transition: 0.1s;
+        &:active{            
             svg{
                 transform: scale(0.8);
-                opacity: 1;
             }
         } 
         &.hide{
@@ -488,12 +492,13 @@ main{
         display: block;
         position: absolute;
         right: 45px;
-        bottom: 30px;
-        z-index: 9;
+        bottom: 28px;
+        z-index: 8;
         width: 40px;
         height: 44px;
+        transition: 0.1s all ease-in-out;
         svg{
-            font-size: 45px;
+            font-size: 40px;
             position: absolute;
             transition: 0.1s all ease-in-out;
             &:nth-child(1){
@@ -514,9 +519,56 @@ main{
                     opacity: 0;
                 }
                 &:nth-child(2){
-                    opacity: 1;
+                    opacity: 0.7;
                 }
             }            
+        }
+    }
+}
+
+@media screen and (min-width: $mobile) {
+    #mobile-list-toggle{ display: none; }
+}
+@media screen and (max-width: $mobile) {
+    #mobile-list-toggle{ 
+        display: block;
+        position: absolute;
+        left: 40px;
+        bottom: 30px;
+        z-index: 9;
+        width: 40px;
+        height: 44px;
+        transition: 0.1s all ease-in-out;
+        svg{
+            font-size: 45px;
+            position: absolute;
+            transition: 0.1s all ease-in-out;
+            opacity: 0.7;  
+            &:nth-child(1){
+                opacity: 0.7;
+            }
+            &:nth-child(2){
+                opacity: 0;
+            }          
+        }
+        &:active{
+            svg{
+                transform: scale(0.8);                
+            }
+        }
+        &.active{            
+            svg{
+                &:nth-child(1){
+                    opacity: 0;
+                }
+                &:nth-child(2){
+                    opacity: 0.7;
+                }
+            }            
+        }
+        &.hide{
+            pointer-events: none;
+            opacity: 0;
         }
     }
 }
@@ -544,6 +596,9 @@ main{
         opacity: 0;
         #tc-1{
             width: 100px;
+            @media screen and (max-width: $mobile) {
+                width: 45px;
+            }
         }
         #tc-2{            
             width: 117px;
@@ -551,7 +606,17 @@ main{
             left: 44px;
             top: -10px;                  
             opacity: 0;
-        }        
+            @media screen and (max-width: $mobile) {
+                width: 53px;
+                left: 20px;
+                top: -5px;
+                transform: rotate(18deg);
+            }
+        }   
+        @media screen and (max-width: $mobile) {
+            width: 90px;
+            height: 90px;
+        }
     }
     &.active{
         section{
