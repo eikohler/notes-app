@@ -28,7 +28,7 @@ const Notepad = (props:any) => {
     const setNoteColors = (data:any) => setColors(data);
     
     const onChange = (newContent: any, delta: any, source: any, editor: any) => {
-        setValue(newContent);        
+        setValue(newContent);
         
         if(editor.getLength() > 1){
             const header = editor.getContents().ops[0];

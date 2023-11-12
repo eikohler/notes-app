@@ -10,7 +10,6 @@ import CircleIcon from '@mui/icons-material/Circle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import ReorderIcon from '@mui/icons-material/Reorder';
 import KeyboardIcon from '@mui/icons-material/Keyboard';
-import CloseIcon from '@mui/icons-material/Close';
 
 function Main() {
   const [ barActive, setBarActive ] = useState(false);
@@ -20,7 +19,6 @@ function Main() {
   const [ noteID, setNoteID ] = useState(noteList.length > 0 ? getNextID(noteList) : 0);
   const [ content, setContent ] = useState("");
   const [ noteColors, setNoteColors ] = useState({});
-  const [activeIndex, setActiveIndex] = useState(-1);
   const [isDragging, setIsDragging] = useState(false);
   const [colWidth, setColWidth] = useState(300);
   const [showTrash, setShowTrash] = useState(false);
@@ -35,8 +33,10 @@ function Main() {
   // Update state variables functions
   const updateList = (data:any) => {
     if(data !== null){
+      const i = noteList.findIndex((note:any) => note.id === noteID);
+
       // Updates pre-existing note
-      if(activeIndex > -1){
+      if(i > -1){
         setNoteList(noteList.map((note:any) => {
           if (note.id === noteID) {
             return { ...note, 
@@ -60,7 +60,8 @@ function Main() {
   };
 
   const updateNoteColors = (colors:any) =>{
-    if(activeIndex > -1){
+    const i = noteList.findIndex((note:any) => note.id === noteID)
+    if(i > -1){
       setNoteList(noteList.map((note:any) => {
         if (note.id === noteID) {
           return { ...note, colors: colors };
@@ -76,14 +77,18 @@ function Main() {
   }
   const loadNote = (id:any) => {
     const i = noteList.findIndex((note:any) => note.id === id);
-    setNoteID(id);
+
+    // console.log(noteList[i]);
+
+
     setContent(noteList[i].content);
     setNoteColors(noteList[i].colors);
+    setNoteID(id);
   };
   const newNote = () =>{
     const id = noteList.length > 0 ? getNextID(noteList) : 0;    
     setNoteID(id);
-    setContent("");    
+    setContent("");
   };
 
   const newOrderList = (data:any) =>{
@@ -106,15 +111,11 @@ function Main() {
   }
 
   useEffect(() => {
+    // console.log(noteList);
     // Save note list to local storage
     const exportList = JSON.stringify(noteList);
     localStorage.setItem("noteList", exportList);
   }, [noteList]);
-
-  // Set the index of the active note in the list
-  useEffect(() => {
-    setActiveIndex(noteList.findIndex((note:any) => note.id === noteID));
-  }, [noteID, noteList]);  
   
   useEffect(() => {
     setWidth(colWidth >= 200 ? colWidth : 200);
@@ -133,7 +134,7 @@ function Main() {
   return (
     <main className={`${isDragging ? "drag" : ""}`}>
       <FloatingNote
-        note={noteList[activeIndex]}
+        note={noteList[noteList.findIndex((note:any) => note.id === noteID)]}
         isDragging={isDragging}
         colWidth={colWidth}
         mousePosition={mousePosition}
