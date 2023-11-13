@@ -6,6 +6,8 @@ const TrashCan = (props:any) => {
     const [noteInTrash, setNoteInTrash] = useState(false);
     const noteInTrashRef = useRef<any>();
     noteInTrashRef.current = noteInTrash;
+    
+    const trashRef = useRef<any>();
 
     const [xPos, setXPos] = useState<any>(null);
 
@@ -19,7 +21,25 @@ const TrashCan = (props:any) => {
 
     useEffect(() => {        
         noteInTrashRef.current = noteInTrash;
+        console.log(noteInTrashRef.current);
     }, [noteInTrash]);
+
+    // Mobile Event Listener
+    useEffect(() => {
+        if(window.innerWidth <= 767 && showTrash){
+            const bounds = trashRef.current.getBoundingClientRect();
+            const x = mousePosition.x;
+            const y = mousePosition.y;                        
+            if((x >= bounds.left && x <= bounds.right) && (y >= bounds.top && y <= bounds.bottom)){
+                setNoteInTrash(true);
+                document.addEventListener("touchend", ()=>{                
+                    if(noteInTrashRef.current){deleteNote();}
+                }, { once: true });
+            }else{
+                setNoteInTrash(false);
+            }
+        }
+    }, [mousePosition]);
 
     const handleMouseEnter = () => {
         if(showTrash){
@@ -36,10 +56,11 @@ const TrashCan = (props:any) => {
         <div id="delete-note-container" 
         className={`
             ${showTrash ? 'active' : ''} 
-            ${scaleDiff <= 0.7 ? 'inner-active' : ''}
+            ${window.innerWidth > 767 ? scaleDiff <= 0.7 ? 'inner-active' : '' 
+            : noteInTrash ? 'inner-active' : ''}
             ${xPos <= mousePosition.x && showTrash ? 'flip' : ''}
         `}>
-            <section id="trash-can" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <section ref={trashRef} id="trash-can" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 <img id="tc-1" src={require(`../../images/trashcan_1.png`)} alt="Trash Can" />            
                 <img id="tc-2" src={require(`../../images/trashcan_2.png`)} alt="Trash Can" />            
             </section>

@@ -145,7 +145,6 @@ function Main() {
       if(isDragging){
         let newTop = innerList.current.scrollTop;
         const modifier = window.innerWidth <= 767 ? 50 : 100;
-        console.log(newTop, modifier);
         if(mousePosition.y >= innerList.current.clientHeight-100){
           newTop = newTop + modifier;
         }else if(mousePosition.y <= 100){

@@ -123,7 +123,7 @@ main{
         overflow-x: hidden;
         position: relative;
         @media screen and (max-width: $mobile) {        
-            height: 81%;
+            height: 80%;
         }
     }     
     @media screen and (max-width: $mobile) {        
@@ -661,9 +661,9 @@ main{
             top: -10px;                  
             opacity: 0;
             @media screen and (max-width: $mobile) {
-                width: 53px;
+                width: 51px;
                 left: 20px;
-                top: -5px;
+                top: -2px;
                 transform: rotate(18deg);
             }
         }   
