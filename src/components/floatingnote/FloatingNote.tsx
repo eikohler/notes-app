@@ -20,11 +20,10 @@ const FloatingNote = (props: any) => {
     return (
         <>
             {note && (
-                <div className={
-                `note-wrapper drag-note 
-                ${isDragging ? 'move' : ''}
-                ${window.innerWidth > 767 ? mousePosition.x > width ? 'fly' : '' : ''}`
-                }
+                <div className={`note-wrapper drag-note 
+                    ${isDragging ? 'move' : ''}
+                    ${mousePosition.x > width ? 'fly' : ''}
+                `}
                 style={{
                     backgroundColor: window.innerWidth > 767 ? mousePosition.x > width ? flyBGColor : note.colors.bgColor
                     : note.colors.bgColor,                    
@@ -40,7 +39,7 @@ const FloatingNote = (props: any) => {
 
                     transform: window.innerWidth > 767 
                     ? mousePosition.x > width ? `scale(${scaleDiff}) translate(-50%, -50%)` : 'translate(0px, -50%)'
-                    : 'translate(-90%, -50%)'
+                    : scaleDiff <= 0.2 ? 'scale(0.5) translate(-90%, -50%)' : 'translate(-90%, -50%)'
                 }}>
                     <p className="title">{note.title}</p>
                     <div className="text-content">{parse(note.text)}</div>

@@ -134,7 +134,9 @@ function Main() {
   useEffect(() => {
     if((mousePosition.x > colWidth || window.innerWidth <= 767) && isDragging){
       setShowTrash(true);
-      setScaleDiff((((getDiff(mousePosition.x, trashCoords.x) + getDiff(mousePosition.y, trashCoords.y))/2)/100)*1.8);
+      const diff = window.innerWidth <= 767 ? getDiff(mousePosition.y, trashCoords.y)/100
+      : (((getDiff(mousePosition.x, trashCoords.x) + getDiff(mousePosition.y, trashCoords.y))/2)/100)*1.8;
+      setScaleDiff(diff);
     }else{
       setShowTrash(false);
       setScaleDiff(1);

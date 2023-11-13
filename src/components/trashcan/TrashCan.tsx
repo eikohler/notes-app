@@ -21,7 +21,6 @@ const TrashCan = (props:any) => {
 
     useEffect(() => {        
         noteInTrashRef.current = noteInTrash;
-        console.log(noteInTrashRef.current);
     }, [noteInTrash]);
 
     // Mobile Event Listener
