@@ -77,10 +77,6 @@ function Main() {
   }
   const loadNote = (id:any) => {
     const i = noteList.findIndex((note:any) => note.id === id);
-
-    // console.log(noteList[i]);
-
-
     setContent(noteList[i].content);
     setNoteColors(noteList[i].colors);
     setNoteID(id);
@@ -111,7 +107,6 @@ function Main() {
   }
 
   useEffect(() => {
-    // console.log(noteList);
     // Save note list to local storage
     const exportList = JSON.stringify(noteList);
     localStorage.setItem("noteList", exportList);
@@ -156,6 +151,7 @@ function Main() {
               loadNote={loadNote}
               newOrderList={newOrderList}
               updateDragState={updateDragState}
+              mousePosition={mousePosition}
             />          
           </div>
         </Section>

@@ -174,14 +174,16 @@ main{
             }            
         }            
     } 
-    &:hover:not(.dragging){ opacity: 1; height: 60px; }
+    @media screen and (min-width: $mobile) {
+        &:hover:not(.dragging){ opacity: 1; height: 60px; }
+    }
     &.active{
         opacity: 1;
         &.dragging{
             opacity: 0;
         }
     } 
-    &.drag-note{                
+    &.drag-note{
         position: absolute;
         opacity: 0; 
         pointer-events: none;
@@ -195,6 +197,9 @@ main{
                 -webkit-transform-origin: 0 0;
                 height: 60px;
             }
+        }
+        @media screen and (max-width: $mobile) {
+            z-index: 99;
         }
     }
 }  
