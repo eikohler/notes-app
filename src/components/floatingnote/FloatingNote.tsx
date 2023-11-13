@@ -23,17 +23,24 @@ const FloatingNote = (props: any) => {
                 <div className={
                 `note-wrapper drag-note 
                 ${isDragging ? 'move' : ''}
-                ${mousePosition.x! > width ? 'fly' : ''}`
+                ${window.innerWidth > 767 ? mousePosition.x! > width ? 'fly' : '' : ''}`
                 }
                 style={{
-                    backgroundColor: mousePosition.x! > width ? flyBGColor : note.colors.bgColor,
+                    backgroundColor: window.innerWidth > 767 ? mousePosition.x! > width ? flyBGColor : note.colors.bgColor
+                    : note.colors.bgColor,                    
                     color: note.colors.fgColor,
-                    width: mousePosition.x! > width ? "150px" : (width-50)+"px",
-                    left: mousePosition.x! > width ? mousePosition.x! : '0px',
+
+                    width: window.innerWidth > 767 ? mousePosition.x! > width ? "150px" : (width-50)+"px"
+                    : isDragging ? "150px" : (width-50)+"px",
+
+                    left: window.innerWidth > 767 ? mousePosition.x! > width ? mousePosition.x! : '0px' 
+                    : isDragging ? mousePosition.x! : '0px',
+
                     top: isDragging ? mousePosition.y! : '0px',
-                    transform: mousePosition.x! > width ?
-                    `scale(${scaleDiff}) translate(-50%, -50%)` : 
-                    'translate(0px, -50%)'
+
+                    transform: window.innerWidth > 767 
+                    ? mousePosition.x! > width ? `scale(${scaleDiff}) translate(-50%, -50%)` : 'translate(0px, -50%)'
+                    : 'translate(-50%, -50%)'
                 }}>
                     <p className="title">{note.title}</p>
                     <div className="text-content">{parse(note.text)}</div>
