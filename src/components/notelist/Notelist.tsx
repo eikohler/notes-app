@@ -37,7 +37,7 @@ const Notelist = (props:any) => {
     }, [dragIndex]);
 
     useEffect(() => {
-        if(window.innerWidth <= 767 && dragIndex !== -1){
+        if(window.innerWidth <= 767 && dragIndex !== -1 && mousePosition.y >= 20){
             const x = mousePosition.x,
             y = mousePosition.y;            
             const i = notesRef.current.findIndex((note:any)=>{
@@ -72,7 +72,7 @@ const Notelist = (props:any) => {
                     onDragStart={(e) => {e.preventDefault(); setDragIndex(i); loadNote(note.id);}}
                     draggable                
                     onMouseEnter={(e) => {
-                        if(dragIndex !== -1){
+                        if(dragIndex !== -1 && mousePosition.y >= 20){
                             setDragOverIndex(i);
                             setHoverIndex(-1);
                         }else{

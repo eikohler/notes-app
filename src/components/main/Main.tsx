@@ -24,7 +24,6 @@ function Main() {
   const [showTrash, setShowTrash] = useState(false);
   const [trashCoords, setTrashCoords] = useState({x: 0, y: 0});
   const [scaleDiff, setScaleDiff] = useState(1);
-  const [width, setWidth] = useState(colWidth >= 200 ? colWidth : 200);
   const [cpActive, setCPActive] = useState(false);
   const [slideOutActive, setSlideOutActive] = useState(false);
 
@@ -101,7 +100,7 @@ function Main() {
   const updateTrashCoords = (data:any) => setTrashCoords({...data});
   
   const collapseCol = (resizer: Resizer) : void => {
-    setColWidth(resizer.getSectionSize(0));
+    setColWidth(resizer.getSectionSize(0) >= 200 ? resizer.getSectionSize(0) : 200);
     if (resizer.getSectionSize(0) < 100) {
       resizer.resizeSection(0, { toSize: 0 });
       setBarHidden(true);
@@ -131,34 +130,33 @@ function Main() {
     localStorage.setItem("noteList", exportList);
   }, [noteList]);  
   
-  useEffect(() => {
-    setWidth(colWidth >= 200 ? colWidth : 200);
-  }, [colWidth]);
 
   useEffect(() => {
-    if((mousePosition.x! > colWidth || window.innerWidth <= 767) && isDragging){
+    if((mousePosition.x > colWidth || window.innerWidth <= 767) && isDragging){
       setShowTrash(true);
-      setScaleDiff((((getDiff(mousePosition.x, trashCoords.x) + getDiff(mousePosition.y, trashCoords.y))/2)/100)*2);
+      setScaleDiff((((getDiff(mousePosition.x, trashCoords.x) + getDiff(mousePosition.y, trashCoords.y))/2)/100)*1.8);
     }else{
       setShowTrash(false);
       setScaleDiff(1);
     }
 
+    const time = window.innerWidth <= 767 ? 50 : 100;
     const adjustScroll = setInterval(()=>{
       if(isDragging){
         let newTop = innerList.current.scrollTop;
-        // console.log(mousePosition.y, getDiff(0, mousePosition.y));
-        if(mousePosition.y >= innerList.current.clientHeight-200){
-          newTop = newTop + 30;
-        }else if(mousePosition.y <= 200){
-          newTop = newTop - 30;
+        const modifier = window.innerWidth <= 767 ? 50 : 100;
+        console.log(newTop, modifier);
+        if(mousePosition.y >= innerList.current.clientHeight-100){
+          newTop = newTop + modifier;
+        }else if(mousePosition.y <= 100){
+          newTop = newTop - modifier;
         }
         innerList.current.scrollTo({
           top: newTop,
           behavior: 'smooth',
         });
       }
-    }, 50);
+    }, time);
 
     return () => clearInterval(adjustScroll);
 
@@ -169,10 +167,9 @@ function Main() {
       <FloatingNote
         note={noteList[noteList.findIndex((note:any) => note.id === noteID)]}
         isDragging={isDragging}
-        colWidth={colWidth}
         mousePosition={mousePosition}
         scaleDiff={scaleDiff}
-        width={width}
+        width={colWidth}
       />       
       <Container 
         className={`columns-container ${barActive ? "active" : ""}`}
@@ -182,7 +179,7 @@ function Main() {
       >
         <Section id="noteList" className={`column ${slideOutActive ? "slide-active" : ''}`} 
         defaultSize={300}>
-          <div className="inner" ref={innerList}>
+          <div className={`inner`} ref={innerList}>
             <Notelist 
               noteID={noteID}
               noteList={noteList} 
