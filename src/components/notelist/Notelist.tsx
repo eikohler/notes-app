@@ -1,5 +1,6 @@
 import parse from 'html-react-parser';
 import { useState, useEffect, useRef } from 'react';
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 
 const Notelist = (props:any) => {
 
@@ -60,24 +61,14 @@ const Notelist = (props:any) => {
                 return(
                     <div ref={el => notesRef.current[i] = el}                     
                     key={"wrapper-"+note.id} 
-                    
+                    onClick={() => loadNote(note.id)}                    
                     className={`note-wrapper 
                         ${window.innerWidth > 767 ? (active && (!hovering || isDragging)) ? 'active' : ''
                         : active ? 'active' : ''}
                         ${isDragging ? 'dragging' : ''}
-                    `}
-
-                    // Mobile Touch Drag Settings
-                    onTouchStart = {(e)=>{loadNote(note.id);}}
-                    onTouchMove={(e)=> {
-                        if(dragIndex === -1){
-                            setDragIndex(i);
-                        }
-                    }}
-                    onTouchEnd={(e)=> {setDragIndex(-1); setDragOverIndex(-1);}}
+                    `}                
 
                     // Desktop Click Drag Settings
-                    onClick={() => loadNote(note.id)}
                     onDragStart={(e) => {e.preventDefault(); setDragIndex(i); loadNote(note.id);}}
                     draggable                
                     onMouseEnter={(e) => {
@@ -100,6 +91,13 @@ const Notelist = (props:any) => {
                     }}>
                         <p key={"title-"+note.id} className="title">{note.title}</p>
                         <div className="text-content" key={"text"+note.id}>{parse(note.text)}</div>
+
+
+                        <DragIndicatorIcon className="reorder-icon" 
+                            onTouchStart={(e)=>setDragIndex(i)}
+                            onTouchEnd={(e)=>{setDragIndex(-1); setDragOverIndex(-1);}} 
+                        />
+
                     </div>
                 )
             })}

@@ -5,6 +5,10 @@ const useMousePosition = () => {
 
   React.useEffect(() => {
 
+    document.ontouchstart = (e) =>{
+      setMousePosition({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+    };
+
     document.ontouchmove = (e) =>{
       setMousePosition({ x: e.touches[0].clientX, y: e.touches[0].clientY });
     };

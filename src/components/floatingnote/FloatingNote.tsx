@@ -31,7 +31,7 @@ const FloatingNote = (props: any) => {
                     color: note.colors.fgColor,
 
                     width: window.innerWidth > 767 ? mousePosition.x! > width ? "150px" : (width-50)+"px"
-                    : isDragging ? "150px" : (width-50)+"px",
+                    : isDragging ? "100px" : (width-50)+"px",
 
                     left: window.innerWidth > 767 ? mousePosition.x! > width ? mousePosition.x! : '0px' 
                     : isDragging ? mousePosition.x! : '0px',
@@ -40,7 +40,7 @@ const FloatingNote = (props: any) => {
 
                     transform: window.innerWidth > 767 
                     ? mousePosition.x! > width ? `scale(${scaleDiff}) translate(-50%, -50%)` : 'translate(0px, -50%)'
-                    : 'translate(-50%, -50%)'
+                    : 'translate(-90%, -50%)'
                 }}>
                     <p className="title">{note.title}</p>
                     <div className="text-content">{parse(note.text)}</div>

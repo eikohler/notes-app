@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Container, Section, Bar, Resizer } from '@column-resizer/react';
 import Notepad from '../notepad/Notepad';
 import Notelist from '../notelist/Notelist';
@@ -28,7 +28,12 @@ function Main() {
   const [cpActive, setCPActive] = useState(false);
   const [slideOutActive, setSlideOutActive] = useState(false);
 
+  const isDraggingRef = useRef<any>();
+  isDraggingRef.current = isDragging;
+
   const mousePosition = useMousePosition();
+
+  const innerList = useRef<any>();
 
   // Update state variables functions
   const updateList = (data:any) => {
@@ -104,20 +109,34 @@ function Main() {
       resizer.resizeSection(0, { toSize: 200 });
       setBarHidden(false);
     }
-  }
+  }  
+
+  useEffect(() => {
+    const updateScroll = (e:any) => {
+      if(isDraggingRef.current) e.preventDefault();      
+    }
+    innerList.current.addEventListener("touchmove", updateScroll, false);
+    return () => {
+      innerList.current.removeEventListener("touchmove", updateScroll, false);
+    };
+  }, []);  
+
+  useEffect(() => {
+    isDraggingRef.current = isDragging;
+  }, [isDragging]);
 
   useEffect(() => {
     // Save note list to local storage
     const exportList = JSON.stringify(noteList);
     localStorage.setItem("noteList", exportList);
-  }, [noteList]);
+  }, [noteList]);  
   
   useEffect(() => {
     setWidth(colWidth >= 200 ? colWidth : 200);
   }, [colWidth]);
 
   useEffect(() => {
-    if(mousePosition.x! > colWidth && isDragging){
+    if((mousePosition.x! > colWidth || window.innerWidth <= 767) && isDragging){
       setShowTrash(true);
       setScaleDiff(((getDiff(mousePosition.x, trashCoords.x) + getDiff(mousePosition.y, trashCoords.y))/2)/100);
     }else{
@@ -144,7 +163,7 @@ function Main() {
       >
         <Section id="noteList" className={`column ${slideOutActive ? "slide-active" : ''}`} 
         defaultSize={300}>
-          <div className="inner">          
+          <div className="inner" ref={innerList}>
             <Notelist 
               noteID={noteID}
               noteList={noteList} 
