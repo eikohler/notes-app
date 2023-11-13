@@ -2,15 +2,18 @@ import {useEffect, useState, useRef} from 'react';
 
 const TrashCan = (props:any) => {
 
-    const {showTrash, scaleDiff, updateTrashCoords, deleteNote} = props;
+    const {showTrash, scaleDiff, updateTrashCoords, deleteNote, mousePosition} = props;
     const [noteInTrash, setNoteInTrash] = useState(false);
     const noteInTrashRef = useRef<any>();
     noteInTrashRef.current = noteInTrash;
 
+    const [xPos, setXPos] = useState<any>(null);
+
     useEffect(() => {        
-        const coords = document.getElementById('trash-can')!.getBoundingClientRect();
-        const x = coords.x + (coords.width / 2);
-        const y = coords.y + (coords.height / 2);
+        const newCoords = document.getElementById('trash-can')!.getBoundingClientRect();
+        const x = newCoords.x + (newCoords.width / 2);
+        const y = newCoords.y + (newCoords.height / 2);
+        setXPos(x);
         updateTrashCoords({ x, y });
     }, []);
 
@@ -31,7 +34,11 @@ const TrashCan = (props:any) => {
 
     return (
         <div id="delete-note-container" 
-        className={`${showTrash ? 'active' : ''} ${scaleDiff <= 0.5 ? 'inner-active' : ''}`}>            
+        className={`
+            ${showTrash ? 'active' : ''} 
+            ${scaleDiff <= 0.7 ? 'inner-active' : ''}
+            ${xPos <= mousePosition.x && showTrash ? 'flip' : ''}
+        `}>
             <section id="trash-can" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 <img id="tc-1" src={require(`../../images/trashcan_1.png`)} alt="Trash Can" />            
                 <img id="tc-2" src={require(`../../images/trashcan_2.png`)} alt="Trash Can" />            

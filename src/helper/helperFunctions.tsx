@@ -40,7 +40,9 @@ function getNextID(list:any){
 }
 
 function getDiff(a:any, b:any){
-  return 100*Math.abs((a-b)/((a+b)/2));
+  // return 100*Math.abs((a-b)/((a+b)/2));
+
+  return 100-((Math.min(a,b)/Math.max(a,b))*100);
 }
 
 export {changeLightness, hslToHex, getColorLuminance, getHTMLTextStr, getNextID, getDiff};

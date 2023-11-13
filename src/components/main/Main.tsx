@@ -113,11 +113,7 @@ function Main() {
 
   useEffect(() => {
     const updateScroll = (e:any) => {
-      if(isDraggingRef.current){ 
-        e.preventDefault();
-        console.log(innerList.current.scrollTop);
-        console.log(mousePosition);
-      };      
+      if(isDraggingRef.current) e.preventDefault();      
     }
     innerList.current.addEventListener("touchmove", updateScroll, false);
     return () => {
@@ -142,11 +138,30 @@ function Main() {
   useEffect(() => {
     if((mousePosition.x! > colWidth || window.innerWidth <= 767) && isDragging){
       setShowTrash(true);
-      setScaleDiff(((getDiff(mousePosition.x, trashCoords.x) + getDiff(mousePosition.y, trashCoords.y))/2)/100);
+      setScaleDiff((((getDiff(mousePosition.x, trashCoords.x) + getDiff(mousePosition.y, trashCoords.y))/2)/100)*2);
     }else{
       setShowTrash(false);
       setScaleDiff(1);
     }
+
+    const adjustScroll = setInterval(()=>{
+      if(isDragging){
+        let newTop = innerList.current.scrollTop;
+        // console.log(mousePosition.y, getDiff(0, mousePosition.y));
+        if(mousePosition.y >= innerList.current.clientHeight-200){
+          newTop = newTop + 30;
+        }else if(mousePosition.y <= 200){
+          newTop = newTop - 30;
+        }
+        innerList.current.scrollTo({
+          top: newTop,
+          behavior: 'smooth',
+        });
+      }
+    }, 50);
+
+    return () => clearInterval(adjustScroll);
+
   }, [mousePosition, isDragging]);
 
   return (
@@ -201,6 +216,7 @@ function Main() {
               scaleDiff={scaleDiff}
               updateTrashCoords={updateTrashCoords} 
               deleteNote={deleteNote}
+              mousePosition={mousePosition}
             />
             <div id="mobile-list-toggle" className={`${cpActive ? "hide" : ''} 
             ${slideOutActive ? "active" : ''}`}
