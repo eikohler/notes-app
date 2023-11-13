@@ -63,9 +63,9 @@ const Notelist = (props:any) => {
                     key={"wrapper-"+note.id} 
                     onClick={() => loadNote(note.id)}                    
                     className={`note-wrapper 
-                        ${window.innerWidth > 767 ? (active && (!hovering || isDragging)) ? 'active' : ''
-                        : active ? 'active' : ''}
+                        ${active ? 'active' : ''}
                         ${isDragging ? 'dragging' : ''}
+                        ${hovering ? 'hovering' : ''}
                     `}                
 
                     // Desktop Click Drag Settings

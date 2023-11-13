@@ -181,11 +181,22 @@ main{
         pointer-events: none;        
     }
     @media screen and (min-width: $mobile) {
-        &:hover:not(.dragging){ opacity: 1; height: 60px; }
-        &.active{
+        &:hover{
             opacity: 1;
+        }
+        &.active{
+            opacity: 1;            
+            &.hovering{
+                height: 60px;
+                opacity: 0.3;                
+            }      
+            &:hover{
+                height: 60px;
+                opacity: 1;
+            }
             &.dragging{
                 opacity: 0;
+                height: 20px;
             }
         } 
     }

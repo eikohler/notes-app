@@ -113,7 +113,11 @@ function Main() {
 
   useEffect(() => {
     const updateScroll = (e:any) => {
-      if(isDraggingRef.current) e.preventDefault();      
+      if(isDraggingRef.current){ 
+        e.preventDefault();
+        console.log(innerList.current.scrollTop);
+        console.log(mousePosition);
+      };      
     }
     innerList.current.addEventListener("touchmove", updateScroll, false);
     return () => {
