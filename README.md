@@ -5,7 +5,7 @@ You can select at random colors for each of your notes, rearrange your notes and
 
 ### Instructions to run
 Clone main repository
-In terminal:
+In terminal: <br />
 npm install
 npm run start
 Open http://localhost:3000/ in the browser
