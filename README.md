@@ -1,13 +1,13 @@
 # Notes App
 
-A Simple Note Taking App that is easy to use and customizable.__
-You can select at random colors for each of your notes, rearrange your notes and throw notes in the trash.__
-__
+A Simple Note Taking App that is easy to use and customizable.
+You can select at random colors for each of your notes, rearrange your notes and throw notes in the trash.
+
 ### Instructions to run
 Clone main repository
-In terminal:__
-npm install__
-npm run start__
+In terminal:
+npm install
+npm run start
 Open http://localhost:3000/ in the browser
 
 ### Live Site URL
