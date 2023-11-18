@@ -1,7 +1,7 @@
 # Notes App
 
 A Simple Note Taking App that is easy to use and customizable. <br />
-You can select at random colors for each of your notes, rearrange your notes and throw notes in the trash.
+You can select at random colors for each of your notes, rearrange your notes, throw notes in the trash and expand or collapse the side bar list.
 
 ### Instructions to run
 Clone main repository <br />
