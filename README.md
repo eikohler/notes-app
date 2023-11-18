@@ -11,7 +11,7 @@ npm run start <br />
 Open http://localhost:3000/ in the browser
 
 ### Live Site URL
-https://main--polite-vacherin-3db61f.netlify.app/
+https://yourstorynotes.app/
 
 ### Screenshot
 ![Screen Shot](src/images/screenshot.jpg?raw=true "Screen Shot")
