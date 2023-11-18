@@ -44,7 +44,7 @@ const ColorPicker = (props:any) => {
     setNoteColors({bgColor: bgColor, fgColor: newFGColor});
   }, [bgColor]);
 
-  useEffect(() => {
+  useEffect(() => {    
     if(noteColors.bgColor != null){
       const newLuminance = getColorLuminance(noteColors.bgColor);
       setLuminance(newLuminance);

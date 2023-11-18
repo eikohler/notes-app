@@ -89,6 +89,7 @@ function Main() {
     const id = noteList.length > 0 ? getNextID(noteList) : 0;    
     setNoteID(id);
     setContent("");
+    setNoteColors({});
   };
 
   const newOrderList = (data:any) =>{
