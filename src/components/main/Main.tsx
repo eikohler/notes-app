@@ -143,11 +143,11 @@ function Main() {
       setScaleDiff(1);
     }
 
-    const time = window.innerWidth <= 767 ? 100 : 100;
+    const time = 100;
+    const modifier = 100;
     const adjustScroll = setInterval(()=>{
       if(isDragging){
         let newTop = innerList.current.scrollTop;
-        const modifier = window.innerWidth <= 767 ? 100 : 100;
         if(mousePosition.y >= innerList.current.clientHeight-100){
           newTop = newTop + modifier;
         }else if(mousePosition.y <= 100){
