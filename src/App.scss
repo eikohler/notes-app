@@ -66,6 +66,15 @@ body{
     }
 }
 
+@media screen and (max-width: $mobile) {
+    html, body {
+        overflow-y: hidden;
+      }
+    body {
+        position: relative;
+    }
+}
+
 strong {
     font-family: robotoBold;
     em{
