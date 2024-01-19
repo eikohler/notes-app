@@ -17,12 +17,7 @@ const Notepad = (props:any) => {
     const [phActive, setphActive] = useState(true);   
     const [colors, setColors] = useState({});
     const [boundary, setBoundary] = useState<any>();
-
-    useEffect(() => {
-        const bounds = document.querySelector("#notePad .inner");
-        setBoundary(bounds);
-    }, []);
-
+    
     useEffect(() => {
         setValue(content);
     }, [noteID]);
@@ -30,6 +25,21 @@ const Notepad = (props:any) => {
     useEffect(() => {
         updateNoteColors(colors);
     }, [colors]);
+
+    useEffect(() => {
+        const bounds = document.querySelector("#notePad .inner");
+        setBoundary(bounds);
+
+        const deviceWidth = window.matchMedia("(max-width: 767px)");
+        if (deviceWidth.matches) {
+            window.addEventListener("resize", setHeight);
+            setHeight();
+        }
+    }, []);
+
+    const setHeight = () => {
+        document.getElementById("notePad")!.style.height = window.innerHeight + "px";
+    };
 
     const setNoteColors = (data:any) => setColors(data);
     
