@@ -16,6 +16,12 @@ const Notepad = (props:any) => {
     const [value, setValue] = useState(content);
     const [phActive, setphActive] = useState(true);   
     const [colors, setColors] = useState({});
+    const [boundary, setBoundary] = useState<any>();
+
+    useEffect(() => {
+        const bounds = document.querySelector("#notePad .inner");
+        setBoundary(bounds);
+    }, []);
 
     useEffect(() => {
         setValue(content);
@@ -57,7 +63,7 @@ const Notepad = (props:any) => {
             quill.on('editor-change', function() {
                 quill.formatLine(0, 0, 'header', 1);
                 setphActive(quill.getLength() === 1);
-            });                                               
+            });
         }
     }, []);
 
@@ -68,14 +74,17 @@ const Notepad = (props:any) => {
                 <AddIcon />
             </div>   
             {phActive && (<TypeText />)}
-            <ReactQuill
-                ref={quill}
-                theme="bubble"
-                value={value}
-                onChange={onChange}
-                modules={{ toolbar: toolBarOptions }}
-                readOnly={isDragging}
-            />
+            {boundary !== undefined && (
+                <ReactQuill
+                    ref={quill}
+                    theme="bubble"
+                    value={value}
+                    onChange={onChange}
+                    modules={{ toolbar: toolBarOptions }}
+                    readOnly={isDragging}
+                    bounds={boundary}
+                />
+            )}
             <ColorPicker 
                 setNoteColors={setNoteColors}
                 noteID={noteID}
